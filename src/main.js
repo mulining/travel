@@ -1,0 +1,25 @@
+// The Vue build version to load with the `import` command
+// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
+import Vue from 'vue'
+import App from './App'
+import router from './router'
+import axios from 'axios'
+import MintUI from "mint-ui"
+import "mint-ui/lib/style.css"
+
+Vue.config.productionTip = false
+//注册Mintui
+Vue.use(MintUI)
+//注册ElementUI
+Vue.use(ElementUI);
+//axios 注册Vue
+Vue.prototype.$axios= axios
+//配置访问服务器的基础路径
+axios.defaults.baseURL="127.0.0.1:5050";
+/* eslint-disable no-new */
+new Vue({
+  el: '#app',
+  router,
+  components: { App },
+  template: '<App/>'
+})
