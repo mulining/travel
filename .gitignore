@@ -12,4 +12,5 @@ yarn-error.log*
 *.ntvs*
 *.njsproj
 *.sln
-/node_modules
+
+/travel_app/node_modules
