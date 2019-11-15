@@ -6,6 +6,7 @@ import my from "@/views/my";
 import road from "@/views/road";
 import lunBo from "@/components/lunBo";
 import tabBar from "@/components/tabBar";
+import search from "@/components/search";
 
 Vue.use(Router);
 
@@ -25,6 +26,11 @@ export default new Router({
       path: "/my",
       name: "my",
       component: my
+    },
+    {
+      path: "/search",
+      name: "search",
+      component: search
     },
     {
       path: "/tabBar",

@@ -35,16 +35,16 @@ export default {
     return {
       active: 0,
       shouYe: {
-        active: require("@/assets/shouYeActive.png"),
-        inactive: require("@/assets/shouYe.png")
+        active: require("@/assets/images/shouYeActive.png"),
+        inactive: require("@/assets/images/shouYe.png")
       },
       luShang: {
-        active: require("@/assets/luShangActive.png"),
-        inactive: require("@/assets/luShang.png")
+        active: require("@/assets/images/luShangActive.png"),
+        inactive: require("@/assets/images/luShang.png")
       },
       woDe: {
-        active: require("@/assets/woDeActive.png"),
-        inactive: require("@/assets/woDe.png")
+        active: require("@/assets/images/woDeActive.png"),
+        inactive: require("@/assets/images/woDe.png")
       }
     };
   }

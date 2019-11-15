@@ -1,11 +1,13 @@
 <template>
   <div>
     <!-- 搜索 -->
-    <van-search
-      id="d"
-      placeholder="输入目的地，查找体验线路或营地"
-      v-model="value"
-    />
+    <router-link to="/search">
+      <van-search
+        id="d"
+        placeholder="输入目的地，查找体验线路或营地"
+        v-model="value"
+      />
+    </router-link>
     <!-- 轮播 -->
     <lun-bo></lun-bo>
     <!-- 内容 -->
@@ -13,7 +15,10 @@
       <p class="yeShe">野奢·逸趣</p>
       <ul class="main">
         <li>
-          <img src="@/assets/e42461a81f764d7b997cfce51fe5e5c8.jpg" alt="" />
+          <img
+            src="@/assets/images/e42461a81f764d7b997cfce51fe5e5c8.jpg"
+            alt=""
+          />
           <div class="fangChe">
             <p>房车出行必备</p>
             <p>星空下露营，圆一个房车梦</p>
@@ -21,11 +26,17 @@
         </li>
         <li class="mainRight">
           <div>
-            <img src="@/assets/6388f48e1e134324a1934a964b11b892.png" alt="" />
+            <img
+              src="@/assets/images/6388f48e1e134324a1934a964b11b892.png"
+              alt=""
+            />
             <p>100%最美新西兰</p>
           </div>
           <div>
-            <img src="@/assets/0e838b2501d04ba8a8dd21f211d432fd.jpg" alt="" />
+            <img
+              src="@/assets/images/0e838b2501d04ba8a8dd21f211d432fd.jpg"
+              alt=""
+            />
             <p>耶稣露营新玩法</p>
           </div>
         </li>
@@ -36,7 +47,10 @@
           <p>16983·阅读</p>
         </li>
         <li>
-          <img src="@/assets/283f55f175924b99bfa35431a9f7c5b9.jpg" alt="" />
+          <img
+            src="@/assets/images/283f55f175924b99bfa35431a9f7c5b9.jpg"
+            alt=""
+          />
         </li>
       </ul>
       <router-link to="/road">
@@ -90,41 +104,41 @@ export default {
     return {
       list: [
         {
-          pic: require("@/assets/20161201134748_79150.jpg"),
+          pic: require("@/assets/images/20161201134748_79150.jpg"),
           h5: "半山之上 隐秘静悠 | 汤山温泉 房车露营2日游",
-          h6: "江浙泸周末去这里",
+          h6: "江浙泸周末去这里"
         },
         {
-          pic: require("@/assets/20161201134748_79150.jpg"),
+          pic: require("@/assets/images/20161201134748_79150.jpg"),
           h5: "半山之上 隐秘静悠 | 汤山温泉 房车露营2日游",
-          h6: "江浙泸周末去这里",
+          h6: "江浙泸周末去这里"
         }
       ],
       sst: [, "ss2", "ss2", "ss2"],
       yingDi: [
         {
-          pic: require("@/assets/33dbdef8721143ac817cbd229cd02e98.jpg"),
+          pic: require("@/assets/images/33dbdef8721143ac817cbd229cd02e98.jpg"),
           p1: "上新",
           h6: "毗邻太湖 踏春游玩好去处",
           h3: "苏州太湖一号房车营地",
           h5: "湖泊型"
         },
         {
-          pic: require("@/assets/thumb_600_auto_10d5080e34df7930e6dc3a5ce72697b6.jpg"),
+          pic: require("@/assets/images/thumb_600_auto_10d5080e34df7930e6dc3a5ce72697b6.jpg"),
           p1: "臻选",
           h6: "迪士尼附近 网红打卡圣地",
           h3: "上海领家露营地",
           h5: "湖泊型"
         },
         {
-          pic: require("@/assets/0d4fd1721b5f450d90171c24a465ee55.jpeg"),
+          pic: require("@/assets/images/0d4fd1721b5f450d90171c24a465ee55.jpeg"),
           p1: "臻选",
           h6: "环境优雅 适合家庭亲子",
           h3: "北京日光山谷露营地",
           h5: "城市型"
         },
         {
-          pic: require("@/assets/200512000000t7inhD54B_R_300_225.jpg"),
+          pic: require("@/assets/images/200512000000t7inhD54B_R_300_225.jpg"),
           p1: "臻选",
           h6: "呼吸纯氧 青山相伴 风景秀丽",
           h3: "途居黄山露营地",
@@ -240,6 +254,7 @@ export default {
 }
 .mainBottom > li:last-child > img {
   width: 100%;
+  border-radius: 3px;
 }
 .mainBottom > li > p:last-child {
   font-size: 0.5rem;
@@ -258,6 +273,7 @@ export default {
 .mainBottom {
   display: flex;
   justify-content: space-between;
+  margin-top: 10px;
 }
 .main > .mainRight > div:last-child > p {
   position: absolute;
@@ -269,6 +285,7 @@ export default {
 .main > .mainRight > div > img {
   width: 100%;
   height: 63px;
+  border-radius: 3px;
 }
 .main > li .fangChe > p:first-child {
   margin-bottom: 5px;
@@ -297,6 +314,7 @@ export default {
 .main > li:first-child > img {
   width: 100%;
   height: 130px;
+  border-radius: 3px;
 }
 .main > li {
   width: 49%;
@@ -324,7 +342,7 @@ export default {
   color: #fff;
 }
 .van-search__content {
-  background: rgb(200, 200, 200);
+  background: rgb(44, 37, 37);
   opacity: 0.7;
 }
 .van-search .van-cell {
