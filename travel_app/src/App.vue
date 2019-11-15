@@ -145,6 +145,7 @@ strong {
 a {
   text-decoration: none;
   font-family: "Microsoft YaHei", Tahoma, Arial, sans-serif;
+  color: #000;
 }
 
 ul,
