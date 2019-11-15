@@ -44,6 +44,7 @@ router.post("/reg",(req,res)=>{
 // 方式一:(用户名/密码) 接口: /login
 router.post("/login",(req,res)=>{
   var uname = req.query.uname;
+  12312312
   var upwd = req.query.upwd;
   if(!uname){
     res.send({data:-1,msg:"用户名不能为空!"});
