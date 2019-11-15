@@ -13,6 +13,7 @@ export default {
 <style>
 /* 清除 默认样式 */
 /* @charset "utf-8"; */
+/* @charset "utf-8"; */
 
 /* 禁用iPhone中Safari的字号自动调整 */
 html {
