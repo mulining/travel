@@ -25,8 +25,8 @@ function verify(uid){
 // resful格式 接口: /reg
 // 用户注册 post增加数据(用户名/密码)
 router.post("/reg",(req,res)=>{
-  var uname = req.query.uname;
-  var upwd = req.query.upwd;
+  var uname = req.body.uname;
+  var upwd = req.body.upwd;
   if(!uname){
     res.send({code:-2,msg:"用户名不能为空"});
     return;
@@ -36,7 +36,7 @@ router.post("/reg",(req,res)=>{
     return;
   }
   // 具体格式放在前端验证
-  var sql = "INSERT INTO travel_user(uname,upwd) VALUES(md(?),md(?))";
+  var sql = "INSERT INTO travel_user(uname,upwd) VALUES(?,md5(?))";
   pool.query(sql,[uname,upwd],(err,result)=>{
     if(err)throw err;
     if(result.affectedRows>0){
@@ -61,7 +61,7 @@ router.post("/login",(req,res)=>{
     return;
   }
   // 正则验证放在前端页面
-  var sql = "SELECT id FROM travel_user WHERE uname=md(?) AND upwd=md5(?)";
+  var sql = "SELECT id FROM travel_user WHERE uname=? AND upwd=md5(?)";
   pool.query(sql,[uname,upwd],(err,result)=>{
     if(err)throw err;
     if(result.length > 0){
