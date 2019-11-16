@@ -31,7 +31,7 @@ app.use(session({
 }));
 app.use(bodyParser.json());//还不懂有什么作用
 app.use(bodyParser.urlencoded({//为post请求做处理!
-  extended:true
+  extended:false
 }));
 
 
