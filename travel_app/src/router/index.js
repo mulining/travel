@@ -1,17 +1,24 @@
-import Vue from "vue";
-import Router from "vue-router";
-import HelloWorld from "@/components/HelloWorld";
 import home from "@/views/home";
 import my from "@/views/my";
 import road from "@/views/road";
 import lunBo from "@/components/lunBo";
 import tabBar from "@/components/tabBar";
 import search from "@/components/search";
+import login from "@/components/login";
+import register from "@/components/register";
+import Vue from "vue";
+import Router from "vue-router";
+import HelloWorld from "@/components/HelloWorld";
 
 Vue.use(Router);
 
 export default new Router({
   routes: [
+    {
+      path: "/register",
+      name: "register",
+      component: register
+    },
     {
       path: "/",
       name: "HelloWorld",
@@ -21,6 +28,11 @@ export default new Router({
       path: "/lunBo",
       name: "lunBo",
       component: lunBo
+    },
+    {
+      path: "/login",
+      name: "login",
+      component: login
     },
     {
       path: "/my",
