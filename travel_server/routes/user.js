@@ -2,6 +2,13 @@
 const express = require("express");
 const pool = require("../pool.js");
 const router = express.Router();
+//手机短信验证码引入的文件
+const crypto = require("crypto");//加密算法文件
+const http = require("http");
+const querystring = require("querystring");
+
+// 将从网易获取到的key传入!
+// ServerApi("08426d8e5fcb42dcb9bd66bf06a27c40","6efda25230824950b54943a7f5683350");
 
 
 // 身份验证方法
@@ -29,7 +36,7 @@ router.post("/reg",(req,res)=>{
     return;
   }
   // 具体格式放在前端验证
-  var sql = "INSERT INTO travel_user(uname,upwd) VALUES(?,?)";
+  var sql = "INSERT INTO travel_user(uname,upwd) VALUES(md(?),md(?))";
   pool.query(sql,[uname,upwd],(err,result)=>{
     if(err)throw err;
     if(result.affectedRows>0){
@@ -44,18 +51,17 @@ router.post("/reg",(req,res)=>{
 // 方式一:(用户名/密码) 接口: /login
 router.post("/login",(req,res)=>{
   var uname = req.query.uname;
-  12312312
   var upwd = req.query.upwd;
   if(!uname){
-    res.send({data:-1,msg:"用户名不能为空!"});
+    res.send({data:-2,msg:"用户名不能为空!"});
     return;
   }
   if(!upwd){
-    res.send({data:-1,msg:"密码不能为空!"});
+    res.send({data:-3,msg:"密码不能为空!"});
     return;
   }
   // 正则验证放在前端页面
-  var sql = "SELECT id FROM travel_user WHERE uname=? AND upwd=?";
+  var sql = "SELECT id FROM travel_user WHERE uname=md(?) AND upwd=md5(?)";
   pool.query(sql,[uname,upwd],(err,result)=>{
     if(err)throw err;
     if(result.length > 0){
@@ -72,6 +78,13 @@ router.post("/phone",(req,res)=>{
   
 });
 // 其他
+// 登录注册一体化,当用户使用手机登录时,会先检查该用户是否存在,不存在就直接创建该用户,存在就直接,登录
+//  post   接口: rlbyphone
+router.post("/rlbyphone",(req,res)=>{
+  res.setHeader("Content-Type","application/x-www-form-urlencoded;charset=utf-8");
+})
+
+
 
 // 用户个人信息录入 post 接口: /personal
 router.post("/personal",(req,res)=>{
