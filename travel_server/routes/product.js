@@ -25,7 +25,7 @@ router.get("/index_slide",(req,res)=>{
 //数据表 : travel_caro
 // 请求的列有: pic/title/subtitle/type
 router.get("/camp",(req,res)=>{
-  var sql = "SELECT pic,title,subtitle,type FROM travel_caro";
+  var sql = "SELECT pic,title,subtitle,type FROM travel_caro LIMIT 4";//限制显示前四个数据
   pool.query(sql,(err,result)=>{
     if(err) throw err;
     if(result.length){
