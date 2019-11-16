@@ -26,9 +26,7 @@ function verify(uid){
 // 用户注册 post增加数据(用户名/密码)
 router.post("/reg",(req,res)=>{
   var uname = req.body.uname;
-  console.log(uname);
   var upwd = req.body.upwd;
-  console.log(upwd);
   if(!uname){
     res.send({code:-2,msg:"用户名不能为空"});
     return;

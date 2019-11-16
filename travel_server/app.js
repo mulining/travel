@@ -12,6 +12,8 @@ const cors = require("cors");
 const session = require("express-session"); 
 // 引入路由文件
 const userRouter = require("./routes/user.js");
+const productRouter = require("./routes/product.js");
+const details = require("./routes/details.js");
 // 引入加密文件
 const crypto = require("crypto");
 const bodyParser = require("body-parser");
@@ -37,7 +39,8 @@ app.use(bodyParser.urlencoded({//为post请求做处理!
 
 // 挂载路由器
 app.use("/user",userRouter);
-
+app.use("/pro",productRouter);
+app.use("/details",details);
 
 
 app.listen(5050);
