@@ -12,6 +12,10 @@ const cors = require("cors");
 const session = require("express-session"); 
 // 引入路由文件
 const userRouter = require("./routes/user.js");
+// 引入加密文件
+const crypto = require("crypto");
+const bodyParser = require("body-parser");
+
 
 var app = express();
 
@@ -25,6 +29,11 @@ app.use(session({
   resave:true,         //请求更新数据 
   saveUninitialized:true//保存初始数据
 }));
+app.use(bodyParser.json());//还不懂有什么作用
+app.use(bodyParser.urlencoded({//为post请求做处理!
+  extended:true
+}));
+
 
 // 挂载路由器
 app.use("/user",userRouter);
