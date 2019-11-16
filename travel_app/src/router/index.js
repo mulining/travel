@@ -7,6 +7,7 @@ import road from "@/views/road";
 import lunBo from "@/components/lunBo";
 import tabBar from "@/components/tabBar";
 import search from "@/components/search";
+import login from "@/components/login";
 
 Vue.use(Router);
 
@@ -21,6 +22,11 @@ export default new Router({
       path: "/lunBo",
       name: "lunBo",
       component: lunBo
+    },
+    {
+      path: "/login",
+      name: "login",
+      component: login
     },
     {
       path: "/my",
