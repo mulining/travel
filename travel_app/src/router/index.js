@@ -7,11 +7,17 @@ import road from "@/views/road";
 import lunBo from "@/components/lunBo";
 import tabBar from "@/components/tabBar";
 import search from "@/components/search";
+import register from "@/components/register";
 
 Vue.use(Router);
 
 export default new Router({
   routes: [
+    {
+      path:"/register",
+      name:"register",
+      component:register
+    },
     {
       path: "/",
       name: "HelloWorld",
