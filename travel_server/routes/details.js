@@ -1,10 +1,10 @@
 // 二级页面详情表
 const express = require("express");
-const router = express.express;
+const router = express.Router();
 const pool = require("../pool.js");
 
 // 臻选营地详情页
-//请求方法get  接口:/camp
+//请求方法get  接口:details/camp
 //数据表 : travel_caro
 // 请求的列有: pic/title/subtitle/type/site/intro/phone/share_time
 

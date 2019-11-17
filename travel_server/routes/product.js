@@ -2,7 +2,7 @@
 // 2.首页臻选营地请求
 
 const express = require("express");
-const router = express.express;
+const router = express.Router();
 const pool = require("../pool.js");
 
 // 轮播图路由 
@@ -35,6 +35,24 @@ router.get("/camp",(req,res)=>{
     }
   });
 });
+
+
+//分享
+// 请求方法get 接口：/share
+// 数据表 ：travel_shared
+// 请求的列表： pic/title/likes(点赞数)
+router.get("/share",(req,res)=>{
+  var sql = "SELECT pic,title,likes FROM trave_shared"
+  pool.query(sql,(err,result)=>{
+    if(err) throw err;
+    if(result.length > 0){
+      res.send({code:1,msg:"网友分享数据查询完成！",data:result[0]});
+    }else{
+      res.send({code:-1,msg:"暂无网友分享数据！"});
+    }
+  });
+});
+
 
 // 导出
 module.exports = router;
