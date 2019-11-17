@@ -8,11 +8,12 @@ import MintUI from "mint-ui";
 import "mint-ui/lib/style.css";
 import Vant from "vant";
 import "vant/lib/index.css";
-import qs from 'qs';
+import qs from "qs";
 
 Vue.use(Vant);
 
 Vue.use(qs);
+Vue.config.silent = true;
 Vue.config.productionTip = false;
 //注册Mintui
 Vue.use(MintUI);
