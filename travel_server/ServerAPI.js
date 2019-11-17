@@ -3,17 +3,17 @@
  * Class ServerAPI
  * @author  hzchensheng15@corp.netease.com
  * @date    2015-10-28  13:00
- * 
-***/
+ *
+ ***/
 
-var crypto = require('crypto');
-var https = require('https');
-var http = require('http');
-var urlParser = require('url');
-var querystring = require('querystring');
+var crypto = require("crypto");
+var https = require("https");
+var http = require("http");
+var urlParser = require("url");
+var querystring = require("querystring");
 
 module.exports = ServerApi;
-const BaseHost = 'https://api.netease.im'
+const BaseHost = "https://api.netease.im";
 // const BaseHost = 'http://223.252.220.223'
 /**
  * 参数初始化
@@ -21,8 +21,8 @@ const BaseHost = 'https://api.netease.im'
  * @param $AppSecret
  */
 function ServerApi(AppKey, AppSecret) {
-  this.AppKey = AppKey;                     //开发者平台分配的AppKey
-  this.AppSecret = AppSecret;                 //开发者平台分配的AppSecret,可刷新
+  this.AppKey = AppKey; //开发者平台分配的AppKey
+  this.AppSecret = AppSecret; //开发者平台分配的AppSecret,可刷新
 }
 
 /**
@@ -30,21 +30,21 @@ function ServerApi(AppKey, AppSecret) {
  * @param  void
  * @return CheckSum(对象私有属性)
  */
-ServerApi.prototype.checkSumBuilder = function () {
+ServerApi.prototype.checkSumBuilder = function() {
   //此部分生成随机字符串
-  var charHex = '0123456789abcdef';
-  this.Nonce = '';                  //随机数（最大长度128个字符）
-  for (var i = 0; i < 128; i++) {			//随机字符串最大128个字符，也可以小于该数
+  var charHex = "0123456789abcdef";
+  this.Nonce = ""; //随机数（最大长度128个字符）
+  for (var i = 0; i < 128; i++) {
+    //随机字符串最大128个字符，也可以小于该数
     this.Nonce += charHex.charAt(Math.round(15 * Math.random()));
   }
-  this.CurTime = Date.parse(new Date()) / 1000;		//当前UTC时间戳，从1970年1月1日0点0 分0 秒开始到现在的秒数(String)
-  var join_string = this.AppSecret + this.Nonce + this.CurTime
+  this.CurTime = Date.parse(new Date()) / 1000; //当前UTC时间戳，从1970年1月1日0点0 分0 秒开始到现在的秒数(String)
+  var join_string = this.AppSecret + this.Nonce + this.CurTime;
 
-  var sha1 = crypto.createHash('sha1');
+  var sha1 = crypto.createHash("sha1");
   sha1.update(join_string);
-  this.CheckSum = sha1.digest('hex');       //SHA1(AppSecret + Nonce + CurTime),三个参数拼接的字符串，进行SHA1哈希计算，转化成16进制字符(String，小写)
-
-}
+  this.CheckSum = sha1.digest("hex"); //SHA1(AppSecret + Nonce + CurTime),三个参数拼接的字符串，进行SHA1哈希计算，转化成16进制字符(String，小写)
+};
 
 /**
  * 使用发送post请求
@@ -53,55 +53,55 @@ ServerApi.prototype.checkSumBuilder = function () {
  * @param  callback    	[请求返回的回调函数]
  * @return 回调函数中返回两参数(err,json格式的data)
  */
-ServerApi.prototype.postDataHttps = function (url, data, callback) {
+ServerApi.prototype.postDataHttps = function(url, data, callback) {
   this.checkSumBuilder();
 
   var urlObj = urlParser.parse(url);
   var postData = querystring.stringify(data);
   var httpHeader = {
-    'AppKey': this.AppKey,
-    'Nonce': this.Nonce,
-    'CurTime': this.CurTime,
-    'CheckSum': this.CheckSum,
-    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
-    'Content-Length': Buffer.byteLength(postData, 'utf8') 
+    AppKey: this.AppKey,
+    Nonce: this.Nonce,
+    CurTime: this.CurTime,
+    CheckSum: this.CheckSum,
+    "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
+    "Content-Length": Buffer.byteLength(postData, "utf8")
   };
-  
+
   var options = {
     hostname: urlObj.hostname,
     port: 80,
     path: urlObj.path,
-    method: 'POST',
+    method: "POST",
     headers: httpHeader
   };
 
   var that = this;
-  var req = http.request(options, function (res) {
-    let data = ''
-    res.setEncoding('utf8');
+  var req = http.request(options, function(res) {
+    let data = "";
+    res.setEncoding("utf8");
     // console.log("statusCode: ", res.statusCode);
     // console.log("headers: ", res.headers);
 
-    res.on('data', function (chunk) {
-      data += chunk
+    res.on("data", function(chunk) {
+      data += chunk;
     });
-    res.on('end', function () {
-      if (Object.prototype.toString.call(callback) === '[object Function]') {
+    res.on("end", function() {
+      if (Object.prototype.toString.call(callback) === "[object Function]") {
         var result = JSON.parse(data);
         callback.call(that, null, result);
       }
-    })
+    });
   });
 
   req.write(postData);
   req.end();
 
-  req.on('error', function (err) {
-    if (Object.prototype.toString.call(callback) === '[object Function]') {
+  req.on("error", function(err) {
+    if (Object.prototype.toString.call(callback) === "[object Function]") {
       callback.call(that, err, null);
     }
   });
-}
+};
 
 /**
  * 创建云信ID
@@ -116,18 +116,17 @@ ServerApi.prototype.postDataHttps = function (url, data, callback) {
  * @param  callback    	[请求返回的回调函数]
  * @return 回调函数中返回两参数(err,json格式的data)
  */
-ServerApi.prototype.createUserId = function (data, callback) {
-  var url = `${BaseHost}/nimserver/user/create.action`
+ServerApi.prototype.createUserId = function(data, callback) {
+  var url = `${BaseHost}/nimserver/user/create.action`;
   var postData = {
-    'accid': data['accid'] || '',
-    'name': data['name'] || '',
-    'props': data['props'] || '',
-    'icon': data['icon'] || '',
-    'token': data['token'] || ''
+    accid: data["accid"] || "",
+    name: data["name"] || "",
+    props: data["props"] || "",
+    icon: data["icon"] || "",
+    token: data["token"] || ""
   };
   this.postDataHttps(url, postData, callback);
-}
-
+};
 
 /**
  * 更新云信ID
@@ -139,17 +138,16 @@ ServerApi.prototype.createUserId = function (data, callback) {
  * @param  callback    	[请求返回的回调函数]
  * @return 回调函数中返回两参数(err,json格式的data)
  */
-ServerApi.prototype.updateUserId = function (data, callback) {
-  var url = `${BaseHost}/nimserver/user/update.action`
+ServerApi.prototype.updateUserId = function(data, callback) {
+  var url = `${BaseHost}/nimserver/user/update.action`;
   var postData = {
-    'accid': data['accid'] || '',
-    'name': data['name'] || '',
-    'props': data['props'] || '',
-    'token': data['token'] || ''
+    accid: data["accid"] || "",
+    name: data["name"] || "",
+    props: data["props"] || "",
+    token: data["token"] || ""
   };
   this.postDataHttps(url, postData, callback);
-}
-
+};
 
 /**
  * 更新并获取新token
@@ -158,13 +156,13 @@ ServerApi.prototype.updateUserId = function (data, callback) {
  * @param  callback    	[请求返回的回调函数]
  * @return 回调函数中返回两参数(err,json格式的data)
  */
-ServerApi.prototype.updateUserToken = function (data, callback) {
-  var url = `${BaseHost}/nimserver/user/refreshToken.action`
+ServerApi.prototype.updateUserToken = function(data, callback) {
+  var url = `${BaseHost}/nimserver/user/refreshToken.action`;
   var postData = {
-    'accid': data['accid'] || ''
+    accid: data["accid"] || ""
   };
   this.postDataHttps(url, postData, callback);
-}
+};
 
 /**
  * 封禁云信ID
@@ -174,13 +172,13 @@ ServerApi.prototype.updateUserToken = function (data, callback) {
  * @param  callback    	[请求返回的回调函数]
  * @return 回调函数中返回两参数(err,json格式的data)
  */
-ServerApi.prototype.blockUserId = function (data, callback) {
-  var url = `${BaseHost}/nimserver/user/block.action`
+ServerApi.prototype.blockUserId = function(data, callback) {
+  var url = `${BaseHost}/nimserver/user/block.action`;
   var postData = {
-    'accid': data['accid'] || ''
+    accid: data["accid"] || ""
   };
   this.postDataHttps(url, postData, callback);
-}
+};
 
 /**
  * 解禁云信ID
@@ -190,13 +188,13 @@ ServerApi.prototype.blockUserId = function (data, callback) {
  * @param  callback    	[请求返回的回调函数]
  * @return 回调函数中返回两参数(err,json格式的data)
  */
-ServerApi.prototype.unblockUserId = function (data, callback) {
-  var url = `${BaseHost}/nimserver/user/unblock.action`
+ServerApi.prototype.unblockUserId = function(data, callback) {
+  var url = `${BaseHost}/nimserver/user/unblock.action`;
   var postData = {
-    'accid': data['accid'] || ''
+    accid: data["accid"] || ""
   };
   this.postDataHttps(url, postData, callback);
-}
+};
 
 /**
  * 更新用户名片
@@ -213,21 +211,21 @@ ServerApi.prototype.unblockUserId = function (data, callback) {
  * @param  callback    	[请求返回的回调函数]
  * @return 回调函数中返回两参数(err,json格式的data)
  */
-ServerApi.prototype.updateUinfo = function (data, callback) {
-  var url = `${BaseHost}/nimserver/user/updateUinfo.action`
+ServerApi.prototype.updateUinfo = function(data, callback) {
+  var url = `${BaseHost}/nimserver/user/updateUinfo.action`;
   var postData = {
-    'accid': data['accid'] || '',
-    'name': data['name'] || '',
-    'icon': data['icon'] || '',
-    'sign': data['sign'] || '',
-    'email': data['email'] || '',
-    'birth': data['birth'] || '',
-    'mobile': data['mobile'] || '',
-    'gender': data['gender'] || '',
-    'ex': data['ex'] || ''
+    accid: data["accid"] || "",
+    name: data["name"] || "",
+    icon: data["icon"] || "",
+    sign: data["sign"] || "",
+    email: data["email"] || "",
+    birth: data["birth"] || "",
+    mobile: data["mobile"] || "",
+    gender: data["gender"] || "",
+    ex: data["ex"] || ""
   };
   this.postDataHttps(url, postData, callback);
-}
+};
 
 /**
  * 获取用户名片，可批量
@@ -236,13 +234,13 @@ ServerApi.prototype.updateUinfo = function (data, callback) {
  * @param  callback    	[请求返回的回调函数]
  * @return 回调函数中返回两参数(err,json格式的data)
  */
-ServerApi.prototype.getUinfos = function (data, callback) {
-  var url = `${BaseHost}/nimserver/user/getUinfos.action`
+ServerApi.prototype.getUinfos = function(data, callback) {
+  var url = `${BaseHost}/nimserver/user/getUinfos.action`;
   var postData = {
-    'accids': JSON.stringify(data['accids'] || [])
+    accids: JSON.stringify(data["accids"] || [])
   };
   this.postDataHttps(url, postData, callback);
-}
+};
 
 /**
  * 好友关系-加好友
@@ -254,16 +252,16 @@ ServerApi.prototype.getUinfos = function (data, callback) {
  * @param  callback    	[请求返回的回调函数]
  * @return 回调函数中返回两参数(err,json格式的data)
  */
-ServerApi.prototype.addFriend = function (data, callback) {
-  var url = `${BaseHost}/nimserver/friend/add.action`
+ServerApi.prototype.addFriend = function(data, callback) {
+  var url = `${BaseHost}/nimserver/friend/add.action`;
   var postData = {
-    'accid': data['accid'] || '',
-    'faccid': data['faccid'] || '',
-    'type': data['type'] || '1',
-    'msg': data['msg'] || ''
+    accid: data["accid"] || "",
+    faccid: data["faccid"] || "",
+    type: data["type"] || "1",
+    msg: data["msg"] || ""
   };
   this.postDataHttps(url, postData, callback);
-}
+};
 
 /**
  * 好友关系-更新好友信息
@@ -274,15 +272,15 @@ ServerApi.prototype.addFriend = function (data, callback) {
  * @param  callback    	[请求返回的回调函数]
  * @return 回调函数中返回两参数(err,json格式的data)
  */
-ServerApi.prototype.updateFriend = function (data, callback) {
-  var url = `${BaseHost}/nimserver/friend/update.action`
+ServerApi.prototype.updateFriend = function(data, callback) {
+  var url = `${BaseHost}/nimserver/friend/update.action`;
   var postData = {
-    'accid': data['accid'] || '',
-    'faccid': data['faccid'] || '',
-    'alias': data['alias'] || ''
+    accid: data["accid"] || "",
+    faccid: data["faccid"] || "",
+    alias: data["alias"] || ""
   };
   this.postDataHttps(url, postData, callback);
-}
+};
 
 /**
  * 好友关系-获取好友关系
@@ -291,14 +289,14 @@ ServerApi.prototype.updateFriend = function (data, callback) {
  * @param  callback    	[请求返回的回调函数]
  * @return 回调函数中返回两参数(err,json格式的data)
  */
-ServerApi.prototype.getFriend = function (data, callback) {
-  var url = `${BaseHost}/nimserver/friend/get.action`
+ServerApi.prototype.getFriend = function(data, callback) {
+  var url = `${BaseHost}/nimserver/friend/get.action`;
   var postData = {
-    'accid': data['accid'] || '',
-    'createtime': Date.parse(new Date()) / 1000 + ''
+    accid: data["accid"] || "",
+    createtime: Date.parse(new Date()) / 1000 + ""
   };
   this.postDataHttps(url, postData, callback);
-}
+};
 
 /**
  * 好友关系-删除好友信息
@@ -308,14 +306,14 @@ ServerApi.prototype.getFriend = function (data, callback) {
  * @param  callback    	[请求返回的回调函数]
  * @return 回调函数中返回两参数(err,json格式的data)
  */
-ServerApi.prototype.deleteFriend = function (data, callback) {
-  var url = `${BaseHost}/nimserver/friend/delete.action`
+ServerApi.prototype.deleteFriend = function(data, callback) {
+  var url = `${BaseHost}/nimserver/friend/delete.action`;
   var postData = {
-    'accid': data['accid'] || '',
-    'faccid': data['faccid'] || ''
+    accid: data["accid"] || "",
+    faccid: data["faccid"] || ""
   };
   this.postDataHttps(url, postData, callback);
-}
+};
 
 /**
  * 好友关系-设置黑名单
@@ -327,16 +325,16 @@ ServerApi.prototype.deleteFriend = function (data, callback) {
  * @param  callback    	[请求返回的回调函数]
  * @return 回调函数中返回两参数(err,json格式的data)
  */
-ServerApi.prototype.specializeFriend = function (data, callback) {
-  var url = `${BaseHost}/nimserver/user/setSpecialRelation.action`
+ServerApi.prototype.specializeFriend = function(data, callback) {
+  var url = `${BaseHost}/nimserver/user/setSpecialRelation.action`;
   var postData = {
-    'accid': data['accid'] || '',
-    'targetAcc': data['targetAcc'] || '',
-    'relationType': data['relationType'] || '1',
-    'value': data['value'] || '1'
+    accid: data["accid"] || "",
+    targetAcc: data["targetAcc"] || "",
+    relationType: data["relationType"] || "1",
+    value: data["value"] || "1"
   };
   this.postDataHttps(url, postData, callback);
-}
+};
 
 /**
  * 好友关系-查看黑名单列表
@@ -345,13 +343,13 @@ ServerApi.prototype.specializeFriend = function (data, callback) {
  * @param  callback    	[请求返回的回调函数]
  * @return 回调函数中返回两参数(err,json格式的data)
  */
-ServerApi.prototype.listBlackFriend = function (data, callback) {
-  var url = `${BaseHost}/nimserver/user/listBlackAndMuteList.action`
+ServerApi.prototype.listBlackFriend = function(data, callback) {
+  var url = `${BaseHost}/nimserver/user/listBlackAndMuteList.action`;
   var postData = {
-    'accid': data['accid'] || ''
+    accid: data["accid"] || ""
   };
   this.postDataHttps(url, postData, callback);
-}
+};
 
 /**
  * 消息功能-发送普通消息
@@ -366,19 +364,21 @@ ServerApi.prototype.listBlackFriend = function (data, callback) {
  * @param  callback    	[请求返回的回调函数]
  * @return 回调函数中返回两参数(err,json格式的data)
  */
-ServerApi.prototype.sendMsg = function (data, callback) {
-  var url = `${BaseHost}/nimserver/msg/sendMsg.action`
+ServerApi.prototype.sendMsg = function(data, callback) {
+  var url = `${BaseHost}/nimserver/msg/sendMsg.action`;
   var postData = {
-    'from': data['from'] || '',
-    'ope': data['ope'] || '',
-    'to': data['to'] || '',
-    'type': data['type'] || '0',
-    'body': JSON.stringify(data['body']) || '{}',
-    'option': JSON.stringify(data['option']) || '{"push":false,"roam":true,"history":true,"sendersync":true, "route":false}',
-    'pushcontent': data['pushcontent'] || ''
+    from: data["from"] || "",
+    ope: data["ope"] || "",
+    to: data["to"] || "",
+    type: data["type"] || "0",
+    body: JSON.stringify(data["body"]) || "{}",
+    option:
+      JSON.stringify(data["option"]) ||
+      '{"push":false,"roam":true,"history":true,"sendersync":true, "route":false}',
+    pushcontent: data["pushcontent"] || ""
   };
   this.postDataHttps(url, postData, callback);
-}
+};
 
 /**
  * 消息功能-发送自定义系统消息
@@ -395,53 +395,53 @@ ServerApi.prototype.sendMsg = function (data, callback) {
  * @param  callback    	[请求返回的回调函数]
  * @return 回调函数中返回两参数(err,json格式的data)
  */
-ServerApi.prototype.sendAttachMsg = function (data, callback) {
-  var url = `${BaseHost}/nimserver/msg/sendAttachMsg.action`
+ServerApi.prototype.sendAttachMsg = function(data, callback) {
+  var url = `${BaseHost}/nimserver/msg/sendAttachMsg.action`;
   var postData = {
-    'from': data['from'] || '',
-    'msgtype': data['msgtype'] || '0',
-    'to': data['to'] || '',
-    'attach': data['attach'] || '',
-    'pushcontent': data['pushcontent'] || '',
-    'payload': JSON.stringify(data['payload']) || '{}',
-    'sound': data['sound'] || ''
+    from: data["from"] || "",
+    msgtype: data["msgtype"] || "0",
+    to: data["to"] || "",
+    attach: data["attach"] || "",
+    pushcontent: data["pushcontent"] || "",
+    payload: JSON.stringify(data["payload"]) || "{}",
+    sound: data["sound"] || ""
   };
   this.postDataHttps(url, postData, callback);
-}
+};
 
 /**
  * 消息功能-文件上传
  * @param data 包含：
  *     -  content       [字节流base64串(Base64.encode(bytes)) ，最大15M的字节流]
- *     -  type        [上传文件类型]       
+ *     -  type        [上传文件类型]
  * @param  callback    	[请求返回的回调函数]
  * @return 回调函数中返回两参数(err,json格式的data)
  */
-ServerApi.prototype.uploadMsg = function (data, callback) {
-  var url = `${BaseHost}/nimserver/msg/upload.action`
+ServerApi.prototype.uploadMsg = function(data, callback) {
+  var url = `${BaseHost}/nimserver/msg/upload.action`;
   var postData = {
-    'content': data['content'] || '',
-    'type': data['type'] || '0'
+    content: data["content"] || "",
+    type: data["type"] || "0"
   };
   this.postDataHttps(url, postData, callback);
-}
+};
 
 /**
  * 消息功能-文件上传（multipart方式）
  * @param data 包含：
  *     -  content       [字节流base64串(Base64.encode(bytes)) ，最大15M的字节流]
- *     -  type        [上传文件类型]       
+ *     -  type        [上传文件类型]
  * @param  callback    	[请求返回的回调函数]
  * @return 回调函数中返回两参数(err,json格式的data)
  */
-ServerApi.prototype.uploadMultiMsg = function (data, callback) {
-  var url = `${BaseHost}/nimserver/msg/fileUpload.action`
+ServerApi.prototype.uploadMultiMsg = function(data, callback) {
+  var url = `${BaseHost}/nimserver/msg/fileUpload.action`;
   var postData = {
-    'content': data['content'] || '',
-    'type': data['type'] || '0'
+    content: data["content"] || "",
+    type: data["type"] || "0"
   };
   this.postDataHttps(url, postData, callback);
-}
+};
 
 /**
  * 群组功能（高级群）-创建群
@@ -458,21 +458,21 @@ ServerApi.prototype.uploadMultiMsg = function (data, callback) {
  * @param  callback    	[请求返回的回调函数]
  * @return 回调函数中返回两参数(err,json格式的data)
  */
-ServerApi.prototype.createGroup = function (data, callback) {
-  var url = `${BaseHost}/nimserver/team/create.action`
+ServerApi.prototype.createGroup = function(data, callback) {
+  var url = `${BaseHost}/nimserver/team/create.action`;
   var postData = {
-    'tname': data['tname'] || '',
-    'owner': data['owner'] || '0',
-    'members': JSON.stringify(data['members'] || []),
-    'announcement': data['announcement'] || '',
-    'intro': data['intro'] || '',
-    'msg': data['msg'] || '',
-    'magree': data['magree'] || '0',
-    'joinmode': data['joinmode'] || '0',
-    'custom': data['custom'] || '0'
+    tname: data["tname"] || "",
+    owner: data["owner"] || "0",
+    members: JSON.stringify(data["members"] || []),
+    announcement: data["announcement"] || "",
+    intro: data["intro"] || "",
+    msg: data["msg"] || "",
+    magree: data["magree"] || "0",
+    joinmode: data["joinmode"] || "0",
+    custom: data["custom"] || "0"
   };
   this.postDataHttps(url, postData, callback);
-}
+};
 
 /**
  * 群组功能（高级群）-拉人入群
@@ -486,17 +486,17 @@ ServerApi.prototype.createGroup = function (data, callback) {
  * @param  callback    	[请求返回的回调函数]
  * @return 回调函数中返回两参数(err,json格式的data)
  */
-ServerApi.prototype.addIntoGroup = function (data, callback) {
-  var url = `${BaseHost}/nimserver/team/add.action`
+ServerApi.prototype.addIntoGroup = function(data, callback) {
+  var url = `${BaseHost}/nimserver/team/add.action`;
   var postData = {
-    'tid': data['tid'] || '',
-    'owner': data['owner'] || '0',
-    'members': JSON.stringify(data['members'] || []),
-    'magree': data['magree'] || '0',
-    'msg': data['msg'] || ''
+    tid: data["tid"] || "",
+    owner: data["owner"] || "0",
+    members: JSON.stringify(data["members"] || []),
+    magree: data["magree"] || "0",
+    msg: data["msg"] || ""
   };
   this.postDataHttps(url, postData, callback);
-}
+};
 
 /**
  * 群组功能（高级群）-踢人出群
@@ -507,15 +507,15 @@ ServerApi.prototype.addIntoGroup = function (data, callback) {
  * @param  callback    	[请求返回的回调函数]
  * @return 回调函数中返回两参数(err,json格式的data)
  */
-ServerApi.prototype.kickFromGroup = function (data, callback) {
-  var url = `${BaseHost}/nimserver/team/kick.action`
+ServerApi.prototype.kickFromGroup = function(data, callback) {
+  var url = `${BaseHost}/nimserver/team/kick.action`;
   var postData = {
-    'tid': data['tid'] || '',
-    'owner': data['owner'] || '',
-    'member': data['member'] || ''
+    tid: data["tid"] || "",
+    owner: data["owner"] || "",
+    member: data["member"] || ""
   };
   this.postDataHttps(url, postData, callback);
-}
+};
 
 /**
  * 群组功能（高级群）-解散群
@@ -525,14 +525,14 @@ ServerApi.prototype.kickFromGroup = function (data, callback) {
  * @param  callback    	[请求返回的回调函数]
  * @return 回调函数中返回两参数(err,json格式的data)
  */
-ServerApi.prototype.removeGroup = function (data, callback) {
-  var url = `${BaseHost}/nimserver/team/remove.action`
+ServerApi.prototype.removeGroup = function(data, callback) {
+  var url = `${BaseHost}/nimserver/team/remove.action`;
   var postData = {
-    'tid': data['tid'] || '',
-    'owner': data['owner'] || ''
+    tid: data["tid"] || "",
+    owner: data["owner"] || ""
   };
   this.postDataHttps(url, postData, callback);
-}
+};
 
 /**
  * 群组功能（高级群）-更新群资料
@@ -547,19 +547,19 @@ ServerApi.prototype.removeGroup = function (data, callback) {
  * @param  callback    	[请求返回的回调函数]
  * @return 回调函数中返回两参数(err,json格式的data)
  */
-ServerApi.prototype.updateGroup = function (data, callback) {
-  var url = `${BaseHost}/nimserver/team/update.action`
+ServerApi.prototype.updateGroup = function(data, callback) {
+  var url = `${BaseHost}/nimserver/team/update.action`;
   var postData = {
-    'tid': data['tid'] || '',
-    'owner': data['owner'] || '',
-    'tname': data['tname'] || '',
-    'announcement': data['announcement'] || '',
-    'intro': data['intro'] || '',
-    'joinmode': data['joinmode'] || '0',
-    'custom': data['custom'] || '0'
+    tid: data["tid"] || "",
+    owner: data["owner"] || "",
+    tname: data["tname"] || "",
+    announcement: data["announcement"] || "",
+    intro: data["intro"] || "",
+    joinmode: data["joinmode"] || "0",
+    custom: data["custom"] || "0"
   };
   this.postDataHttps(url, postData, callback);
-}
+};
 
 /**
  * 群组功能（高级群）-群信息与成员列表查询
@@ -569,14 +569,14 @@ ServerApi.prototype.updateGroup = function (data, callback) {
  * @param  callback    	[请求返回的回调函数]
  * @return 回调函数中返回两参数(err,json格式的data)
  */
-ServerApi.prototype.queryGroup = function (data, callback) {
-  var url = `${BaseHost}/nimserver/team/query.action`
+ServerApi.prototype.queryGroup = function(data, callback) {
+  var url = `${BaseHost}/nimserver/team/query.action`;
   var postData = {
-    'tids': JSON.stringify(data['tids'] || []),
-    'ope': data['ope'] || '1'
+    tids: JSON.stringify(data["tids"] || []),
+    ope: data["ope"] || "1"
   };
   this.postDataHttps(url, postData, callback);
-}
+};
 
 /**
  * 群组功能（高级群）-移交群主
@@ -588,16 +588,16 @@ ServerApi.prototype.queryGroup = function (data, callback) {
  * @param  callback    	[请求返回的回调函数]
  * @return 回调函数中返回两参数(err,json格式的data)
  */
-ServerApi.prototype.changeGroupOwner = function (data, callback) {
-  var url = `${BaseHost}/nimserver/team/changeOwner.action`
+ServerApi.prototype.changeGroupOwner = function(data, callback) {
+  var url = `${BaseHost}/nimserver/team/changeOwner.action`;
   var postData = {
-    'tid': data['tid'] || '',
-    'owner': data['owner'] || '',
-    'newowner': data['newowner'] || '',
-    'leave': data['leave'] || '2'
+    tid: data["tid"] || "",
+    owner: data["owner"] || "",
+    newowner: data["newowner"] || "",
+    leave: data["leave"] || "2"
   };
   this.postDataHttps(url, postData, callback);
-}
+};
 
 /**
  * 群组功能（高级群）-任命管理员
@@ -608,15 +608,15 @@ ServerApi.prototype.changeGroupOwner = function (data, callback) {
  * @param  callback    	[请求返回的回调函数]
  * @return 回调函数中返回两参数(err,json格式的data)
  */
-ServerApi.prototype.addGroupManager = function (data, callback) {
-  var url = `${BaseHost}/nimserver/team/addManager.action`
+ServerApi.prototype.addGroupManager = function(data, callback) {
+  var url = `${BaseHost}/nimserver/team/addManager.action`;
   var postData = {
-    'tid': data['tid'] || '',
-    'owner': data['owner'] || '',
-    'members': JSON.stringify(data['members'] || [])
+    tid: data["tid"] || "",
+    owner: data["owner"] || "",
+    members: JSON.stringify(data["members"] || [])
   };
   this.postDataHttps(url, postData, callback);
-}
+};
 
 /**
  * 群组功能（高级群）-移除管理员
@@ -627,15 +627,15 @@ ServerApi.prototype.addGroupManager = function (data, callback) {
  * @param  callback    	[请求返回的回调函数]
  * @return 回调函数中返回两参数(err,json格式的data)
  */
-ServerApi.prototype.removeGroupManager = function (data, callback) {
-  var url = `${BaseHost}/nimserver/team/removeManager.action`
+ServerApi.prototype.removeGroupManager = function(data, callback) {
+  var url = `${BaseHost}/nimserver/team/removeManager.action`;
   var postData = {
-    'tid': data['tid'] || '',
-    'owner': data['owner'] || '',
-    'members': JSON.stringify(data['members'] || [])
+    tid: data["tid"] || "",
+    owner: data["owner"] || "",
+    members: JSON.stringify(data["members"] || [])
   };
   this.postDataHttps(url, postData, callback);
-}
+};
 
 /**
  * 群组功能（高级群）-获取某用户所加入的群信息
@@ -644,13 +644,13 @@ ServerApi.prototype.removeGroupManager = function (data, callback) {
  * @param  callback    	[请求返回的回调函数]
  * @return 回调函数中返回两参数(err,json格式的data)
  */
-ServerApi.prototype.joinTeams = function (data, callback) {
-  var url = `${BaseHost}/nimserver/team/joinTeams.action`
+ServerApi.prototype.joinTeams = function(data, callback) {
+  var url = `${BaseHost}/nimserver/team/joinTeams.action`;
   var postData = {
-    'accid': data['accid'] || ''
+    accid: data["accid"] || ""
   };
   this.postDataHttps(url, postData, callback);
-}
+};
 
 /**
  * 群组功能（高级群）-修改群昵称
@@ -658,20 +658,20 @@ ServerApi.prototype.joinTeams = function (data, callback) {
  *     -  tid       [云信服务器产生，群唯一标识，创建群时会返回，最大长度128字节]
  *     -  owner       [群主用户帐号，最大长度32字节]
  *     -  accid     [要修改群昵称对应群成员的accid]
- *     -  nick     [accid对应的群昵称，最大长度32字节。]     
+ *     -  nick     [accid对应的群昵称，最大长度32字节。]
  * @param  callback    	[请求返回的回调函数]
  * @return 回调函数中返回两参数(err,json格式的data)
  */
-ServerApi.prototype.updateGroupNick = function (data, callback) {
-  var url = `${BaseHost}/nimserver/team/updateTeamNick.action`
+ServerApi.prototype.updateGroupNick = function(data, callback) {
+  var url = `${BaseHost}/nimserver/team/updateTeamNick.action`;
   var postData = {
-    'tid': data['tid'] || '',
-    'owner': data['owner'] || '',
-    'accid': data['accid'] || '',
-    'nick': data['nick'] || ''
+    tid: data["tid"] || "",
+    owner: data["owner"] || "",
+    accid: data["accid"] || "",
+    nick: data["nick"] || ""
   };
   this.postDataHttps(url, postData, callback);
-}
+};
 
 /**
  * 历史记录-单聊
@@ -685,18 +685,18 @@ ServerApi.prototype.updateGroupNick = function (data, callback) {
  * @param  callback    	[请求返回的回调函数]
  * @return 回调函数中返回两参数(err,json格式的data)
  */
-ServerApi.prototype.querySessionMsg = function (data, callback) {
-  var url = `${BaseHost}/nimserver/history/querySessionMsg.action`
+ServerApi.prototype.querySessionMsg = function(data, callback) {
+  var url = `${BaseHost}/nimserver/history/querySessionMsg.action`;
   var postData = {
-    'from': data['from'] || '',
-    'to': data['to'] || '',
-    'begintime': data['begintime'] || '0',
-    'endtime': data['endtime'] || (Date.parse(new Date()) + ''),
-    'limit': data['limit'] || '100',
-    'reverse': data['reverse'] || '1'
+    from: data["from"] || "",
+    to: data["to"] || "",
+    begintime: data["begintime"] || "0",
+    endtime: data["endtime"] || Date.parse(new Date()) + "",
+    limit: data["limit"] || "100",
+    reverse: data["reverse"] || "1"
   };
   this.postDataHttps(url, postData, callback);
-}
+};
 
 /**
  * 历史记录-群聊
@@ -710,18 +710,18 @@ ServerApi.prototype.querySessionMsg = function (data, callback) {
  * @param  callback    	[请求返回的回调函数]
  * @return 回调函数中返回两参数(err,json格式的data)
  */
-ServerApi.prototype.queryGroupMsg = function (data, callback) {
-  var url = `${BaseHost}/nimserver/history/queryTeamMsg.action`
+ServerApi.prototype.queryGroupMsg = function(data, callback) {
+  var url = `${BaseHost}/nimserver/history/queryTeamMsg.action`;
   var postData = {
-    'tid': data['tid'] || '',
-    'accid': data['accid'] || '',
-    'begintime': data['begintime'] || '0',
-    'endtime': data['endtime'] || (Date.parse(new Date()) + ''),
-    'limit': data['limit'] || '100',
-    'reverse': data['reverse'] || '1'
+    tid: data["tid"] || "",
+    accid: data["accid"] || "",
+    begintime: data["begintime"] || "0",
+    endtime: data["endtime"] || Date.parse(new Date()) + "",
+    limit: data["limit"] || "100",
+    reverse: data["reverse"] || "1"
   };
   this.postDataHttps(url, postData, callback);
-}
+};
 
 /**
  * 发送短信验证码
@@ -731,14 +731,14 @@ ServerApi.prototype.queryGroupMsg = function (data, callback) {
  * @param  callback    	[请求返回的回调函数]
  * @return 回调函数中返回两参数(err,json格式的data)
  */
-ServerApi.prototype.sendSmsCode = function (data, callback) {
-  var url = `${BaseHost}/sms/sendcode.action`
+ServerApi.prototype.sendSmsCode = function(data, callback) {
+  var url = `${BaseHost}/sms/sendcode.action`;
   var postData = {
-    'mobile': data['mobile'] || '',
-    'deviceId': data['deviceId'] || ''
+    mobile: data["mobile"] || "",
+    deviceId: data["deviceId"] || ""
   };
   this.postDataHttps(url, postData, callback);
-}
+};
 
 /**
  * 校验验证码
@@ -748,14 +748,14 @@ ServerApi.prototype.sendSmsCode = function (data, callback) {
  * @param  callback    	[请求返回的回调函数]
  * @return 回调函数中返回两参数(err,json格式的data)
  */
-ServerApi.prototype.verifycode = function (data, callback) {
-  var url = `${BaseHost}/sms/verifycode.action`
+ServerApi.prototype.verifycode = function(data, callback) {
+  var url = `${BaseHost}/sms/verifycode.action`;
   var postData = {
-    'mobile': data['mobile'] || '',
-    'code': data['code'] || ''
+    mobile: data["mobile"] || "",
+    code: data["code"] || ""
   };
   this.postDataHttps(url, postData, callback);
-}
+};
 
 /**
  * 发送模板短信
@@ -766,15 +766,15 @@ ServerApi.prototype.verifycode = function (data, callback) {
  * @param  callback    	[请求返回的回调函数]
  * @return 回调函数中返回两参数(err,json格式的data)
  */
-ServerApi.prototype.sendSMSTemplate = function (data, callback) {
-  var url = `${BaseHost}/sms/sendtemplate.action`
+ServerApi.prototype.sendSMSTemplate = function(data, callback) {
+  var url = `${BaseHost}/sms/sendtemplate.action`;
   var postData = {
-    'templateid': data['templateid'] || '',
-    'params': JSON.stringify(data['params'] || []),
-    'mobiles': JSON.stringify(data['mobiles'] || [])
+    templateid: data["templateid"] || "",
+    params: JSON.stringify(data["params"] || []),
+    mobiles: JSON.stringify(data["mobiles"] || [])
   };
   this.postDataHttps(url, postData, callback);
-}
+};
 
 /**
  * 查询模板短信发送状态
@@ -783,13 +783,13 @@ ServerApi.prototype.sendSMSTemplate = function (data, callback) {
  * @param  callback    	[请求返回的回调函数]
  * @return 回调函数中返回两参数(err,json格式的data)
  */
-ServerApi.prototype.querySMSStatus = function (data, callback) {
-  var url = `${BaseHost}/sms/querystatus.action`
+ServerApi.prototype.querySMSStatus = function(data, callback) {
+  var url = `${BaseHost}/sms/querystatus.action`;
   var postData = {
-    'sendid': data['sendid'] || ''
+    sendid: data["sendid"] || ""
   };
   this.postDataHttps(url, postData, callback);
-}
+};
 
 /**
  * 发起单人专线电话
@@ -801,16 +801,16 @@ ServerApi.prototype.querySMSStatus = function (data, callback) {
  * @param  callback    	[请求返回的回调函数]
  * @return 回调函数中返回两参数(err,json格式的data)
  */
-ServerApi.prototype.startcall = function (data, callback) {
-  var url = `${BaseHost}/call/ecp/startcall.action`
+ServerApi.prototype.startcall = function(data, callback) {
+  var url = `${BaseHost}/call/ecp/startcall.action`;
   var postData = {
-    'callerAcc': data['callerAcc'] || '',
-    'caller': data['caller'] || '',
-    'callee': data['callee'] || '0',
-    'maxDur': data['maxDur'] || '60'
+    callerAcc: data["callerAcc"] || "",
+    caller: data["caller"] || "",
+    callee: data["callee"] || "0",
+    maxDur: data["maxDur"] || "60"
   };
   this.postDataHttps(url, postData, callback);
-}
+};
 
 /**
  * 发起专线会议电话
@@ -822,16 +822,16 @@ ServerApi.prototype.startcall = function (data, callback) {
  * @param  callback    	[请求返回的回调函数]
  * @return 回调函数中返回两参数(err,json格式的data)
  */
-ServerApi.prototype.startconf = function (data, callback) {
-  var url = `${BaseHost}/call/ecp/startconf.action`
+ServerApi.prototype.startconf = function(data, callback) {
+  var url = `${BaseHost}/call/ecp/startconf.action`;
   var postData = {
-    'callerAcc': data['callerAcc'] || '',
-    'caller': data['caller'] || '',
-    'callee': JSON.stringify(data['callee'] || []),
-    'maxDur': data['maxDur'] || '60'
+    callerAcc: data["callerAcc"] || "",
+    caller: data["caller"] || "",
+    callee: JSON.stringify(data["callee"] || []),
+    maxDur: data["maxDur"] || "60"
   };
   this.postDataHttps(url, postData, callback);
-}
+};
 
 /**
  * 查询单通专线电话或会议的详情
@@ -841,12 +841,11 @@ ServerApi.prototype.startconf = function (data, callback) {
  * @param  callback    	[请求返回的回调函数]
  * @return 回调函数中返回两参数(err,json格式的data)
  */
-ServerApi.prototype.queryCallsBySession = function (data, callback) {
-  var url = `${BaseHost}/call/ecp/queryBySession.action`
+ServerApi.prototype.queryCallsBySession = function(data, callback) {
+  var url = `${BaseHost}/call/ecp/queryBySession.action`;
   var postData = {
-    'session': data['session'] || '',
-    'type': data['type'] || '1'
+    session: data["session"] || "",
+    type: data["type"] || "1"
   };
   this.postDataHttps(url, postData, callback);
-}
-
+};

@@ -18,13 +18,13 @@
       </van-row>
     </div>
     <div class="neirong">
-        <ul>
-          <li>
-            <img src="../assets/imgs/8a61fb85d7074616bff5a6283de4a12e.jpeg" alt="">
-            <p>带你领略新西兰100%pureLand七大房车营地</p>
-          </li>
-          <li></li>
-        </ul>
+      <ul>
+        <li>
+          <img src="../assets/imgs/8a61fb85d7074616bff5a6283de4a12e.jpeg" alt />
+          <p>带你领略新西兰100%pureLand七大房车营地</p>
+        </li>
+        <li></li>
+      </ul>
     </div>
     <tab-bar></tab-bar>
   </div>
@@ -55,7 +55,7 @@ export default {
 </script>
 
 <style scoped>
-.title{
+.title {
   box-shadow: 0px 6px 10px #aaa;
 }
 .van-col--6 {
@@ -69,28 +69,28 @@ export default {
   background-color: transparent;
   height: 25px;
 }
-.neirong{
-  padding-top:20px;
-  width:95%;
-  margin:0 auto;
+.neirong {
+  padding-top: 20px;
+  width: 95%;
+  margin: 0 auto;
 }
-.neirong ul{
+.neirong ul {
   list-style: none;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
-.neirong ul li{
-  width:48%;
-  height:200px;
+.neirong ul li {
+  width: 48%;
+  height: 200px;
   background-color: rgba(0, 0, 0, 0.1);
 }
-.neirong ul li:nth-child(1){
-  height:250px;
+.neirong ul li:nth-child(1) {
+  height: 250px;
 }
-.neirong ul li:nth-child(1) img{
-  height:180px;
-  width:171px;
+.neirong ul li:nth-child(1) img {
+  height: 180px;
+  width: 171px;
 }
 </style>
 
