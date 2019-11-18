@@ -127,8 +127,4 @@ router.get("/personal", (req, res) => {
 });
 // 用户
 
-<<<<<<< HEAD
 module.exports = router;
-=======
-module.exports = router;
->>>>>>> e2f4c99975dec9d16045a34d78f4461220d117dd

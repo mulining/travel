@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="title">
-      <router-link to="/login">
+      <router-link to="/reg">
         <button>请登录</button>
       </router-link>
     </div>
