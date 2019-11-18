@@ -1,12 +1,9 @@
 <template>
   <div>
+    <my-header></my-header>
     <!-- 搜索 -->
     <router-link to="/search">
-      <van-search
-        id="d"
-        placeholder="输入目的地，查找体验线路或营地"
-        v-model="value"
-      />
+      <van-search id="d" placeholder="输入目的地，查找体验线路或营地" v-model="value" />
     </router-link>
     <!-- 轮播 -->
     <lun-bo></lun-bo>
@@ -15,10 +12,7 @@
       <p class="yeShe">野奢·逸趣</p>
       <ul class="main">
         <li>
-          <img
-            src="@/assets/images/e42461a81f764d7b997cfce51fe5e5c8.jpg"
-            alt=""
-          />
+          <img src="@/assets/images/e42461a81f764d7b997cfce51fe5e5c8.jpg" alt />
           <div class="fangChe">
             <p>房车出行必备</p>
             <p>星空下露营，圆一个房车梦</p>
@@ -26,17 +20,11 @@
         </li>
         <li class="mainRight">
           <div>
-            <img
-              src="@/assets/images/6388f48e1e134324a1934a964b11b892.png"
-              alt=""
-            />
+            <img src="@/assets/images/6388f48e1e134324a1934a964b11b892.png" alt />
             <p>100%最美新西兰</p>
           </div>
           <div>
-            <img
-              src="@/assets/images/0e838b2501d04ba8a8dd21f211d432fd.jpg"
-              alt=""
-            />
+            <img src="@/assets/images/0e838b2501d04ba8a8dd21f211d432fd.jpg" alt />
             <p>耶稣露营新玩法</p>
           </div>
         </li>
@@ -47,10 +35,7 @@
           <p>16983·阅读</p>
         </li>
         <li>
-          <img
-            src="@/assets/images/283f55f175924b99bfa35431a9f7c5b9.jpg"
-            alt=""
-          />
+          <img src="@/assets/images/283f55f175924b99bfa35431a9f7c5b9.jpg" alt />
         </li>
       </ul>
       <router-link to="/road">
@@ -61,7 +46,7 @@
         <div class="yingDi" v-for="(item, i) of yingDi" :key="i">
           <a href="javascript:;">
             <div>
-              <img :src="item.pic" alt="" />
+              <img :src="item.pic" alt />
               <p :class="sst[i]" v-text="item.p1"></p>
             </div>
             <h6 v-text="item.h6"></h6>
@@ -70,7 +55,7 @@
           </a>
         </div>
       </div>
-      <router-link to="">
+      <router-link to>
         <button class="but">查看更多臻选营地</button>
       </router-link>
       <dl class="gaoFen">
@@ -79,7 +64,7 @@
         </dt>
         <dd v-for="(item, i) of list" :key="i">
           <div>
-            <img :src="item.pic" alt="" />
+            <img :src="item.pic" alt />
           </div>
           <div>
             <h5 v-text="item.h5"></h5>
@@ -87,7 +72,7 @@
           </div>
         </dd>
       </dl>
-      <router-link to="">
+      <router-link to>
         <button class="but">查看所有体验线路</button>
       </router-link>
     </div>
@@ -98,8 +83,9 @@
 <script>
 import lunBo from "@/components/lunBo";
 import tabBar from "@/components/tabBar";
+import myHeader from "@/components/myHeader";
 export default {
-  components: { lunBo, tabBar },
+  components: { lunBo, tabBar, myHeader },
   data() {
     return {
       list: [

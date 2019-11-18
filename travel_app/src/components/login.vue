@@ -4,25 +4,66 @@
       <div class="bJMask"></div>
     </div>
     <div class="ctn">
-      <img @click="fanHui" src="@/assets/images/youJianTou.png" alt="" />
+      <img @click="fanHui" src="@/assets/images/youJianTou.png" alt />
       <h2>欢迎您，请登录</h2>
-      <input class="yongHu" type="text" placeholder="请输入用户名" />
-      <input class="miMa" type="password" placeholder="请输入密码" />
-      <button>立即登录</button>
+      <input class="yongHu" type="text" placeholder="请输入用户名" v-model="uname" />
+      <input class="miMa" type="password" placeholder="请输入密码" v-model="upwd" />
+      <button @click="login">注册</button>
       <div class="yueDu">
         <input type="checkbox" name="btn" id="btn1" />阅读并同意
         <a>《用户使用协议》</a>
-        及<a>《隐私保护政策》</a>
+        及
+        <a>《隐私保护政策》</a>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import qs from "qs";
 export default {
+  data() {
+    return {
+      uname: "",
+      upwd: ""
+    };
+  },
   methods: {
     fanHui() {
       this.$router.push("/my");
+    },
+    login() {
+      var ureg = new RegExp(/^[a-z][a-zA-Z0-9_]{4,15}$/);
+      var preg = new RegExp(/^[a-zA-Z]\w{5,17}$/);
+      var u = this.uname;
+      console.log(u);
+      var p = this.upwd;
+      console.log(p);
+      if (!ureg.test(u)) {
+        this.$messagebox("消息", "用户名格式不正确");
+        return;
+      }
+      if (!preg.test(p)) {
+        this.$messagebox("消息", "密码格式不正确");
+        return;
+      }
+      //发送ajax请求
+      var url = "user/reg";
+      this.axios
+        .post(
+          url,
+          qs.stringify({
+            uname: u,
+            upwd: p
+          })
+        )
+        .then(res => {
+          console.log(res);
+          alert("注册成功");
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   }
 };

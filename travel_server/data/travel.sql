@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 2019-11-15 13:13:10
+-- Generation Time: 2019-11-16 09:48:04
 -- 服务器版本： 10.1.28-MariaDB
 -- PHP Version: 5.6.32
 
@@ -27,6 +27,8 @@ SET time_zone = "+00:00";
 --
 -- 表的结构 `travel_camp`
 --
+-- 创建时间： 2019-11-16 02:55:42
+--
 
 CREATE TABLE `travel_camp` (
   `id` int(11) NOT NULL,
@@ -39,6 +41,12 @@ CREATE TABLE `travel_camp` (
   `phone` varchar(20) DEFAULT NULL,
   `share_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- RELATIONSHIPS FOR TABLE `travel_camp`:
+--   `type`
+--       `travel_class` -> `id`
+--
 
 --
 -- 转存表中的数据 `travel_camp`
@@ -71,6 +79,8 @@ INSERT INTO `travel_camp` (`id`, `pic`, `title`, `subtitle`, `type`, `site`, `in
 --
 -- 表的结构 `travel_caro`
 --
+-- 创建时间： 2019-11-16 02:55:42
+--
 
 CREATE TABLE `travel_caro` (
   `id` int(11) NOT NULL,
@@ -78,6 +88,10 @@ CREATE TABLE `travel_caro` (
   `title` varchar(64) DEFAULT NULL,
   `href` varchar(128) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- RELATIONSHIPS FOR TABLE `travel_caro`:
+--
 
 --
 -- 转存表中的数据 `travel_caro`
@@ -92,11 +106,17 @@ INSERT INTO `travel_caro` (`id`, `img`, `title`, `href`) VALUES
 --
 -- 表的结构 `travel_class`
 --
+-- 创建时间： 2019-11-16 02:55:42
+--
 
 CREATE TABLE `travel_class` (
   `id` int(11) NOT NULL,
   `type_name` varchar(32) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- RELATIONSHIPS FOR TABLE `travel_class`:
+--
 
 --
 -- 转存表中的数据 `travel_class`
@@ -114,6 +134,8 @@ INSERT INTO `travel_class` (`id`, `type_name`) VALUES
 --
 -- 表的结构 `travel_collect`
 --
+-- 创建时间： 2019-11-16 02:55:42
+--
 
 CREATE TABLE `travel_collect` (
   `id` int(11) NOT NULL,
@@ -122,10 +144,57 @@ CREATE TABLE `travel_collect` (
   `ident` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- RELATIONSHIPS FOR TABLE `travel_collect`:
+--   `uid`
+--       `travel_user` -> `id`
+--   `tid`
+--       `travel_camp` -> `id`
+--
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `travel_shared`
+--
+-- 创建时间： 2019-11-16 07:57:22
+--
+
+CREATE TABLE `travel_shared` (
+  `id` int(11) NOT NULL,
+  `uid` int(11) NOT NULL,
+  `pic` varchar(255) NOT NULL,
+  `title` varchar(64) NOT NULL,
+  `likes` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- RELATIONSHIPS FOR TABLE `travel_shared`:
+--
+
+--
+-- 转存表中的数据 `travel_shared`
+--
+
+INSERT INTO `travel_shared` (`id`, `uid`, `pic`, `title`, `likes`) VALUES
+(1, 1, '../assets/imgs/2987675001c54d19b3be1df52d2db482.png', '带你领略新西兰100%PureLand七大房车营地', '5'),
+(2, 2, '../assets/imgs/6742001269c7461fb2fd90afe5379cc2.png', '干货|租房车出行前必备指南', '8'),
+(3, 3, '../assets/imgs/b32c83cdfbf14a31be21c410277c606a.jpg', '一路向南·拾起海南西线那些被遗忘的美', '9'),
+(4, 4, '../assets/imgs/b44a142b8a6b4a9b9108cde47aaff052.jpeg', '东八区的这里没有时差，也不是你现象的模样', '4'),
+(5, 1, '../assets/imgs/b496403d823e47ee971edee7dfe1598e.jpg', '【一路向南】驾驶房车领略北纬18度的热带海岛', '5'),
+(6, 2, '../assets/imgs/c5c66137c5e04666a842933249d89289.jpg', '春节玩转纯净新西兰南-北岛', '2'),
+(7, 3, '../assets/imgs/cdb648a8cfd44c49815d5c8382a933f4.png', '走的太久，是时候停下来思考一下了', '10'),
+(8, 4, '../assets/imgs/d4ded83d591a4bd5be49d4416d05590f.jpg', '清明踏青，探索江西不为人知的美丽', '5'),
+(9, 1, '../assets/imgs/d14825849de14c0a9bad011156a54e4d.jpg', '云南，走进一场风花雪月的浪漫之旅', '4'),
+(10, 2, '../assets/imgs/e42461a81f764d7b997cfce51fe5e5c8.jpg', '春天的气息扑面而来，准备出发！', '9'),
+(11, 1, '../assets/imgs/ef11994a6be9496e87ceac3e3fb8d54d.jpg', '彼岸无声，聚散星尘，美西房车游', '6');
+
 -- --------------------------------------------------------
 
 --
 -- 表的结构 `travel_user`
+--
+-- 创建时间： 2019-11-16 02:55:42
 --
 
 CREATE TABLE `travel_user` (
@@ -140,6 +209,12 @@ CREATE TABLE `travel_user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- RELATIONSHIPS FOR TABLE `travel_user`:
+--   `id`
+--       `travel_shared` -> `uid`
+--
+
+--
 -- Indexes for dumped tables
 --
 
@@ -147,7 +222,8 @@ CREATE TABLE `travel_user` (
 -- Indexes for table `travel_camp`
 --
 ALTER TABLE `travel_camp`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `type` (`type`);
 
 --
 -- Indexes for table `travel_caro`
@@ -165,7 +241,16 @@ ALTER TABLE `travel_class`
 -- Indexes for table `travel_collect`
 --
 ALTER TABLE `travel_collect`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `uid` (`uid`),
+  ADD KEY `tid` (`tid`);
+
+--
+-- Indexes for table `travel_shared`
+--
+ALTER TABLE `travel_shared`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `uid` (`uid`);
 
 --
 -- Indexes for table `travel_user`
@@ -206,6 +291,29 @@ ALTER TABLE `travel_collect`
 --
 ALTER TABLE `travel_user`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- 限制导出的表
+--
+
+--
+-- 限制表 `travel_camp`
+--
+ALTER TABLE `travel_camp`
+  ADD CONSTRAINT `travel_camp_ibfk_1` FOREIGN KEY (`type`) REFERENCES `travel_class` (`id`);
+
+--
+-- 限制表 `travel_collect`
+--
+ALTER TABLE `travel_collect`
+  ADD CONSTRAINT `travel_collect_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `travel_user` (`id`),
+  ADD CONSTRAINT `travel_collect_ibfk_2` FOREIGN KEY (`tid`) REFERENCES `travel_camp` (`id`);
+
+--
+-- 限制表 `travel_user`
+--
+ALTER TABLE `travel_user`
+  ADD CONSTRAINT `travel_user_ibfk_1` FOREIGN KEY (`id`) REFERENCES `travel_shared` (`uid`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
