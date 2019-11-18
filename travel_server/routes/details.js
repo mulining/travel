@@ -1,6 +1,6 @@
 // 二级页面详情表
 const express = require("express");
-const router = express.express;
+const router = express.Router();
 const pool = require("../pool.js");
 
 // 臻选营地详情页

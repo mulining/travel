@@ -56,8 +56,8 @@ export default {
         })
       ).then(res=>{
         console.log(res);
-        alert("注册成功");
-      })
+        this.$confirm("注册成功");
+              })
       .catch(err=>{
         console.log(err);
       })

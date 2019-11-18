@@ -2,7 +2,7 @@
 // 2.首页臻选营地请求
 
 const express = require("express");
-const router = express.express;
+const router = express.Router();
 const pool = require("../pool.js");
 
 // 轮播图路由 

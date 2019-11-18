@@ -22,6 +22,20 @@
           <li>
             <img src="../assets/imgs/8a61fb85d7074616bff5a6283de4a12e.jpeg" alt="">
             <p>带你领略新西兰100%pureLand七大房车营地</p>
+            <p>
+              <van-row>
+                  <van-col span="5">
+                     <img src="../assets/images/icon-test-copy (2).png" alt="">
+                  </van-col>
+                  <van-col span="14">
+                    <span>定制旅行+</span>
+                  </van-col>
+                  <van-col span="5">
+                    <img src="../assets/images/dianzan.png" alt="">3
+                  </van-col>
+              </van-row> 
+            </p>
+            
           </li>
           <li></li>
         </ul>
@@ -34,6 +48,9 @@
 import tabBar from "@/components/tabBar";
 export default {
   components: { tabBar },
+  created(){
+    this.loadMore();
+  },
   data() {
     return {
       value1: 0,
@@ -50,6 +67,11 @@ export default {
         { text: "最新", value: "c" }
       ]
     };
+  },
+  methods:{
+    loadMore(){
+      var url = "";
+    }
   }
 };
 </script>
@@ -83,14 +105,26 @@ export default {
 .neirong ul li{
   width:48%;
   height:200px;
-  background-color: rgba(0, 0, 0, 0.1);
+  /* background-color: rgba(0, 0, 0, 0.1); */
+  border:1px solid #ccc;
+  border-radius: 5px;
 }
 .neirong ul li:nth-child(1){
   height:250px;
 }
-.neirong ul li:nth-child(1) img{
+.neirong ul li img{
   height:180px;
   width:171px;
+}
+.neirong ul li p img{
+  height:16px;
+  width: 16px;
+}
+.neirong ul li p:nth-child(3){
+  padding-top:7px;
+}
+.van-col--8{
+  width: 33%;
 }
 </style>
 
