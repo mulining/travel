@@ -1,6 +1,7 @@
 import home from "@/views/home";
 import my from "@/views/my";
 import road from "@/views/road";
+import test from "@/views/test";
 import lunBo from "@/components/lunBo";
 import tabBar from "@/components/tabBar";
 import search from "@/components/search";
@@ -23,6 +24,11 @@ export default new Router({
       path: "/",
       name: "HelloWorld",
       component: HelloWorld
+    },
+    {
+      path: "/test",
+      name: "test",
+      component: test
     },
     {
       path: "/lunBo",
