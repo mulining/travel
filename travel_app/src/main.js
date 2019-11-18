@@ -8,7 +8,7 @@ import MintUI from "mint-ui";
 import "mint-ui/lib/style.css";
 import Vant from "vant";
 import "vant/lib/index.css";
-import qs from 'qs';
+import qs from "qs";
 
 //即刻出发
 import { NavBar } from 'vant';
@@ -23,6 +23,7 @@ Vue.use(Grid).use(GridItem);
 Vue.use(Vant);
 
 Vue.use(qs);
+Vue.config.silent = true;
 Vue.config.productionTip = false;
 //注册Mintui
 Vue.use(MintUI);
