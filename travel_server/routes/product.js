@@ -13,7 +13,7 @@ router.get("/index_slide", (req, res) => {
   pool.query(sql, (err, result) => {
     if (err) throw err;
     if (result.length > 0) {
-      res.send({ code: 1, msg: "轮播图数据查询成功" });
+      res.send({ code: 1, msg: "轮播图数据查询成功", data: result });
     } else {
       res.send({ code: -1, msg: "轮播图没有数据" });
     }
@@ -25,6 +25,7 @@ router.get("/index_slide", (req, res) => {
 //数据表 : travel_caro
 // 请求的列有: pic/title/subtitle/type
 router.get("/camp", (req, res) => {
+  console.log(123);
   var sql = "SELECT pic,title,subtitle,type FROM travel_caro";
   pool.query(sql, (err, result) => {
     if (err) throw err;
@@ -36,23 +37,21 @@ router.get("/camp", (req, res) => {
   });
 });
 
-
 //分享
 // 请求方法get 接口：/share
 // 数据表 ：travel_shared
 // 请求的列表： pic/title/likes(点赞数)
-router.get("/share",(req,res)=>{
-  var sql = "SELECT pic,title,likes FROM travel_shared"
-  pool.query(sql,(err,result)=>{
-    if(err) throw err;
-    if(result.length > 0){
-      res.send({code:1,msg:"网友分享数据查询完成！",data:result});
-    }else{
-      res.send({code:-1,msg:"暂无网友分享数据！"});
+router.get("/share", (req, res) => {
+  var sql = "SELECT pic,title,likes FROM trave_shared";
+  pool.query(sql, (err, result) => {
+    if (err) throw err;
+    if (result.length > 0) {
+      res.send({ code: 1, msg: "网友分享数据查询完成！", data: result[0] });
+    } else {
+      res.send({ code: -1, msg: "暂无网友分享数据！" });
     }
   });
 });
-
 
 // 导出
 module.exports = router;

@@ -3,7 +3,11 @@
     <my-header></my-header>
     <!-- 搜索 -->
     <router-link to="/search">
-      <van-search id="d" placeholder="输入目的地，查找体验线路或营地" v-model="value" />
+      <van-search
+        id="d"
+        placeholder="输入目的地，查找体验线路或营地"
+        v-model="value"
+      />
     </router-link>
     <!-- 轮播 -->
     <lun-bo></lun-bo>
@@ -20,11 +24,17 @@
         </li>
         <li class="mainRight">
           <div>
-            <img src="@/assets/images/6388f48e1e134324a1934a964b11b892.png" alt />
+            <img
+              src="@/assets/images/6388f48e1e134324a1934a964b11b892.png"
+              alt
+            />
             <p>100%最美新西兰</p>
           </div>
           <div>
-            <img src="@/assets/images/0e838b2501d04ba8a8dd21f211d432fd.jpg" alt />
+            <img
+              src="@/assets/images/0e838b2501d04ba8a8dd21f211d432fd.jpg"
+              alt
+            />
             <p>耶稣露营新玩法</p>
           </div>
         </li>
@@ -237,6 +247,8 @@ export default {
   border: 1px solid rgb(179, 176, 176);
   border-radius: 3px;
   margin: 20px 0;
+  color: #000;
+  font-size: 1rem;
 }
 .mainBottom > li:last-child > img {
   width: 100%;
@@ -274,7 +286,8 @@ export default {
   border-radius: 3px;
 }
 .main > li .fangChe > p:first-child {
-  margin-bottom: 5px;
+  color: #000;
+  font-size: 1rem;
 }
 .main > li .fangChe > p:last-child {
   font-size: 0.1rem;

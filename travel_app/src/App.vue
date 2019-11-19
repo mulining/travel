@@ -131,7 +131,7 @@ section {
 }
 body {
   font: 12px/1.5 "Microsoft YaHei", "宋体", Tahoma, Arial, sans-serif;
-  color: #555;
+  /* color: #555; */
   background-color: #f7f7f7;
 }
 em,
