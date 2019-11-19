@@ -15,6 +15,7 @@ Vue.use(Vuex);
 
 //即刻出发
 import { NavBar } from "vant";
+import "../src/assets/resetVui.css";
 Vue.use(NavBar);
 import { Tab, Tabs } from "vant";
 Vue.use(Tab).use(Tabs);

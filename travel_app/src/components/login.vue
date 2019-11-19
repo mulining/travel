@@ -39,6 +39,9 @@ export default {
       upwd: ""
     };
   },
+  created() {
+    this.login();
+  },
   methods: {
     fanHui() {
       this.$router.push("/my");
@@ -75,7 +78,7 @@ export default {
             this.$router.push("/my");
             this.$store.commit("userLogin");
           } else {
-            Toast.fail("请输入正确的用户名和密码");
+            this.$store.commit("userLogin");
           }
         })
         .catch(err => {
