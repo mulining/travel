@@ -1,11 +1,12 @@
 import home from "@/views/home";
 import my from "@/views/my";
 import road from "@/views/road";
+import test from "@/views/test";
 import lunBo from "@/components/lunBo";
 import tabBar from "@/components/tabBar";
 import search from "@/components/search";
 import justGo from "@/components/justGo";
-import login from "@/components/login";
+import reg from "@/components/reg";
 import register from "@/components/register";
 import Vue from "vue";
 import Router from "vue-router";
@@ -13,6 +14,8 @@ import HelloWorld from "@/components/HelloWorld";
 import myHeader from "@/components/myHeader";
 import treeSelect from "@/components/treeSelect";
 import grid from "@/components/grid";
+import login from "@/components/login";
+import personal from "@/components/personal";
 
 Vue.use(Router);
 
@@ -29,9 +32,24 @@ export default new Router({
       component: HelloWorld
     },
     {
+      path: "/personal",
+      name: "personal",
+      component: personal
+    },
+    {
+      path: "/test",
+      name: "test",
+      component: test
+    },
+    {
       path: "/myHeader",
       name: "myHeader",
       component: myHeader
+    },
+    {
+      path: "/login",
+      name: "login",
+      component: login
     },
     {
       path: "/justGo",
@@ -44,9 +62,9 @@ export default new Router({
       component: lunBo
     },
     {
-      path: "/login",
-      name: "login",
-      component: login
+      path: "/reg",
+      name: "reg",
+      component: reg
     },
     {
       path: "/my",

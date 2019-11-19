@@ -19,6 +19,7 @@ const crypto = require("crypto");
 const bodyParser = require("body-parser");
 
 var app = express();
+app.listen(5050);
 
 app.use(
   cors({
@@ -46,5 +47,3 @@ app.use(express.static("static"));
 app.use("/user", userRouter);
 app.use("/product", productRouter);
 app.use("/details", details);
-
-app.listen(5050);

@@ -6,9 +6,19 @@
     <div class="ctn">
       <img @click="fanHui" src="@/assets/images/youJianTou.png" alt />
       <h2>欢迎您，请登录</h2>
-      <input class="yongHu" type="text" placeholder="请输入用户名" v-model="uname" />
-      <input class="miMa" type="password" placeholder="请输入密码" v-model="upwd" />
-      <button @click="login">注册</button>
+      <input
+        class="yongHu"
+        type="text"
+        placeholder="请输入用户名"
+        v-model="uname"
+      />
+      <input
+        class="miMa"
+        type="password"
+        placeholder="请输入密码"
+        v-model="upwd"
+      />
+      <button @click="login">立即登录</button>
       <div class="yueDu">
         <input type="checkbox" name="btn" id="btn1" />阅读并同意
         <a>《用户使用协议》</a>
@@ -21,12 +31,16 @@
 
 <script>
 import qs from "qs";
+import { Toast } from "vant";
 export default {
   data() {
     return {
       uname: "",
       upwd: ""
     };
+  },
+  created() {
+    this.login();
   },
   methods: {
     fanHui() {
@@ -48,7 +62,7 @@ export default {
         return;
       }
       //发送ajax请求
-      var url = "user/reg";
+      var url = "user/login";
       this.axios
         .post(
           url,
@@ -59,15 +73,17 @@ export default {
         )
         .then(res => {
           console.log(res);
-          alert("注册成功");
+          if (res.data.code == 1) {
+            Toast.success("登陆成功");
+            this.$router.push("/my");
+            this.$store.commit("userLogin");
+          } else {
+            this.$store.commit("userLogin");
+          }
         })
-      .then(res=>{
-        console.log(res);
-        this.$confirm("注册成功");
-              })
-      .catch(err=>{
-        console.log(err);
-      })
+        .catch(err => {
+          console.log(err);
+        });
     }
   }
 };
@@ -153,7 +169,7 @@ textarea::-webkit-input-placeholder {
   width: 100%;
   position: relative;
   height: 667px;
-  background: url("../assets/images/291b76bb97ee4c62839077a5e49c85ff.jpg")
+  background: url("../assets/images/d6cf8fbfc53d4dbf93dee23a227c530c.jpg")
     no-repeat;
   background-size: 100% 100%;
 }

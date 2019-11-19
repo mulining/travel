@@ -7,23 +7,6 @@
       </router-link>
       </div>
     </div>
-    <!-- <div class="dingdan">
-      <p>我的订单</p>
-      <van-grid :border="false" :column-num="4">
-        <van-grid-item>
-          <van-image :src="require('../assets/images/待支付.png')" />待支付
-        </van-grid-item>
-        <van-grid-item>
-          <van-image :src="require('../assets/images/已支付.png')" />已支付
-        </van-grid-item>
-        <van-grid-item>
-          <van-image :src="require('../assets/images/已取消.png')" />已取消
-        </van-grid-item>
-        <van-grid-item>
-          <van-image :src="require('../assets/images/全部订单.png')" />全部订单
-        </van-grid-item>
-      </van-grid>
-    </div> -->
     <div class="daohang">
       <van-cell title="我的游记" icon="photograph">
         <van-icon
@@ -77,14 +60,39 @@
 <script>
 import tabBar from "@/components/tabBar";
 export default {
-  components: { tabBar }
+  components: { tabBar },
+  data() {
+    return {};
+  }
 };
 </script>
 
 <style scoped>
+.title > div > div > h5 {
+  text-align: center;
+  margin-top: 0.4rem;
+}
+.title > div > img:last-child {
+  width: 1rem;
+  height: 1rem;
+  margin-top: 1.4rem;
+  margin-left: 0.5rem;
+}
+.title > div {
+  display: flex;
+  padding-top: 2rem;
+  padding-left: 1.5rem;
+}
+.title > div > img:first-child {
+  width: 3.5rem;
+  height: 3.5rem;
+  margin-right: 1rem;
+  border-radius: 50%;
+}
 .title {
   width: 100%;
-  height: 187px;
+  color: #fff;
+  height: 170px;
   background: url("../assets/images/0e838b2501d04ba8a8dd21f211d432fd.jpg");
   background-size: cover;
   z-index: 0;
