@@ -62,9 +62,11 @@ router.post("/login", (req, res) => {
   var sql = "SELECT id FROM travel_user WHERE uname=? AND upwd=md5(?)";
   pool.query(sql, [uname, upwd], (err, result) => {
     if (err) throw err;
+    console.log(1);
     if (result.length > 0) {
       // 将uid存入req.session
       req.session.uid = result[0].id;
+      console.log(req.session);
       res.send({ code: 1, msg: "登录成功!" });
     } else {
       res.send({ code: -1, msg: "登录失败!" });
