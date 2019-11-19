@@ -71,9 +71,13 @@ export default {
           console.log(res);
           this.$router.push("/home");
         })
-        .catch(err => {
-          console.log(err);
-        });
+      .then(res=>{
+        console.log(res);
+        this.$confirm("注册成功");
+              })
+      .catch(err=>{
+        console.log(err);
+      })
     }
   }
 };
