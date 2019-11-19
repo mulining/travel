@@ -184,19 +184,6 @@ CREATE TABLE `travel_shared` (
 --
 
 INSERT INTO `travel_shared` (`id`, `uid`, `pic`, `title`, `subtitle`, `likes`, `share_time`) VALUES
-<<<<<<< HEAD
-(1, 1, '../assets/imgs/2987675001c54d19b3be1df52d2db482.png', '带你领略新西兰100%PureLand七大房车营地', '休闲 娱乐', '5', '2019-11-18 00:26:11'),
-(2, 2, '../assets/imgs/6742001269c7461fb2fd90afe5379cc2.png', '干货|租房车出行前必备指南', '休闲', '8', '2019-11-18 00:26:19'),
-(3, 3, '../assets/imgs/b32c83cdfbf14a31be21c410277c606a.jpg', '一路向南·拾起海南西线那些被遗忘的美', '休闲 娱乐', '9', '2019-11-18 00:26:28'),
-(4, 4, '../assets/imgs/b44a142b8a6b4a9b9108cde47aaff052.jpeg', '东八区的这里没有时差，也不是你现象的模样', '探险 休闲', '4', '2019-11-18 00:27:19'),
-(5, 1, '../assets/imgs/b496403d823e47ee971edee7dfe1598e.jpg', '【一路向南】驾驶房车领略北纬18度的热带海岛', '娱乐 探险', '5', '2019-11-18 00:27:52'),
-(6, 2, '../assets/imgs/c5c66137c5e04666a842933249d89289.jpg', '春节玩转纯净新西兰南-北岛', '娱乐', '2', '2019-11-18 00:28:09'),
-(7, 3, '../assets/imgs/cdb648a8cfd44c49815d5c8382a933f4.png', '走的太久，是时候停下来思考一下了', '休闲', '10', '2019-11-18 00:28:17'),
-(8, 4, '../assets/imgs/d4ded83d591a4bd5be49d4416d05590f.jpg', '清明踏青，探索江西不为人知的美丽', '休闲 探险', '5', '2019-11-18 00:28:30'),
-(9, 1, '../assets/imgs/d14825849de14c0a9bad011156a54e4d.jpg', '云南，走进一场风花雪月的浪漫之旅', '休闲 娱乐', '4', '2019-11-18 00:28:44'),
-(10, 2, '../assets/imgs/e42461a81f764d7b997cfce51fe5e5c8.jpg', '春天的气息扑面而来，准备出发！', '休闲', '9', '2019-11-18 00:28:50'),
-(11, 1, '../assets/imgs/ef11994a6be9496e87ceac3e3fb8d54d.jpg', '彼岸无声，聚散星尘，美西房车游', '探险', '6', '2019-11-18 00:29:01');
-=======
 (1, 1, './static/imgs/2987675001c54d19b3be1df52d2db482.png', '带你领略新西兰100%PureLand七大房车营地', '休闲 娱乐', '5', '2019-11-18 00:26:11'),
 (2, 2, './static/imgs/6742001269c7461fb2fd90afe5379cc2.png', '干货|租房车出行前必备指南', '休闲', '8', '2019-11-18 00:26:19'),
 (3, 3, './static/imgs/b32c83cdfbf14a31be21c410277c606a.jpg', '一路向南·拾起海南西线那些被遗忘的美', '休闲 娱乐', '9', '2019-11-18 00:26:28'),
@@ -208,7 +195,6 @@ INSERT INTO `travel_shared` (`id`, `uid`, `pic`, `title`, `subtitle`, `likes`, `
 (9, 1, './static/imgs/d14825849de14c0a9bad011156a54e4d.jpg', '云南，走进一场风花雪月的浪漫之旅', '休闲 娱乐', '4', '2019-11-18 00:28:44'),
 (10, 2, './static/imgs/e42461a81f764d7b997cfce51fe5e5c8.jpg', '春天的气息扑面而来，准备出发！', '休闲', '9', '2019-11-18 00:28:50'),
 (11, 1, './static/imgs/ef11994a6be9496e87ceac3e3fb8d54d.jpg', '彼岸无声，聚散星尘，美西房车游', '探险', '6', '2019-11-18 00:29:01');
->>>>>>> f54a9ac413cfc07bdaddaa8cfce4cfa281b2f4b0
 
 -- --------------------------------------------------------
 
@@ -242,100 +228,100 @@ CREATE TABLE `travel_user` (
 --
 -- Indexes for table `travel_camp`
 --
-ALTER TABLE `travel_camp`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `type` (`type`);
+-- ALTER TABLE `travel_camp`
+--   ADD PRIMARY KEY (`id`),
+--   ADD KEY `type` (`type`);
 
---
--- Indexes for table `travel_caro`
---
-ALTER TABLE `travel_caro`
-  ADD PRIMARY KEY (`id`);
+-- --
+-- -- Indexes for table `travel_caro`
+-- --
+-- ALTER TABLE `travel_caro`
+--   ADD PRIMARY KEY (`id`);
 
---
--- Indexes for table `travel_class`
---
-ALTER TABLE `travel_class`
-  ADD PRIMARY KEY (`id`);
+-- --
+-- -- Indexes for table `travel_class`
+-- --
+-- ALTER TABLE `travel_class`
+--   ADD PRIMARY KEY (`id`);
 
---
--- Indexes for table `travel_collect`
---
-ALTER TABLE `travel_collect`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `uid` (`uid`),
-  ADD KEY `tid` (`tid`);
+-- --
+-- -- Indexes for table `travel_collect`
+-- --
+-- ALTER TABLE `travel_collect`
+--   ADD PRIMARY KEY (`id`),
+--   ADD KEY `uid` (`uid`),
+--   ADD KEY `tid` (`tid`);
 
---
--- Indexes for table `travel_shared`
---
-ALTER TABLE `travel_shared`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `uid` (`uid`);
+-- --
+-- -- Indexes for table `travel_shared`
+-- --
+-- ALTER TABLE `travel_shared`
+--   ADD PRIMARY KEY (`id`),
+--   ADD KEY `uid` (`uid`);
 
---
--- Indexes for table `travel_user`
---
-ALTER TABLE `travel_user`
-  ADD PRIMARY KEY (`id`);
+-- --
+-- -- Indexes for table `travel_user`
+-- --
+-- ALTER TABLE `travel_user`
+--   ADD PRIMARY KEY (`id`);
 
---
--- 在导出的表使用AUTO_INCREMENT
---
+-- --
+-- -- 在导出的表使用AUTO_INCREMENT
+-- --
 
---
--- 使用表AUTO_INCREMENT `travel_camp`
---
-ALTER TABLE `travel_camp`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+-- --
+-- -- 使用表AUTO_INCREMENT `travel_camp`
+-- --
+-- ALTER TABLE `travel_camp`
+--   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
---
--- 使用表AUTO_INCREMENT `travel_caro`
---
-ALTER TABLE `travel_caro`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+-- --
+-- -- 使用表AUTO_INCREMENT `travel_caro`
+-- --
+-- ALTER TABLE `travel_caro`
+--   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
---
--- 使用表AUTO_INCREMENT `travel_class`
---
-ALTER TABLE `travel_class`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+-- --
+-- -- 使用表AUTO_INCREMENT `travel_class`
+-- --
+-- ALTER TABLE `travel_class`
+--   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
---
--- 使用表AUTO_INCREMENT `travel_collect`
---
-ALTER TABLE `travel_collect`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+-- --
+-- -- 使用表AUTO_INCREMENT `travel_collect`
+-- --
+-- ALTER TABLE `travel_collect`
+--   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
---
--- 使用表AUTO_INCREMENT `travel_user`
---
-ALTER TABLE `travel_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+-- --
+-- -- 使用表AUTO_INCREMENT `travel_user`
+-- --
+-- ALTER TABLE `travel_user`
+--   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
---
--- 限制导出的表
---
+-- --
+-- -- 限制导出的表
+-- --
 
---
--- 限制表 `travel_camp`
---
-ALTER TABLE `travel_camp`
-  ADD CONSTRAINT `travel_camp_ibfk_1` FOREIGN KEY (`type`) REFERENCES `travel_class` (`id`);
+-- --
+-- -- 限制表 `travel_camp`
+-- --
+-- ALTER TABLE `travel_camp`
+--   ADD CONSTRAINT `travel_camp_ibfk_1` FOREIGN KEY (`type`) REFERENCES `travel_class` (`id`);
 
---
--- 限制表 `travel_collect`
---
-ALTER TABLE `travel_collect`
-  ADD CONSTRAINT `travel_collect_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `travel_user` (`id`),
-  ADD CONSTRAINT `travel_collect_ibfk_2` FOREIGN KEY (`tid`) REFERENCES `travel_camp` (`id`);
+-- --
+-- -- 限制表 `travel_collect`
+-- --
+-- ALTER TABLE `travel_collect`
+--   ADD CONSTRAINT `travel_collect_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `travel_user` (`id`),
+--   ADD CONSTRAINT `travel_collect_ibfk_2` FOREIGN KEY (`tid`) REFERENCES `travel_camp` (`id`);
 
---
--- 限制表 `travel_user`
---
-ALTER TABLE `travel_user`
-  ADD CONSTRAINT `travel_user_ibfk_1` FOREIGN KEY (`id`) REFERENCES `travel_shared` (`uid`);
-COMMIT;
+-- --
+-- -- 限制表 `travel_user`
+-- --
+-- ALTER TABLE `travel_user`
+--   ADD CONSTRAINT `travel_user_ibfk_1` FOREIGN KEY (`id`) REFERENCES `travel_shared` (`uid`);
+-- COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
