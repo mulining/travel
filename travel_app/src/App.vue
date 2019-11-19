@@ -21,7 +21,6 @@ html {
   /* 解决IOS默认滑动很卡的情况 */
   -webkit-overflow-scrolling: touch;
 }
-
 /* 禁止缩放表单 */
 input[type="submit"],
 input[type="reset"],

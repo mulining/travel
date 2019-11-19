@@ -11,16 +11,16 @@
     </div>
     <!-- Tab标签页 -->
     <div>
-      <van-tabs v-model="activeName">
-        <van-tab title="推荐" name="tj">
+      <van-tabs line-height="5px" color="#52e0f05e" v-model="activeName">
+        <van-tab title="推荐" name="tj" data-id="1">
           <!-- treeSelect分类选择 -->
           <tree-select></tree-select>
         </van-tab>
-        <van-tab title="境内" name="jn">
+        <van-tab title="境内" name="jn" data-id="2">
           <!-- treeSelect分类选择 -->
           <tree-select></tree-select>
         </van-tab>
-        <van-tab title="境外" name="jw">
+        <van-tab title="境外" name="jw" data-id="3">
           <!-- treeSelect分类选择 -->
           <tree-select></tree-select>
         </van-tab>
@@ -65,16 +65,19 @@ export default {
     flex-direction: column;
     justify-content: flex-start;
   }
-  .justgo > div.next{
-    padding-top: 1px solid rgb(228, 46, 46);
+  .justgo > .next a{
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
   }
-  .justgo > .next a {
+  .van-sidebar-item--select {
+    color: #000 !important
+  }
+  .justgo > .next a{
     display: block;
     width: 100%;
     height: 50px;
     text-align: center;
     line-height: 50px;
     font-size: 15px;
-    background: white;
   }
 </style>

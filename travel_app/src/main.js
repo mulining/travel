@@ -11,6 +11,7 @@ import "vant/lib/index.css";
 import qs from "qs";
 
 //即刻出发
+import "../src/assets/resetVui.css";
 import { NavBar } from 'vant';
 Vue.use(NavBar);
 import { Tab, Tabs } from 'vant';
