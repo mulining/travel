@@ -40,11 +40,11 @@ export default {
       var p = this.upwd;
       console.log(p);
       if (!ureg.test(u)) {
-        this.$messagebox("消息", "用户名格式不正确");
+        this.$messagebox("消息", "用户名格式为开头小写字母，4-15位");
         return;
       }
       if (!preg.test(p)) {
-        this.$messagebox("消息", "密码格式不正确");
+        this.$messagebox("消息", "密码格式为字母开头，5-17位");
         return;
       }
       //发送ajax请求

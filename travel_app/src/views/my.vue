@@ -1,9 +1,11 @@
 <template>
   <div>
     <div class="title">
+      <div class="title-1">
       <router-link to="/login">
         <button>请登录</button>
       </router-link>
+      </div>
     </div>
     <!-- <div class="dingdan">
       <p>我的订单</p>
@@ -87,14 +89,18 @@ export default {
   background-size: cover;
   z-index: 0;
 }
+.title-1{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+}
 .title button {
   border: 1px solid whitesmoke;
   outline: 0;
   padding: 5px 15px;
   width: 120px;
   height: 38px;
-  margin-left: 130px;
-  margin-top: 69px;
   border-radius: 15px;
   background-color: rgba(0, 0, 0, 0.1);
   color: white;
