@@ -31,12 +31,16 @@
 
 <script>
 import qs from "qs";
+import { Toast } from "vant";
 export default {
   data() {
     return {
       uname: "",
       upwd: ""
     };
+  },
+  created() {
+    this.login();
   },
   methods: {
     fanHui() {
@@ -50,11 +54,11 @@ export default {
       var p = this.upwd;
       console.log(p);
       if (!ureg.test(u)) {
-        this.$messagebox("消息", "用户名格式不正确");
+        Toast.fail("用户名格式不正确");
         return;
       }
       if (!preg.test(p)) {
-        this.$messagebox("消息", "密码格式不正确");
+        Toast.fail("密码格式不正确");
         return;
       }
       //发送ajax请求
@@ -69,15 +73,17 @@ export default {
         )
         .then(res => {
           console.log(res);
-          this.$router.push("/home");
+          if (res.data.code == 1) {
+            Toast.success("登陆成功");
+            this.$router.push("/my");
+            this.$store.commit("userLogin");
+          } else {
+            this.$store.commit("userLogin");
+          }
         })
-      .then(res=>{
-        console.log(res);
-        this.$confirm("注册成功");
-              })
-      .catch(err=>{
-        console.log(err);
-      })
+        .catch(err => {
+          console.log(err);
+        });
     }
   }
 };

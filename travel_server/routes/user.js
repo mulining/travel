@@ -39,6 +39,7 @@ router.post("/reg", (req, res) => {
     if (err) throw err;
     if (result.affectedRows > 0) {
       res.send({ code: 1, msg: "注册成功!" });
+      return;
     } else {
       res.send({ code: -1, msg: "注册失败!" });
     }
@@ -48,8 +49,8 @@ router.post("/reg", (req, res) => {
 // 用户登录 post
 // 方式一:(用户名/密码) 接口: /login
 router.post("/login", (req, res) => {
-  var uname = req.query.uname;
-  var upwd = req.query.upwd;
+  var uname = req.body.uname;
+  var upwd = req.body.upwd;
   if (!uname) {
     res.send({ data: -2, msg: "用户名不能为空!" });
     return;
@@ -68,6 +69,7 @@ router.post("/login", (req, res) => {
       req.session.uid = result[0].id;
       console.log(req.session);
       res.send({ code: 1, msg: "登录成功!" });
+      return;
     } else {
       res.send({ code: -1, msg: "登录失败!" });
     }
@@ -88,13 +90,13 @@ router.post("/rlbyphone", (req, res) => {
 // 用户个人信息录入 post 接口: /personal
 router.post("/personal", (req, res) => {
   var uid = req.session.uid,
-    un = req.query.uname,
-    p = req.query.phone,
-    u_n = req.query.user_name,
-    g = req.query.gender,
-    a = req.query.address,
+    un = req.body.uname,
+    p = req.body.phone,
+    u_n = req.body.user_name,
+    g = req.body.gender,
+    a = req.body.address,
     s = req.query.sign,
-    pic = req.query.pic;
+    pic = req.body.pic;
   if (verify(req)) {
     // 这里是说明用户处于登录状态,可以执行数据录入
     var sql =

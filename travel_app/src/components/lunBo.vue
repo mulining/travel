@@ -27,7 +27,6 @@ export default {
   },
   created() {
     funs.getHome(res => {
-      console.log(res);
       var obj = res.data;
       this.img = obj.data;
     });

@@ -15,6 +15,7 @@ import myHeader from "@/components/myHeader";
 import treeSelect from "@/components/treeSelect";
 import grid from "@/components/grid";
 import login from "@/components/login";
+import personal from "@/components/personal";
 
 Vue.use(Router);
 
@@ -29,6 +30,11 @@ export default new Router({
       path: "/",
       name: "HelloWorld",
       component: HelloWorld
+    },
+    {
+      path: "/personal",
+      name: "personal",
+      component: personal
     },
     {
       path: "/test",

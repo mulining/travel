@@ -18,7 +18,7 @@
         placeholder="请输入密码"
         v-model="upwd"
       />
-      <button @click="login">注册</button>
+      <button @click="reg">注册</button>
       <div class="yueDu">
         <input type="checkbox" name="btn" id="btn1" />阅读并同意
         <a>《用户使用协议》</a>
@@ -31,6 +31,7 @@
 
 <script>
 import qs from "qs";
+import { Toast } from "vant";
 export default {
   data() {
     return {
@@ -42,7 +43,7 @@ export default {
     fanHui() {
       this.$router.push("/my");
     },
-    login() {
+    reg() {
       var ureg = new RegExp(/^[a-z][a-zA-Z0-9_]{4,15}$/);
       var preg = new RegExp(/^[a-zA-Z]\w{5,17}$/);
       var u = this.uname;
@@ -50,11 +51,11 @@ export default {
       var p = this.upwd;
       console.log(p);
       if (!ureg.test(u)) {
-        this.$messagebox("消息", "用户名格式不正确");
+        Toast.fail("用户名格式不正确");
         return;
       }
       if (!preg.test(p)) {
-        this.$messagebox("消息", "密码格式不正确");
+        Toast.fail("密码格式不正确");
         return;
       }
       //发送ajax请求
@@ -69,7 +70,9 @@ export default {
         )
         .then(res => {
           console.log(res);
-          this.$router.push("/login")
+          Toast.success("注册成功");
+          this.$router.push("/login");
+          return
         })
         .catch(err => {
           console.log(err);

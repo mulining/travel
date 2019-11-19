@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="title" v-if="$store.getters.login">
+    <div class="title">
       <div>
         <img
           src="@/assets/images/u=1724821872,4223408992&fm=26&gp=0.jpg"
@@ -12,11 +12,6 @@
         </div>
         <img src="@/assets/images/xiuGai.png" alt="" />
       </div>
-    </div>
-    <div class="title" v-else>
-      <router-link to="/reg">
-        <button>请登录</button>
-      </router-link>
     </div>
     <div class="daohang">
       <van-cell title="我的游记" icon="photograph">
@@ -71,10 +66,7 @@
 <script>
 import tabBar from "@/components/tabBar";
 export default {
-  components: { tabBar },
-  data() {
-    return {};
-  }
+  components: { tabBar }
 };
 </script>
 
@@ -108,35 +100,6 @@ export default {
   background-size: cover;
   z-index: 0;
 }
-.title button {
-  border: 1px solid whitesmoke;
-  outline: 0;
-  padding: 5px 15px;
-  width: 120px;
-  height: 38px;
-  margin-left: 130px;
-  margin-top: 69px;
-  border-radius: 15px;
-  background-color: rgba(0, 0, 0, 0.1);
-  color: white;
-}
-/* .dingdan {
-  width: 90%;
-  height: 157px;
-  margin: 0 auto;
-  margin-top: -50px;
-  z-index: 1;
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0px 10px 18px #ccc;
-}
-.dingdan p {
-  padding-top: 20px;
-  margin-left: 20px;
-  color: #aaa;
-  margin-bottom: 15px;
-  font-size: 17px;
-} */
 .van-image {
   width: 43px;
   height: 42px;
