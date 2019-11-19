@@ -13,7 +13,7 @@ router.get("/index_slide", (req, res) => {
   pool.query(sql, (err, result) => {
     if (err) throw err;
     if (result.length > 0) {
-      res.send({ code: 1, msg: "轮播图数据查询成功" });
+      res.send({ code: 1, msg: "轮播图数据查询成功", data: result });
     } else {
       res.send({ code: -1, msg: "轮播图没有数据" });
     }
@@ -29,13 +29,12 @@ router.get("/camp", (req, res) => {
   pool.query(sql, (err, result) => {
     if (err) throw err;
     if (result.length) {
-      res.send({ code: 1, msg: "首页臻选营地查询成功!", data: result[0] });
+      res.send({ code: 1, msg: "首页臻选营地查询成功!", data: result });
     } else {
       res.send({ code: -1, msg: "首页臻选营地查询失败!" });
     }
   });
 });
-
 
 //分享
 // 请求方法get 接口：/share

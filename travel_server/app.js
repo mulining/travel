@@ -19,6 +19,7 @@ const crypto = require("crypto");
 const bodyParser = require("body-parser");
 
 var app = express();
+app.listen(5050);
 
 app.use(
   cors({
@@ -41,10 +42,8 @@ app.use(
     extended: false
   })
 );
-
+app.use(express.static("static"));
 // 挂载路由器
 app.use("/user", userRouter);
-app.use("/pro", productRouter);
+app.use("/product", productRouter);
 app.use("/details", details);
-
-app.listen(5050);

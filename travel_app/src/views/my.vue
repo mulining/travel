@@ -1,11 +1,11 @@
 <template>
   <div>
     <div class="title">
-      <router-link to="/login">
+      <router-link to="/reg">
         <button>请登录</button>
       </router-link>
     </div>
-    <div class="dingdan">
+    <!-- <div class="dingdan">
       <p>我的订单</p>
       <van-grid :border="false" :column-num="4">
         <van-grid-item>
@@ -21,7 +21,7 @@
           <van-image :src="require('../assets/images/全部订单.png')" />全部订单
         </van-grid-item>
       </van-grid>
-    </div>
+    </div> -->
     <div class="daohang">
       <van-cell title="我的游记" icon="photograph">
         <van-icon
@@ -37,7 +37,7 @@
           style="line-height: inherit;"
         />
       </van-cell>
-      <van-cell title="我的优惠券" icon="column">
+      <van-cell title="我的积分" icon="column">
         <van-icon
           slot="right-icon"
           name="arrow"
@@ -99,7 +99,7 @@ export default {
   background-color: rgba(0, 0, 0, 0.1);
   color: white;
 }
-.dingdan {
+/* .dingdan {
   width: 90%;
   height: 157px;
   margin: 0 auto;
@@ -115,7 +115,7 @@ export default {
   color: #aaa;
   margin-bottom: 15px;
   font-size: 17px;
-}
+} */
 .van-image {
   width: 43px;
   height: 42px;

@@ -21,7 +21,6 @@ html {
   /* 解决IOS默认滑动很卡的情况 */
   -webkit-overflow-scrolling: touch;
 }
-
 /* 禁止缩放表单 */
 input[type="submit"],
 input[type="reset"],
@@ -132,7 +131,7 @@ section {
 }
 body {
   font: 12px/1.5 "Microsoft YaHei", "宋体", Tahoma, Arial, sans-serif;
-  color: #555;
+  /* color: #555; */
   background-color: #f7f7f7;
 }
 em,
