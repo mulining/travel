@@ -65,7 +65,7 @@
           </a>
         </div>
       </div>
-      <router-link to>
+      <router-link to="/more">
         <button class="but">查看更多臻选营地</button>
       </router-link>
       <dl class="gaoFen">
@@ -82,7 +82,7 @@
           </div>
         </dd>
       </dl>
-      <router-link to>
+      <router-link to="">
         <button class="but">查看所有体验线路</button>
       </router-link>
     </div>

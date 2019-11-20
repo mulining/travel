@@ -16,6 +16,7 @@ import treeSelect from "@/components/treeSelect";
 import grid from "@/components/grid";
 import login from "@/components/login";
 import personal from "@/components/personal";
+import more from "@/components/more";
 
 Vue.use(Router);
 
@@ -50,6 +51,11 @@ export default new Router({
       path: "/login",
       name: "login",
       component: login
+    },
+    {
+      path: "/more",
+      name: "more",
+      component: more
     },
     {
       path: "/justGo",

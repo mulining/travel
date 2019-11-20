@@ -6,24 +6,26 @@
     <div class="ctn">
       <img @click="fanHui" src="@/assets/images/youJianTou.png" alt />
       <h2>欢迎您，请登录</h2>
-      <input
-        class="yongHu"
-        type="text"
-        placeholder="请输入用户名"
-        v-model="uname"
-      />
-      <input
-        class="miMa"
-        type="password"
-        placeholder="请输入密码"
-        v-model="upwd"
-      />
-      <button @click="login">立即登录</button>
-      <div class="yueDu">
-        <input type="checkbox" name="btn" id="btn1" />阅读并同意
-        <a>《用户使用协议》</a>
-        及
-        <a>《隐私保护政策》</a>
+      <div class="ipt">
+        <input
+          class="yongHu"
+          type="text"
+          placeholder="请输入用户名"
+          v-model="uname"
+        />
+        <input
+          class="miMa"
+          type="password"
+          placeholder="请输入密码"
+          v-model="upwd"
+        />
+        <button @click="login">立即登录</button>
+        <div class="yueDu">
+          <input type="checkbox" name="btn" id="btn1" />阅读并同意
+          <a>《用户使用协议》</a>
+          及
+          <a>《隐私保护政策》</a>
+        </div>
       </div>
     </div>
   </div>
@@ -39,9 +41,9 @@ export default {
       upwd: ""
     };
   },
-  created() {
-    this.login();
-  },
+  // created() {
+  //   this.login();
+  // },
   methods: {
     fanHui() {
       this.$router.push("/my");
@@ -90,30 +92,34 @@ export default {
 </script>
 
 <style scoped>
-.ctn > input {
+.ipt {
+  display: flex;
+  justify-content: space-around;
+}
+.ipt > input {
   font-size: 0.9rem;
   color: #fff;
 }
-.ctn > .yueDu > a {
+.yueDu > a {
   color: #00dbc1;
 }
-.ctn > .yueDu > input {
+.yueDu > div > div > input {
   margin-right: 4px;
   color: #00dbc1;
   border: none;
 }
-.ctn > .yueDu {
+.yueDu {
   position: absolute;
   top: 400px;
   left: 50px;
   color: #fff;
-  font-size: 0.7rem;
   display: flex;
   justify-items: center;
-  height: 10px;
   line-height: 10px;
+  width: 100%;
+  text-align: center;
 }
-.ctn > button {
+.ctn > div > button {
   position: absolute;
   top: 340px;
   left: 51px;
@@ -137,7 +143,7 @@ textarea::-webkit-input-placeholder {
   color: rgb(201, 201, 201) !important;
   font-size: 0.8rem;
 }
-.ctn > .yongHu {
+.yongHu {
   position: absolute;
   background: transparent;
   width: 70%;
@@ -146,7 +152,7 @@ textarea::-webkit-input-placeholder {
   padding: 10px;
   left: 50px;
 }
-.ctn > .miMa {
+.miMa {
   position: absolute;
   width: 70%;
   border-bottom: 1px solid #fff;
@@ -174,10 +180,9 @@ textarea::-webkit-input-placeholder {
   background-size: 100% 100%;
 }
 .ctn {
-  width: 90%;
+  width: 86%;
   position: absolute;
   left: 0;
   top: 0;
-  margin: 0 auto;
 }
 </style>
