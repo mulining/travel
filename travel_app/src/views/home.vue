@@ -3,11 +3,7 @@
     <my-header></my-header>
     <!-- 搜索 -->
     <router-link to="/search">
-      <van-search
-        id="d"
-        placeholder="输入目的地，查找体验线路或营地"
-        v-model="value"
-      />
+      <van-search id="d" placeholder="输入目的地，查找体验线路或营地" v-model="value" />
     </router-link>
     <!-- 轮播 -->
     <lun-bo></lun-bo>
@@ -24,17 +20,11 @@
         </li>
         <li class="mainRight">
           <div>
-            <img
-              src="@/assets/images/6388f48e1e134324a1934a964b11b892.png"
-              alt
-            />
+            <img src="@/assets/images/6388f48e1e134324a1934a964b11b892.png" alt />
             <p>100%最美新西兰</p>
           </div>
           <div>
-            <img
-              src="@/assets/images/0e838b2501d04ba8a8dd21f211d432fd.jpg"
-              alt
-            />
+            <img src="@/assets/images/0e838b2501d04ba8a8dd21f211d432fd.jpg" alt />
             <p>耶稣露营新玩法</p>
           </div>
         </li>
@@ -155,207 +145,244 @@ export default {
 </script>
 
 <style scoped>
-.gaoFen > dd > div:last-child > p {
-  color: #666;
-  font-size: 1rem;
-  margin-top: 10px;
-}
-.gaoFen > dd > div:last-child > h6 {
-  font-size: 0.5rem;
-  background: rgb(209, 225, 236);
-  color: #51b1ee;
-  width: 120px;
-  text-align: center;
-  border-radius: 2px;
-  margin-top: 25px;
-  padding: 2px 0;
-}
-.gaoFen > dd > div:last-child {
-  width: 60%;
-}
-.gaoFen > dd:nth-child(2) {
-  border-bottom: 1px solid #aaa;
-}
-.gaoFen > dd {
-  display: flex;
-  justify-content: space-between;
-  height: 120px;
-  margin-bottom: 20px;
-}
-.gaoFen > dd > div:first-child {
-  width: 37%;
-}
-.gaoFen > dd > div:first-child > img {
-  width: 100%;
-  height: 100px;
-}
-.ss2 {
-  background-image: linear-gradient(
-    90deg,
-    #856900,
-    rgb(222, 250, 64)
-  ) !important;
-  color: #000 !important;
-}
-.yD {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-.yingDi > a > h5 {
-  color: rgb(133, 127, 127);
-  font-size: 0.7rem;
-  border: 1px solid rgb(109, 106, 109);
-  width: 43px;
-  text-align: center;
-}
-.yingDi > a > h3 {
-  color: #000;
-  margin: 5px 0;
-}
-.yingDi > a > h6 {
-  font-size: 0.7rem;
-  color: rgb(248, 97, 97);
-}
-.yingDi > a > div > p {
-  position: absolute;
-  top: 10px;
-  left: 0px;
-  background: #ee6a6a;
-  /* border-top-right-radius: 15px;
+  .gaoFen>dd>div:last-child>p {
+    color: #666;
+    font-size: 1rem;
+    margin-top: 10px;
+  }
+
+  .gaoFen>dd>div:last-child>h6 {
+    font-size: 0.5rem;
+    background: rgb(209, 225, 236);
+    color: #51b1ee;
+    width: 120px;
+    text-align: center;
+    border-radius: 2px;
+    margin-top: 25px;
+    padding: 2px 0;
+  }
+
+  .gaoFen>dd>div:last-child {
+    width: 60%;
+  }
+
+  .gaoFen>dd:nth-child(2) {
+    border-bottom: 1px solid #aaa;
+  }
+
+  .gaoFen>dd {
+    display: flex;
+    justify-content: space-between;
+    height: 120px;
+    margin-bottom: 20px;
+  }
+
+  .gaoFen>dd>div:first-child {
+    width: 37%;
+  }
+
+  .gaoFen>dd>div:first-child>img {
+    width: 100%;
+    height: 100px;
+  }
+
+  .ss2 {
+    background-image: linear-gradient(90deg,
+      #856900,
+      rgb(222, 250, 64)) !important;
+    color: #000 !important;
+  }
+
+  .yD {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .yingDi>a>h5 {
+    color: rgb(133, 127, 127);
+    font-size: 0.7rem;
+    border: 1px solid rgb(109, 106, 109);
+    width: 43px;
+    text-align: center;
+  }
+
+  .yingDi>a>h3 {
+    color: #000;
+    margin: 5px 0;
+  }
+
+  .yingDi>a>h6 {
+    font-size: 0.7rem;
+    color: rgb(248, 97, 97);
+  }
+
+  .yingDi>a>div>p {
+    position: absolute;
+    top: 10px;
+    left: 0px;
+    background: #ee6a6a;
+    /* border-top-right-radius: 15px;
   border-bottom-right-radius: 15px; */
-  font-size: 0.1rem;
-  border-radius: 10px 1px 14px 2px;
-  color: #fff;
-  padding: 2px 10px;
-}
-.yingDi > a > div {
-  position: relative;
-}
-.yingDi > a > div > img {
-  width: 100%;
-  height: 125px;
-}
-.yingDi > a {
-  margin-bottom: 10px;
-}
-.yingDi {
-  width: 48%;
-  display: flex;
-}
-.zhenXuan {
-  font-size: 1.3rem;
-  margin: 10px 0;
-}
-.but {
-  width: 100%;
-  padding: 7px 0;
-  background: #fff;
-  border: 1px solid rgb(179, 176, 176);
-  border-radius: 3px;
-  margin: 20px 0;
-  color: #000;
-  font-size: 1rem;
-}
-.mainBottom > li:last-child > img {
-  width: 100%;
-  border-radius: 3px;
-}
-.mainBottom > li > p:last-child {
-  font-size: 0.5rem;
-  margin-top: 30px;
-  color: rgb(109, 106, 109);
-}
-.mainBottom > li > p:first-child {
-  font-size: 0.9rem;
-}
-.mainBottom > li:last-child {
-  width: 38%;
-}
-.mainBottom > li:first-child {
-  width: 60%;
-}
-.mainBottom {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-}
-.main > .mainRight > div:last-child > p {
-  position: absolute;
-  top: 107px;
-  right: 40px;
-  font-size: 1rem;
-  color: rgb(247, 245, 245);
-}
-.main > .mainRight > div > img {
-  width: 100%;
-  height: 63px;
-  border-radius: 3px;
-}
-.main > li .fangChe > p:first-child {
-  color: #000;
-  font-size: 1rem;
-}
-.main > li .fangChe > p:last-child {
-  font-size: 0.1rem;
-  color: rgb(46, 44, 46);
-}
-.main > li .fangChe {
-  position: absolute;
-  top: 85px;
-  left: 10px;
-  z-index: 1;
-}
-.main > .mainRight > div:first-child > p {
-  position: absolute;
-  top: 38px;
-  right: 40px;
-  font-size: 1rem;
-  color: rgb(247, 245, 245);
-}
-/* .main > li:last-child div > img {
+    font-size: 0.1rem;
+    border-radius: 10px 1px 14px 2px;
+    color: #fff;
+    padding: 2px 10px;
+  }
+
+  .yingDi>a>div {
+    position: relative;
+  }
+
+  .yingDi>a>div>img {
+    width: 100%;
+    height: 125px;
+  }
+
+  .yingDi>a {
+    margin-bottom: 10px;
+  }
+
+  .yingDi {
+    width: 48%;
+    display: flex;
+  }
+
+  .zhenXuan {
+    font-size: 1.3rem;
+    margin: 10px 0;
+  }
+
+  .but {
+    width: 100%;
+    padding: 7px 0;
+    background: #fff;
+    border: 1px solid rgb(179, 176, 176);
+    border-radius: 3px;
+    margin: 20px 0;
+    color: #000;
+    font-size: 1rem;
+  }
+
+  .mainBottom>li:last-child>img {
+    width: 100%;
+    border-radius: 3px;
+  }
+
+  .mainBottom>li>p:last-child {
+    font-size: 0.5rem;
+    margin-top: 30px;
+    color: rgb(109, 106, 109);
+  }
+
+  .mainBottom>li>p:first-child {
+    font-size: 0.9rem;
+  }
+
+  .mainBottom>li:last-child {
+    width: 38%;
+  }
+
+  .mainBottom>li:first-child {
+    width: 60%;
+  }
+
+  .mainBottom {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+
+  .main>.mainRight>div:last-child>p {
+    position: absolute;
+    top: 107px;
+    right: 40px;
+    font-size: 1rem;
+    color: rgb(247, 245, 245);
+  }
+
+  .main>.mainRight>div>img {
+    width: 100%;
+    height: 63px;
+    border-radius: 3px;
+  }
+
+  .main>li .fangChe>p:first-child {
+    color: #000;
+    font-size: 1rem;
+  }
+
+  .main>li .fangChe>p:last-child {
+    font-size: 0.1rem;
+    color: rgb(46, 44, 46);
+  }
+
+  .main>li .fangChe {
+    position: absolute;
+    top: 85px;
+    left: 10px;
+    z-index: 1;
+  }
+
+  .main>.mainRight>div:first-child>p {
+    position: absolute;
+    top: 38px;
+    right: 40px;
+    font-size: 1rem;
+    color: rgb(247, 245, 245);
+  }
+
+  /* .main > li:last-child div > img {
   width: 100%;
   height: 100px;
 } */
-.main > li:first-child > img {
-  width: 100%;
-  height: 130px;
-  border-radius: 3px;
-}
-.main > li {
-  width: 49%;
-}
-.main {
-  display: flex;
-  position: relative;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-.yeShe {
-  font-size: 1.3rem;
-  margin: 10px 0;
-}
-.ctn {
-  width: 90%;
-  margin: 0 auto;
-}
-.van-search {
-  position: absolute;
-  z-index: 1;
-  background-color: transparent !important;
-  margin: 0 auto;
-  width: 100%;
-  color: #fff;
-}
-.van-search__content {
-  background: rgb(44, 37, 37);
-  opacity: 0.7;
-}
-.van-search .van-cell {
-  width: 100%;
-  margin: 0 auto;
-}
-.van-cell {
-  color: #fff;
-}
+  .main>li:first-child>img {
+    width: 100%;
+    height: 130px;
+    border-radius: 3px;
+  }
+
+  .main>li {
+    width: 49%;
+  }
+
+  .main {
+    display: flex;
+    position: relative;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .yeShe {
+    font-size: 1.3rem;
+    margin: 10px 0;
+  }
+
+  .ctn {
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  .van-search {
+    position: absolute;
+    z-index: 1;
+    background-color: transparent !important;
+    margin: 0 auto;
+    width: 100%;
+    color: #fff;
+  }
+
+  .van-search__content {
+    background: rgb(44, 37, 37);
+    opacity: 0.7;
+  }
+
+  .van-search .van-cell {
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .van-cell {
+    color: #fff;
+  }
 </style>
