@@ -41,7 +41,7 @@ router.get("/camp", (req, res) => {
 // 数据表 ：travel_shared
 // 请求的列表： pic/title/likes(点赞数)
 router.get("/share", (req, res) => {
-  var sql = "SELECT pic,title,likes FROM travel_shared";
+  var sql = "SELECT pic,title,likes,type FROM travel_shared";
   pool.query(sql, (err, result) => {
     if (err) throw err;
     if (result.length > 0) {

@@ -6,7 +6,7 @@
         <van-col span="6">
           <!-- <img src="../assets/images/全部.png" alt=""> -->
           <van-dropdown-menu active-color="#ee0a24">
-            <van-dropdown-item
+            <van-dropdown-item @change="change"
               font-size:111px
               v-model="value1"
               :options="option1"
@@ -23,7 +23,7 @@
     </div>
     <div class="neirong">
       <ul>
-        <li v-for="(item, i) of list" :key="i">
+        <li v-for="(item, i) of mylist" :key="i">
           <img :src="item.pic" alt="" />
           <div class="pp">
             <p>{{ item.title }}</p>
@@ -72,20 +72,65 @@ export default {
         { text: "最热", value: "b" },
         { text: "最新", value: "c" }
       ],
+      mylist:[],
       list: []
     };
   },
   methods: {
     loadMore() {
-      var url = "product/share";
+      var url = "pro/share";
       this.axios
         .get(url)
         .then(res => {
           this.list = this.list.concat(res.data.data);
+          this.mylist = this.list;
         })
         .catch(err => {
           console.log(err);
         });
+    },
+    change(){
+      var value = this.value1;
+      var mylist = [];
+      console.log(this.mylist)
+       console.log(value);
+      switch(value){
+        case 0://不执行任何操作
+        mylist=this.list;
+        break;
+        case 1://娱乐
+          // 将属于这个类的数据，存入mylist中！
+          for(var item of this.list){
+            if(item.type == 1){
+              mylist.push(item);
+            }
+          }
+          console.log(mylist);
+          console.log(this.list);
+          break;
+        case 2://娱乐
+          for(var item of this.list){
+            if(item.type == 2){
+              mylist.push(item);
+              
+            }
+          }
+          console.log(mylist);
+          console.log(this.list);
+          break;
+        case 3://娱乐
+          for(var item of this.list){
+            if(item.type == 3){
+              mylist.push(item);
+            }
+          }
+          console.log(mylist);
+          console.log(this.list);
+          break;
+      }
+      // 将结果在给了data中的mylist
+      this.mylist = mylist;
+      console.log(this.mylist);
     }
   }
 };
