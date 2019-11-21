@@ -45,5 +45,5 @@ app.use(
 app.use(express.static("static"));
 // 挂载路由器
 app.use("/user", userRouter);
-app.use("/product", productRouter);
+app.use("/pro", productRouter);
 app.use("/details", details);

@@ -66,7 +66,7 @@
         </div>
       </div>
       <router-link to="/more">
-        <button class="but">查看更多臻选营地</button>
+        <button @click.native="zhenXuan" class="but">查看更多臻选营地</button>
       </router-link>
       <dl class="gaoFen">
         <dt>
@@ -143,6 +143,11 @@ export default {
       ],
       value: ""
     };
+  },
+  methods: {
+    zhenXuan() {
+      location.reload()
+    }
   }
 };
 </script>

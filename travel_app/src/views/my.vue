@@ -2,9 +2,9 @@
   <div>
     <div class="title">
       <div class="title-1">
-      <router-link to="/login">
-        <button>请登录</button>
-      </router-link>
+        <router-link to="/login">
+          <button>请登录</button>
+        </router-link>
       </div>
     </div>
     <div class="daohang">
@@ -97,7 +97,7 @@ export default {
   background-size: cover;
   z-index: 0;
 }
-.title-1{
+.title-1 {
   display: flex;
   justify-content: space-around;
   align-items: center;
