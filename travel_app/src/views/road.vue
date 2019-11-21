@@ -77,7 +77,7 @@ export default {
   },
   methods: {
     loadMore() {
-      var url = "product/share";
+      var url = "pro/share";
       this.axios
         .get(url)
         .then(res => {
