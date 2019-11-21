@@ -65,9 +65,9 @@
           </a>
         </div>
       </div>
-      <router-link to="/more">
-        <button @click.native="zhenXuan" class="but">查看更多臻选营地</button>
-      </router-link>
+      <!-- <router-link to="/more"> -->
+        <button @click="zhenXuan" class="but">查看更多臻选营地</button>
+      <!-- </router-link> -->
       <dl class="gaoFen">
         <dt>
           <p class="yeShe">高分旅行体验</p>
@@ -82,9 +82,7 @@
           </div>
         </dd>
       </dl>
-      <router-link to="">
-        <button class="but">查看所有体验线路</button>
-      </router-link>
+      <button class="but">查看所有体验线路</button>
     </div>
     <tab-bar></tab-bar>
   </div>
@@ -96,6 +94,7 @@ import tabBar from "@/components/tabBar";
 import myHeader from "@/components/myHeader";
 export default {
   components: { lunBo, tabBar, myHeader },
+  inject: ["reload"],
   data() {
     return {
       list: [
@@ -146,7 +145,8 @@ export default {
   },
   methods: {
     zhenXuan() {
-      location.reload()
+      this.$router.push("/more");
+      location.reload();
     }
   }
 };

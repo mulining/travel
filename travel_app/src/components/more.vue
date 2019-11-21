@@ -63,6 +63,7 @@
 
 <script>
 export default {
+  inject: ["reload"],
   data() {
     return {
       switch1: true,
@@ -140,6 +141,9 @@ export default {
     onConfirm() {
       this.$refs.item.toggle();
     }
+  },
+  created() {
+    this.reload();
   }
 };
 </script>

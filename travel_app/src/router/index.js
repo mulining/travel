@@ -17,6 +17,7 @@ import grid from "@/components/grid";
 import login from "@/components/login";
 import personal from "@/components/personal";
 import more from "@/components/more";
+import pData from "@/components/pData";
 
 Vue.use(Router);
 
@@ -51,6 +52,11 @@ export default new Router({
       path: "/login",
       name: "login",
       component: login
+    },
+    {
+      path: "/pData",
+      name: "pData",
+      component: pData
     },
     {
       path: "/more",

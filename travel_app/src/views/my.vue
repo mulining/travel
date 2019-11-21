@@ -1,6 +1,23 @@
 <template>
   <div>
-    <div class="title">
+    <div class="title" v-if="$store.getters.login">
+      <div class="yiDengLu">
+        <router-link to="" tag="div">
+          <img
+            src="@/assets/images/u=1724821872,4223408992&fm=26&gp=0.jpg"
+            alt=""
+          />
+        </router-link>
+        <div>
+          <h6>欢迎您</h6>
+          <h5>***</h5>
+        </div>
+        <router-link to="" tag="p">
+          <img src="@/assets/images/xiuGai.png" alt="" />
+        </router-link>
+      </div>
+    </div>
+    <div class="title" v-else>
       <div class="title-1">
         <router-link to="/login">
           <button>请登录</button>
@@ -72,18 +89,18 @@ export default {
   text-align: center;
   margin-top: 0.4rem;
 }
-.title > div > img:last-child {
+.title > div > p > img:last-child {
   width: 1rem;
   height: 1rem;
   margin-top: 1.4rem;
   margin-left: 0.5rem;
 }
-.title > div {
+.title > .yiDengLu {
   display: flex;
   padding-top: 2rem;
   padding-left: 1.5rem;
 }
-.title > div > img:first-child {
+.title > div > div > img:first-child {
   width: 3.5rem;
   height: 3.5rem;
   margin-right: 1rem;

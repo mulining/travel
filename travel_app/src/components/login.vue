@@ -5,6 +5,7 @@
     </div>
     <div class="ctn">
       <img @click="fanHui" src="@/assets/images/youJianTou.png" alt />
+      <router-link tag="p" to="/reg">账号密码注册</router-link>
       <h2>欢迎您，请登录</h2>
       <div class="ipt">
         <input
@@ -92,6 +93,12 @@ export default {
 </script>
 
 <style scoped>
+.ctn > p {
+  position: absolute;
+  top:15px;
+  right: -20px;
+  color: #fff;
+}
 .ipt {
   display: flex;
   justify-content: space-around;
