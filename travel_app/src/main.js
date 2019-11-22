@@ -13,6 +13,27 @@ import Vuex from "vuex";
 
 Vue.use(Vuex);
 
+import AMap from "vue-amap";
+Vue.use(AMap);
+
+// 初始化vue-amap
+AMap.initAMapApiLoader({
+  // 高德key
+  key: "a8150cdda6e90ce9529c9fa3558979b6",
+  // 插件集合 （插件按需引入）
+  plugin: [
+    "AMap.Geolocation",
+    "AMap.Scale",
+    "AMap.OverView",
+    "AMap.ToolBar",
+    "AMap.MapType"
+  ],
+  v: "1.4.4",
+  uiVersion: "1.0"
+});
+
+Vue.prototype.AMap = AMap;
+
 //即刻出发
 import { NavBar } from "vant";
 import "../src/assets/resetVui.css";

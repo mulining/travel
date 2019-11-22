@@ -18,6 +18,7 @@ import login from "@/components/login";
 import personal from "@/components/personal";
 import more from "@/components/more";
 import pData from "@/components/pData";
+import map from "@/components/map";
 
 Vue.use(Router);
 
@@ -32,6 +33,11 @@ export default new Router({
       path: "/",
       name: "HelloWorld",
       component: HelloWorld
+    },
+    {
+      path: "/map",
+      name: "map",
+      component: map
     },
     {
       path: "/personal",

@@ -22,7 +22,12 @@
         />
         <button @click="login">立即登录</button>
         <div class="yueDu">
-          <input type="checkbox" name="btn" id="btn1" />阅读并同意
+          <input
+            type="checkbox"
+            v-model="yueDu"
+            name="btn"
+            id="btn1"
+          />阅读并同意
           <a>《用户使用协议》</a>
           及
           <a>《隐私保护政策》</a>
@@ -39,12 +44,10 @@ export default {
   data() {
     return {
       uname: "",
-      upwd: ""
+      upwd: "",
+      yueDu: false
     };
   },
-  // created() {
-  //   this.login();
-  // },
   methods: {
     fanHui() {
       this.$router.push("/my");
@@ -57,11 +60,11 @@ export default {
       var p = this.upwd;
       console.log(p);
       if (!ureg.test(u)) {
-        this.$messagebox("消息", "用户名格式为开头小写字母，4-15位");
+        Toast("用户名格式为开头小写字母，4-15位");
         return;
       }
       if (!preg.test(p)) {
-        this.$messagebox("消息", "密码格式为字母开头，5-17位");
+        Toast("密码格式为字母开头，5-17位");
         return;
       }
       //发送ajax请求
@@ -77,11 +80,13 @@ export default {
         .then(res => {
           console.log(res);
           if (res.data.code == 1) {
-            Toast.success("登陆成功");
-            this.$router.push("/my");
-            this.$store.commit("userLogin");
-          } else {
-            this.$store.commit("userLogin");
+            if (this.yueDu == false) {
+              Toast("请阅读并同意用户协议及隐私保护");
+            } else {
+              Toast.success("登陆成功");
+              this.$router.push("/my");
+              this.$store.commit("userLogin");
+            }
           }
         })
         .catch(err => {
@@ -95,7 +100,7 @@ export default {
 <style scoped>
 .ctn > p {
   position: absolute;
-  top:15px;
+  top: 15px;
   right: -20px;
   color: #fff;
 }
