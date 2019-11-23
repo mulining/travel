@@ -35,7 +35,7 @@ AMap.initAMapApiLoader({
 Vue.prototype.AMap = AMap;
 
 //即刻出发
-import { NavBar } from "vant";
+import { NavBar } from 'vant';
 import "../src/assets/resetVui.css";
 Vue.use(NavBar);
 import { Tab, Tabs } from "vant";
@@ -44,6 +44,8 @@ import { TreeSelect } from "vant";
 Vue.use(TreeSelect);
 import { Grid, GridItem } from "vant";
 Vue.use(Grid).use(GridItem);
+import { Lazyload } from 'vant';
+Vue.use(Lazyload);
 
 Vue.use(Vant);
 
@@ -53,6 +55,7 @@ Vue.config.productionTip = false;
 //注册Mintui
 Vue.use(MintUI);
 axios.defaults.baseURL = "http://127.0.0.1:5050";
+// axios.defaults.baseURL = "http://tmaxtravel.applinzi.com:5050";
 //axios 注册Vue
 Vue.prototype.axios = axios;
 //配置访问服务器的基础路径
