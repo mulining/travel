@@ -52,21 +52,23 @@
         <button class="but">看看别人怎么玩</button>
       </router-link>
       <p class="yeShe">臻选营地</p>
-      <div class="yD">
-        <div class="yingDi" v-for="(item, i) of yingDi" :key="i">
-          <a href="javascript:;">
-            <div>
-              <img :src="item.pic" alt />
-              <p :class="sst[i]" v-text="item.p1"></p>
-            </div>
-            <h6 v-text="item.h6"></h6>
-            <h3 v-text="item.h3"></h3>
-            <h5 v-text="item.h5"></h5>
-          </a>
+      <router-link to="zhenxuan1">
+        <div class="yD">
+          <div class="yingDi" v-for="(item, i) of yingDi" :key="i">
+            <a href="javascript:;">
+              <div>
+                <img :src="item.pic" alt />
+                <p :class="sst[i]" v-text="item.p1"></p>
+              </div>
+              <h6 v-text="item.h6"></h6>
+              <h3 v-text="item.h3"></h3>
+              <h5 v-text="item.h5"></h5>
+            </a>
+          </div>
         </div>
-      </div>
+      </router-link>
       <!-- <router-link to="/more"> -->
-        <button @click="zhenXuan" class="but">查看更多臻选营地</button>
+      <button @click="zhenXuan" class="but">查看更多臻选营地</button>
       <!-- </router-link> -->
       <dl class="gaoFen">
         <dt>
