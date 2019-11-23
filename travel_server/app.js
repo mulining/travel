@@ -24,9 +24,10 @@ app.listen(5050);
 app.use(
   cors({
     origin: [
-      "http://127.0.0.1:8080",
-      "http://localhost:8080",
-      "http://localhost:8081"
+      "http://127.0.0.1:5050",
+      "http://localhost:5050",
+      // "http://tmaxtravel.applinzi.com:5050",
+      // "https://git.sinacloud.com:5050/tmaxtravel"
     ],
     credentials: true //每次请求验证
   })

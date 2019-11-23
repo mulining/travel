@@ -39,13 +39,16 @@ router.get("/v1/result/:id&:type", (req, res) => {
   } else if (type == "1") {
     sql =
       "SELECT uid,pic,title,subtitle,likes,share_time FROM travel_shared WHERE id=?"; //分享表
+  }else{
+    res.send({code:-2,msg:"参数范围错误!"});
+    return;
   }
   pool.query(sql, [id], (err, result) => {
     if (err) throw err;
     if (result.length > 0) {
       res.send({ code: 1, msg: "查询成功!", data: result });
     } else {
-      res.send({ code: 1, msg: "查询成功" });
+      res.send({ code: -1, msg: "查询失败!" });
     }
   });
 });
