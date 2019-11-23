@@ -31,6 +31,11 @@ export default new Router({
       component:zhenxuan1
     },
     {
+      path:"/HelloWorld",
+      name:"HelloWorld",
+      component:HelloWorld
+    },
+    {
       path: "/register",
       name: "register",
       component: register
@@ -124,6 +129,6 @@ export default new Router({
       path: "/grid",
       name: "grid",
       component: grid
-    }
+    },
   ]
 });
