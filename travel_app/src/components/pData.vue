@@ -123,7 +123,7 @@ export default {
                 s:this.s,
             })
         )
-        .then(res=>{console.log(res)})
+        // .then(res=>{console.log(res)})
     }
   }
 };
