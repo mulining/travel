@@ -5,14 +5,17 @@
         v-model="value"
         placeholder="请输入搜索关键词"
         show-action
+        @input="input"
         @search="onSearch"
         @cancel="onCancel"
       />
       <ul v-show="hide">
         <li v-for="(item, i) of search" :key="i">
           <div>
-            <span :class="yanSe">{{item.slice(item.toLowerCase,value.length)}}</span>
-            <span>{{item.substr(value.length)}}</span>
+            <span :class="yanSe">{{
+              item.slice(item.toLowerCase, value.length)
+            }}</span>
+            <span>{{ item.substr(value.length) }}</span>
           </div>
           <img src="@/assets/images/zuoShangJT.png" alt />
         </li>
@@ -22,13 +25,15 @@
           <h4>历史搜索</h4>
           <img @click="shanChu" src="@/assets/images/laJi.png" alt />
         </dt>
-        <dd class="d1" v-for="(item, i) of liShi" :key="i" v-show="yingC">{{liShi.join('')}}</dd>
+        <dd class="d1" v-for="(item, i) of liShi" :key="i" v-show="yingC">
+          {{ liShi.join("") }}
+        </dd>
         <dt>
           <h4>热门搜索</h4>
         </dt>
         <dd>
           <router-link to v-for="(item, i) of list" :key="i">
-            <span @click="chengShi(item)" class="list">{{item.s}}</span>
+            <span @click="chengShi(item)" class="list">{{ item.s }}</span>
           </router-link>
         </dd>
       </dl>
@@ -37,6 +42,7 @@
 </template>
 
 <script>
+import funs from "@/assets/js/funs";
 export default {
   data() {
     return {
@@ -63,7 +69,13 @@ export default {
         { s: "扬州" }
       ],
       lists: ["百度", "百度网盘"]
+      // lists: ["k"]
     };
+  },
+  created() {
+    funs.getSearch(this.k, res => {
+      console.log(res.data);
+    });
   },
   computed: {
     search() {
@@ -81,12 +93,6 @@ export default {
     }
   },
   methods: {
-    chengShi(item) {
-      this.liShi.push(item.s);
-      // i.concat(this.liShi);
-      this.souSuo = true;
-      this.yingC = true;
-    },
     shanChu() {
       this.liShi.splice(0);
       this.souSuo = false;

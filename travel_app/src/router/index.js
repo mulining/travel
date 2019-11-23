@@ -15,11 +15,26 @@ import myHeader from "@/components/myHeader";
 import treeSelect from "@/components/treeSelect";
 import grid from "@/components/grid";
 import login from "@/components/login";
+import personal from "@/components/personal";
+import more from "@/components/more";
+import pData from "@/components/pData";
+import map from "@/components/map";
+import zhenxuan1 from "@/components/zhenxuan1";
 
 Vue.use(Router);
 
 export default new Router({
   routes: [
+    {
+      path:"/zhenxuan1",
+      name:"zhenxuan1",
+      component:zhenxuan1
+    },
+    {
+      path:"/HelloWorld",
+      name:"HelloWorld",
+      component:HelloWorld
+    },
     {
       path: "/register",
       name: "register",
@@ -27,8 +42,18 @@ export default new Router({
     },
     {
       path: "/",
-      name: "HelloWorld",
-      component: HelloWorld
+      name: "home",
+      component: home
+    },
+    {
+      path: "/map",
+      name: "map",
+      component: map
+    },
+    {
+      path: "/personal",
+      name: "personal",
+      component: personal
     },
     {
       path: "/test",
@@ -44,6 +69,16 @@ export default new Router({
       path: "/login",
       name: "login",
       component: login
+    },
+    {
+      path: "/pData",
+      name: "pData",
+      component: pData
+    },
+    {
+      path: "/more",
+      name: "more",
+      component: more
     },
     {
       path: "/justGo",

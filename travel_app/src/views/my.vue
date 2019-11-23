@@ -1,27 +1,29 @@
 <template>
   <div>
-    <div class="title">
-      <router-link to="/reg">
-        <button>请登录</button>
-      </router-link>
+    <div class="title" v-if="$store.getters.login">
+      <div class="yiDengLu">
+        <router-link to="" tag="div">
+          <img
+            src="@/assets/images/u=1724821872,4223408992&fm=26&gp=0.jpg"
+            alt=""
+          />
+        </router-link>
+        <div>
+          <h6>欢迎您</h6>
+          <h5>***</h5>
+        </div>
+        <router-link to="" tag="p">
+          <img src="@/assets/images/xiuGai.png" alt="" />
+        </router-link>
+      </div>
     </div>
-    <!-- <div class="dingdan">
-      <p>我的订单</p>
-      <van-grid :border="false" :column-num="4">
-        <van-grid-item>
-          <van-image :src="require('../assets/images/待支付.png')" />待支付
-        </van-grid-item>
-        <van-grid-item>
-          <van-image :src="require('../assets/images/已支付.png')" />已支付
-        </van-grid-item>
-        <van-grid-item>
-          <van-image :src="require('../assets/images/已取消.png')" />已取消
-        </van-grid-item>
-        <van-grid-item>
-          <van-image :src="require('../assets/images/全部订单.png')" />全部订单
-        </van-grid-item>
-      </van-grid>
-    </div> -->
+    <div class="title" v-else>
+      <div class="title-1">
+        <router-link to="/login">
+          <button>请登录</button>
+        </router-link>
+      </div>
+    </div>
     <div class="daohang">
       <van-cell title="我的游记" icon="photograph">
         <van-icon
@@ -75,17 +77,48 @@
 <script>
 import tabBar from "@/components/tabBar";
 export default {
-  components: { tabBar }
+  components: { tabBar },
+  data() {
+    return {};
+  }
 };
 </script>
 
 <style scoped>
+.title > div > div > h5 {
+  text-align: center;
+  margin-top: 0.4rem;
+}
+.title > div > p > img:last-child {
+  width: 1rem;
+  height: 1rem;
+  margin-top: 1.4rem;
+  margin-left: 0.5rem;
+}
+.title > .yiDengLu {
+  display: flex;
+  padding-top: 2rem;
+  padding-left: 1.5rem;
+}
+.title > div > div > img:first-child {
+  width: 3.5rem;
+  height: 3.5rem;
+  margin-right: 1rem;
+  border-radius: 50%;
+}
 .title {
   width: 100%;
-  height: 187px;
+  color: #fff;
+  height: 170px;
   background: url("../assets/images/0e838b2501d04ba8a8dd21f211d432fd.jpg");
   background-size: cover;
   z-index: 0;
+}
+.title-1 {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
 }
 .title button {
   border: 1px solid whitesmoke;
@@ -93,8 +126,6 @@ export default {
   padding: 5px 15px;
   width: 120px;
   height: 38px;
-  margin-left: 130px;
-  margin-top: 69px;
   border-radius: 15px;
   background-color: rgba(0, 0, 0, 0.1);
   color: white;

@@ -5,25 +5,33 @@
     </div>
     <div class="ctn">
       <img @click="fanHui" src="@/assets/images/youJianTou.png" alt />
+      <router-link tag="p" to="/reg">账号密码注册</router-link>
       <h2>欢迎您，请登录</h2>
-      <input
-        class="yongHu"
-        type="text"
-        placeholder="请输入用户名"
-        v-model="uname"
-      />
-      <input
-        class="miMa"
-        type="password"
-        placeholder="请输入密码"
-        v-model="upwd"
-      />
-      <button @click="login">立即登录</button>
-      <div class="yueDu">
-        <input type="checkbox" name="btn" id="btn1" />阅读并同意
-        <a>《用户使用协议》</a>
-        及
-        <a>《隐私保护政策》</a>
+      <div class="ipt">
+        <input
+          class="yongHu"
+          type="text"
+          placeholder="请输入用户名"
+          v-model="uname"
+        />
+        <input
+          class="miMa"
+          type="password"
+          placeholder="请输入密码"
+          v-model="upwd"
+        />
+        <button @click="login">立即登录</button>
+        <div class="yueDu">
+          <input
+            type="checkbox"
+            v-model="yueDu"
+            name="btn"
+            id="btn1"
+          />阅读并同意
+          <a>《用户使用协议》</a>
+          及
+          <a>《隐私保护政策》</a>
+        </div>
       </div>
     </div>
   </div>
@@ -31,11 +39,13 @@
 
 <script>
 import qs from "qs";
+import { Toast } from "vant";
 export default {
   data() {
     return {
       uname: "",
-      upwd: ""
+      upwd: "",
+      yueDu: false
     };
   },
   methods: {
@@ -50,11 +60,11 @@ export default {
       var p = this.upwd;
       console.log(p);
       if (!ureg.test(u)) {
-        this.$messagebox("消息", "用户名格式不正确");
+        Toast("用户名格式为开头小写字母，4-15位");
         return;
       }
       if (!preg.test(p)) {
-        this.$messagebox("消息", "密码格式不正确");
+        Toast("密码格式为字母开头，5-17位");
         return;
       }
       //发送ajax请求
@@ -69,45 +79,59 @@ export default {
         )
         .then(res => {
           console.log(res);
-          this.$router.push("/home");
+          if (res.data.code == 1) {
+            if (this.yueDu == false) {
+              Toast("请阅读并同意用户协议及隐私保护");
+            } else {
+              Toast.success("登陆成功");
+              this.$router.push("/my");
+              this.$store.commit("userLogin");
+            }
+          }
         })
-      .then(res=>{
-        console.log(res);
-        this.$confirm("注册成功");
-              })
-      .catch(err=>{
-        console.log(err);
-      })
+        .catch(err => {
+          console.log(err);
+        });
     }
   }
 };
 </script>
 
 <style scoped>
-.ctn > input {
+.ctn > p {
+  position: absolute;
+  top: 15px;
+  right: -20px;
+  color: #fff;
+}
+.ipt {
+  display: flex;
+  justify-content: space-around;
+}
+.ipt > input {
   font-size: 0.9rem;
   color: #fff;
 }
-.ctn > .yueDu > a {
+.yueDu > a {
   color: #00dbc1;
 }
-.ctn > .yueDu > input {
+.yueDu > div > div > input {
   margin-right: 4px;
   color: #00dbc1;
   border: none;
 }
-.ctn > .yueDu {
+.yueDu {
   position: absolute;
   top: 400px;
   left: 50px;
   color: #fff;
-  font-size: 0.7rem;
   display: flex;
   justify-items: center;
-  height: 10px;
   line-height: 10px;
+  width: 100%;
+  text-align: center;
 }
-.ctn > button {
+.ctn > div > button {
   position: absolute;
   top: 340px;
   left: 51px;
@@ -131,7 +155,7 @@ textarea::-webkit-input-placeholder {
   color: rgb(201, 201, 201) !important;
   font-size: 0.8rem;
 }
-.ctn > .yongHu {
+.yongHu {
   position: absolute;
   background: transparent;
   width: 70%;
@@ -140,7 +164,7 @@ textarea::-webkit-input-placeholder {
   padding: 10px;
   left: 50px;
 }
-.ctn > .miMa {
+.miMa {
   position: absolute;
   width: 70%;
   border-bottom: 1px solid #fff;
@@ -168,10 +192,9 @@ textarea::-webkit-input-placeholder {
   background-size: 100% 100%;
 }
 .ctn {
-  width: 90%;
+  width: 86%;
   position: absolute;
   left: 0;
   top: 0;
-  margin: 0 auto;
 }
 </style>
