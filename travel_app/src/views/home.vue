@@ -119,7 +119,7 @@ export default {
           h5: "湖泊型"
         },
         {
-          pic: require("@/assets/images/thumb_600_auto_10d5080e34df7930e6dc3a5ce72697b6.jpg"),
+          pic: require("@/assets/images/t7.jpg"),
           p1: "臻选",
           h6: "迪士尼附近 网红打卡圣地",
           h3: "上海领家露营地",

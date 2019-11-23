@@ -103,22 +103,22 @@ export default {
       ],
       lunBo: [
         {
-          pic: require("@/assets/images/u=3704064287,856200149&fm=26&gp=0.jpg")
+          pic: require("@/assets/images/t1.jpg")
         },
         {
-          pic: require("@/assets/images/u=2730421875,2341573905&fm=26&gp=0.jpg")
+          pic: require("@/assets/images/t2.jpg")
         },
         {
-          pic: require("@/assets/images/u=2137189422,197364613&fm=26&gp=0.jpg")
+          pic: require("@/assets/images/t3.jpg")
         },
         {
-          pic: require("@/assets/images/u=769771342,520870808&fm=26&gp=0.jpg")
+          pic: require("@/assets/images/t4.jpg")
         },
         {
-          pic: require("@/assets/images/u=1260138052,2561790311&fm=26&gp=0.jpg")
+          pic: require("@/assets/images/t5.jpg")
         },
         {
-          pic: require("@/assets/images/u=4153368400,383764819&fm=26&gp=0.jpg")
+          pic: require("@/assets/images/t6.jpg")
         }
       ],
       hide: true,
