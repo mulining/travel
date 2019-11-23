@@ -1,5 +1,6 @@
 <template>
  <div>
+  111
   <div class="title">
      <van-swipe :autoplay="3000" indicator-color="white">
      <van-swipe-item v-for="(item,i) of list" :key="i">
