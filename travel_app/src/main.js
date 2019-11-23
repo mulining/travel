@@ -52,8 +52,8 @@ Vue.config.silent = true;
 Vue.config.productionTip = false;
 //注册Mintui
 Vue.use(MintUI);
-// axios.defaults.baseURL = "http://127.0.0.1:5050";
-axios.defaults.baseURL = "http://tmaxtravel.applinzi.com:5050";
+axios.defaults.baseURL = "http://127.0.0.1:5050";
+// axios.defaults.baseURL = "http://tmaxtravel.applinzi.com:5050";
 //axios 注册Vue
 Vue.prototype.axios = axios;
 //配置访问服务器的基础路径
