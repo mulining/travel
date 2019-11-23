@@ -94,6 +94,6 @@ export default new Router({
       path: "/grid",
       name: "grid",
       component: grid
-    }
+    },
   ]
 });
