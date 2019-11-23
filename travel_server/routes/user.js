@@ -89,19 +89,20 @@ router.post("/rlbyphone", (req, res) => {
 
 // 用户个人信息录入 post 接口: /personal
 router.post("/personal", (req, res) => {
-  var uid = req.session.uid,
+  var id = req.session.uid,
     un = req.body.uname,
     p = req.body.phone,
     u_n = req.body.user_name,
     g = req.body.gender,
-    a = req.body.address,
+    // a = req.body.address,
     s = req.query.sign,
     pic = req.body.pic;
   if (verify(req)) {
     // 这里是说明用户处于登录状态,可以执行数据录入
     var sql =
-      "UPDATE travel_personal SET uname=?,phone=?,user_name=?,gender=?,address=?,sign=?,pic=? WHERE uid=?";
-    pool.query(sql, [un, p, u_n, g, a, s, pic, uid], (err, result) => {
+    "UPDATE travel_user SET uname=?,phone=?,user_name=?,gender=?,sign=?,pic=? WHERE id=?";
+    // address=?,
+    pool.query(sql, [un, p, u_n, g, s, pic, id], (err, result) => {
       if (err) throw err;
       if (result.affectedRows > 0) {
         res.send({ code: 1, msg: "个人信息修改成功!" });

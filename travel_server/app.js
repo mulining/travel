@@ -26,6 +26,7 @@ app.use(
     origin: [
       "http://127.0.0.1:5050",
       "http://localhost:5050",
+      "http://localhost:8080",
       "http://tmaxtravel.applinzi.com:5050",
       "https://git.sinacloud.com:5050/tmaxtravel"
     ],
