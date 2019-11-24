@@ -42,24 +42,20 @@
         <button class="but">看看别人怎么玩</button>
       </router-link>
       <p class="yeShe">臻选营地</p>
-      <router-link to="zhenxuan1">
-        <div class="yD">
-          <div class="yingDi" v-for="(item, i) of yingDi" :key="i">
-            <a href="javascript:;">
-              <div>
-                <img :src="item.pic" alt />
-                <p :class="sst[i]" v-text="item.p1"></p>
-              </div>
-              <h6 v-text="item.h6"></h6>
-              <h3 v-text="item.h3"></h3>
-              <h5 v-text="item.h5"></h5>
-            </a>
-          </div>
+      <div class="yD">
+        <div class="yingDi" v-for="(item, i) of yingDi" :key="i">
+          <a @click="xiangQing(item.id)" href="javascript:;">
+            <div>
+              <img :src="item.pic" alt />
+              <p :class="sst[i]" v-text="item.p1"></p>
+            </div>
+            <h6 v-text="item.h6"></h6>
+            <h3 v-text="item.h3"></h3>
+            <h5 v-text="item.h5"></h5>
+          </a>
         </div>
-      </router-link>
-      <!-- <router-link to="/more"> -->
+      </div>
       <button @click="zhenXuan" class="but">查看更多臻选营地</button>
-      <!-- </router-link> -->
       <dl class="gaoFen">
         <dt>
           <p class="yeShe">高分旅行体验</p>
@@ -104,6 +100,7 @@ export default {
       sst: [, "ss2", "ss2", "ss2"],
       yingDi: [
         {
+          id: "1",
           pic: require("@/assets/images/33dbdef8721143ac817cbd229cd02e98.jpg"),
           p1: "上新",
           h6: "毗邻太湖 踏春游玩好去处",
@@ -111,6 +108,7 @@ export default {
           h5: "湖泊型"
         },
         {
+          id: "2",
           pic: require("@/assets/images/t7.jpg"),
           p1: "臻选",
           h6: "迪士尼附近 网红打卡圣地",
@@ -118,6 +116,7 @@ export default {
           h5: "湖泊型"
         },
         {
+          id: "3",
           pic: require("@/assets/images/0d4fd1721b5f450d90171c24a465ee55.jpeg"),
           p1: "臻选",
           h6: "环境优雅 适合家庭亲子",
@@ -125,6 +124,7 @@ export default {
           h5: "城市型"
         },
         {
+          id: "4",
           pic: require("@/assets/images/200512000000t7inhD54B_R_300_225.jpg"),
           p1: "臻选",
           h6: "呼吸纯氧 青山相伴 风景秀丽",
@@ -138,251 +138,273 @@ export default {
   methods: {
     zhenXuan() {
       this.$router.push("/more");
-      location.reload();
+      window.scrollTo(0, 0);
+    },
+    xiangQing(id) {
+      this[id]();
+    },
+    1() {
+      this.$router.push("/zhenxuan1");
+      window.scrollTo(0, 0);
+    },
+    2() {
+      alert(234);
+    },
+    3() {
+      alert(456);
+    },
+    4() {
+      alert(897);
     }
+    // xiangQing() {
+    //   this.$router.push("/zhenxuan1");
+    //   window.scrollTo(0, 0);
+    // }
   }
 };
 </script>
 
 <style scoped>
-  .gaoFen>dd>div:last-child>p {
-    color: #666;
-    font-size: 1rem;
-    margin-top: 10px;
-  }
+.gaoFen > dd > div:last-child > p {
+  color: #666;
+  font-size: 1rem;
+  margin-top: 10px;
+}
 
-  .gaoFen>dd>div:last-child>h6 {
-    font-size: 0.5rem;
-    background: rgb(209, 225, 236);
-    color: #51b1ee;
-    width: 120px;
-    text-align: center;
-    border-radius: 2px;
-    margin-top: 25px;
-    padding: 2px 0;
-  }
+.gaoFen > dd > div:last-child > h6 {
+  font-size: 0.5rem;
+  background: rgb(209, 225, 236);
+  color: #51b1ee;
+  width: 120px;
+  text-align: center;
+  border-radius: 2px;
+  margin-top: 25px;
+  padding: 2px 0;
+}
 
-  .gaoFen>dd>div:last-child {
-    width: 60%;
-  }
+.gaoFen > dd > div:last-child {
+  width: 60%;
+}
 
-  .gaoFen>dd:nth-child(2) {
-    border-bottom: 1px solid #aaa;
-  }
+.gaoFen > dd:nth-child(2) {
+  border-bottom: 1px solid #aaa;
+}
 
-  .gaoFen>dd {
-    display: flex;
-    justify-content: space-between;
-    height: 120px;
-    margin-bottom: 20px;
-  }
+.gaoFen > dd {
+  display: flex;
+  justify-content: space-between;
+  height: 120px;
+  margin-bottom: 20px;
+}
 
-  .gaoFen>dd>div:first-child {
-    width: 37%;
-  }
+.gaoFen > dd > div:first-child {
+  width: 37%;
+}
 
-  .gaoFen>dd>div:first-child>img {
-    width: 100%;
-    height: 100px;
-  }
+.gaoFen > dd > div:first-child > img {
+  width: 100%;
+  height: 100px;
+}
 
-  .ss2 {
-    background-image: linear-gradient(90deg,
-      #856900,
-      rgb(222, 250, 64)) !important;
-    color: #000 !important;
-  }
+.ss2 {
+  background-image: linear-gradient(
+    90deg,
+    #856900,
+    rgb(222, 250, 64)
+  ) !important;
+  color: #000 !important;
+}
 
-  .yD {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
+.yD {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
 
-  .yingDi>a>h5 {
-    color: rgb(133, 127, 127);
-    font-size: 0.7rem;
-    border: 1px solid rgb(109, 106, 109);
-    width: 43px;
-    text-align: center;
-  }
+.yingDi > a > h5 {
+  color: rgb(133, 127, 127);
+  font-size: 0.7rem;
+  border: 1px solid rgb(109, 106, 109);
+  width: 43px;
+  text-align: center;
+}
 
-  .yingDi>a>h3 {
-    color: #000;
-    margin: 5px 0;
-  }
+.yingDi > a > h3 {
+  color: #000;
+  margin: 5px 0;
+}
 
-  .yingDi>a>h6 {
-    font-size: 0.7rem;
-    color: rgb(248, 97, 97);
-  }
+.yingDi > a > h6 {
+  font-size: 0.7rem;
+  color: rgb(248, 97, 97);
+}
 
-  .yingDi>a>div>p {
-    position: absolute;
-    top: 10px;
-    left: 0px;
-    background: #ee6a6a;
-    /* border-top-right-radius: 15px;
+.yingDi > a > div > p {
+  position: absolute;
+  top: 10px;
+  left: 0px;
+  background: #ee6a6a;
+  /* border-top-right-radius: 15px;
   border-bottom-right-radius: 15px; */
-    font-size: 0.1rem;
-    border-radius: 10px 1px 14px 2px;
-    color: #fff;
-    padding: 2px 10px;
-  }
+  font-size: 0.1rem;
+  border-radius: 10px 1px 14px 2px;
+  color: #fff;
+  padding: 2px 10px;
+}
 
-  .yingDi>a>div {
-    position: relative;
-  }
+.yingDi > a > div {
+  position: relative;
+}
 
-  .yingDi>a>div>img {
-    width: 100%;
-    height: 125px;
-  }
+.yingDi > a > div > img {
+  width: 100%;
+  height: 125px;
+}
 
-  .yingDi>a {
-    margin-bottom: 10px;
-  }
+.yingDi > a {
+  margin-bottom: 10px;
+}
 
-  .yingDi {
-    width: 48%;
-    display: flex;
-  }
+.yingDi {
+  width: 48%;
+  display: flex;
+}
 
-  .zhenXuan {
-    font-size: 1.3rem;
-    margin: 10px 0;
-  }
+.zhenXuan {
+  font-size: 1.3rem;
+  margin: 10px 0;
+}
 
-  .but {
-    width: 100%;
-    padding: 7px 0;
-    background: #fff;
-    border: 1px solid rgb(179, 176, 176);
-    border-radius: 3px;
-    margin: 20px 0;
-    color: #000;
-    font-size: 1rem;
-  }
+.but {
+  width: 100%;
+  padding: 7px 0;
+  background: #fff;
+  border: 1px solid rgb(179, 176, 176);
+  border-radius: 3px;
+  margin: 20px 0;
+  color: #000;
+  font-size: 1rem;
+}
 
-  .mainBottom>li:last-child>img {
-    width: 100%;
-    border-radius: 3px;
-  }
+.mainBottom > li:last-child > img {
+  width: 100%;
+  border-radius: 3px;
+}
 
-  .mainBottom>li>p:last-child {
-    font-size: 0.5rem;
-    margin-top: 30px;
-    color: rgb(109, 106, 109);
-  }
+.mainBottom > li > p:last-child {
+  font-size: 0.5rem;
+  margin-top: 30px;
+  color: rgb(109, 106, 109);
+}
 
-  .mainBottom>li>p:first-child {
-    font-size: 0.9rem;
-  }
+.mainBottom > li > p:first-child {
+  font-size: 0.9rem;
+}
 
-  .mainBottom>li:last-child {
-    width: 38%;
-  }
+.mainBottom > li:last-child {
+  width: 38%;
+}
 
-  .mainBottom>li:first-child {
-    width: 60%;
-  }
+.mainBottom > li:first-child {
+  width: 60%;
+}
 
-  .mainBottom {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
-  }
+.mainBottom {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
 
-  .main>.mainRight>div:last-child>p {
-    position: absolute;
-    top: 107px;
-    right: 40px;
-    font-size: 1rem;
-    color: rgb(247, 245, 245);
-  }
+.main > .mainRight > div:last-child > p {
+  position: absolute;
+  top: 107px;
+  right: 40px;
+  font-size: 1rem;
+  color: rgb(247, 245, 245);
+}
 
-  .main>.mainRight>div>img {
-    width: 100%;
-    height: 63px;
-    border-radius: 3px;
-  }
+.main > .mainRight > div > img {
+  width: 100%;
+  height: 63px;
+  border-radius: 3px;
+}
 
-  .main>li .fangChe>p:first-child {
-    color: #000;
-    font-size: 1rem;
-  }
+.main > li .fangChe > p:first-child {
+  color: #000;
+  font-size: 1rem;
+}
 
-  .main>li .fangChe>p:last-child {
-    font-size: 0.1rem;
-    color: rgb(46, 44, 46);
-  }
+.main > li .fangChe > p:last-child {
+  font-size: 0.1rem;
+  color: rgb(46, 44, 46);
+}
 
-  .main>li .fangChe {
-    position: absolute;
-    top: 85px;
-    left: 10px;
-    z-index: 1;
-  }
+.main > li .fangChe {
+  position: absolute;
+  top: 85px;
+  left: 10px;
+  z-index: 1;
+}
 
-  .main>.mainRight>div:first-child>p {
-    position: absolute;
-    top: 38px;
-    right: 40px;
-    font-size: 1rem;
-    color: rgb(247, 245, 245);
-  }
+.main > .mainRight > div:first-child > p {
+  position: absolute;
+  top: 38px;
+  right: 40px;
+  font-size: 1rem;
+  color: rgb(247, 245, 245);
+}
 
-  /* .main > li:last-child div > img {
+/* .main > li:last-child div > img {
   width: 100%;
   height: 100px;
 } */
-  .main>li:first-child>img {
-    width: 100%;
-    height: 130px;
-    border-radius: 3px;
-  }
+.main > li:first-child > img {
+  width: 100%;
+  height: 130px;
+  border-radius: 3px;
+}
 
-  .main>li {
-    width: 49%;
-  }
+.main > li {
+  width: 49%;
+}
 
-  .main {
-    display: flex;
-    position: relative;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
+.main {
+  display: flex;
+  position: relative;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
 
-  .yeShe {
-    font-size: 1.3rem;
-    margin: 10px 0;
-  }
+.yeShe {
+  font-size: 1.3rem;
+  margin: 10px 0;
+}
 
-  .ctn {
-    width: 90%;
-    margin: 0 auto;
-  }
+.ctn {
+  width: 90%;
+  margin: 0 auto;
+}
 
-  .van-search {
-    position: absolute;
-    z-index: 1;
-    background-color: transparent !important;
-    margin: 0 auto;
-    width: 100%;
-    color: #fff;
-  }
+.van-search {
+  position: absolute;
+  z-index: 1;
+  background-color: transparent !important;
+  margin: 0 auto;
+  width: 100%;
+  color: #fff;
+}
 
-  .van-search__content {
-    background: rgb(44, 37, 37);
-    opacity: 0.7;
-  }
+.van-search__content {
+  background: rgb(44, 37, 37);
+  opacity: 0.7;
+}
 
-  .van-search .van-cell {
-    width: 100%;
-    margin: 0 auto;
-  }
+.van-search .van-cell {
+  width: 100%;
+  margin: 0 auto;
+}
 
-  .van-cell {
-    color: #fff;
-  }
+.van-cell {
+  color: #fff;
+}
 </style>

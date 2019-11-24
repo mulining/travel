@@ -20,20 +20,21 @@ import more from "@/components/more";
 import pData from "@/components/pData";
 import map from "@/components/map";
 import zhenxuan1 from "@/components/zhenxuan1";
+import city from "@/components/city";
 
 Vue.use(Router);
 
 export default new Router({
   routes: [
     {
-      path:"/zhenxuan1",
-      name:"zhenxuan1",
-      component:zhenxuan1
+      path: "/zhenxuan1",
+      name: "zhenxuan1",
+      component: zhenxuan1
     },
     {
-      path:"/HelloWorld",
-      name:"HelloWorld",
-      component:HelloWorld
+      path: "/HelloWorld",
+      name: "HelloWorld",
+      component: HelloWorld
     },
     {
       path: "/register",
@@ -64,6 +65,11 @@ export default new Router({
       path: "/myHeader",
       name: "myHeader",
       component: myHeader
+    },
+    {
+      path: "/city",
+      name: "city",
+      component: city
     },
     {
       path: "/login",
@@ -129,6 +135,6 @@ export default new Router({
       path: "/grid",
       name: "grid",
       component: grid
-    },
+    }
   ]
 });

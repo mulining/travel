@@ -1,71 +1,75 @@
 <template>
   <div>
+    <van-nav-bar
+      v-show="hide"
+      z-index="10"
+      @click-left="fanHui"
+      fixed="true"
+      title="苏州太湖一号房车营地"
+      left-arrow
+    >
+      <!-- <van-icon name="search" slot="right" /> -->
+      <van-icon name="star-o" color="#000" slot="right" />
+      <van-icon class="icon-camera" name="camera" slot="right"></van-icon>
+    </van-nav-bar>
     <div class="head">
-      <img @click="fanHui" src="@/assets/images/fanHui.png" alt="" />
+      <img @click="fanHui" src="@/assets/images/fanHui.png" alt />
       <div>
-        <img src="@/assets/images/shouCang.png" alt="" />
-        <img src="@/assets/images/zhuanFa.png" alt="" />
+        <img src="@/assets/images/shouCang.png" alt />
+        <img src="@/assets/images/zhuanFa.png" alt />
       </div>
     </div>
     <div>
       <van-swipe :autoplay="3000" indicator-color="white">
         <van-swipe-item v-for="(item, i) of list" :key="i">
-          <img class="lunbo" :src="item.pic" alt="" />
+          <img class="lunbo" :src="item.pic" alt />
         </van-swipe-item>
       </van-swipe>
     </div>
 
     <div class="title">
-      <van-tag mark color="#e0f523" style="color:#000;padding:3px 15px"
-        >臻选</van-tag
-      >
+      <van-tag mark color="#e0f523" style="color:#000;padding:3px 15px">臻选</van-tag>
       <div>
         <h6>处太湖一号露营公园内</h6>
         <h6>距市区1小时车程</h6>
       </div>
       <h2>苏州太湖一号房车营地</h2>
-      <p>湖泊型 | <span>BBQ · 烧烤轰趴 · 儿童乐园 · 适合野餐</span></p>
+      <p>
+        湖泊型 |
+        <span>BBQ · 烧烤轰趴 · 儿童乐园 · 适合野餐</span>
+      </p>
     </div>
     <div class="map">
       <div class="diTu">
         <p class="mask"></p>
       </div>
       <div class="zuoBiao">
-        <img src="@/assets/images/diZhi.png" alt="" />
+        <img src="@/assets/images/diZhi.png" alt />
         <h6>
           江苏省苏州市金阊区镇湖镇北太湖大道1699号
           <van-icon name="arrow" color="#888" />
         </h6>
       </div>
       <div class="phone">
-        <img src="@/assets/images/phone.png" alt="" />
+        <img src="@/assets/images/phone.png" alt />
         <h6>
           110-110
           <van-icon name="arrow" color="#888" />
         </h6>
       </div>
       <router-link to="/map" tag="p">
-        <img src="@/assets/images/daoHang.png" alt="" />
+        <img src="@/assets/images/daoHang.png" alt />
       </router-link>
     </div>
     <div class="jieShao">
       <h3>营地介绍</h3>
-      <p>
-        苏州太湖一号房车露营公园隶属于苏州盖普房车露营管理有限公司旗下营地项目，立足苏州西部，依托高新区镇湖原生态环境条件。公司占地170余亩，现为国家五星级汽车露营地。项目充分体现“生态、绿色、休闲”特色，倡导时尚的户外露营生活。太湖一号房车营地内共建设90个
-      </p>
+      <p>苏州太湖一号房车露营公园隶属于苏州盖普房车露营管理有限公司旗下营地项目，立足苏州西部，依托高新区镇湖原生态环境条件。公司占地170余亩，现为国家五星级汽车露营地。项目充分体现“生态、绿色、休闲”特色，倡导时尚的户外露营生活。太湖一号房车营地内共建设90个</p>
       <button @click="gengDuo" class="btn">查看更多</button>
       <div v-show="show" class="gengDuo">
         <h2>营地介绍</h2>
         <h3>营地描述</h3>
-        <p>
-          苏州太湖一号房车露营公园隶属于苏州盖普房车露营管理有限公司旗下营地项目，立足苏州西部，依托高新区镇湖原生态环境条件。公司占地170余亩，现为国家五星级汽车露营地。项目充分体现“生态、绿色、休闲”特色，倡导时尚的户外露营生活。太湖一号房车营地内共建设90个标准房车营位，45辆营地房车，每个营位除配备水电、排污接口以及野餐、水池、烧烤架等基础设备外，以便露营着使用。
-        </p>
-        <van-icon
-          @click="hide"
-          size="20"
-          style="top:410px;left:163px"
-          name="cross"
-        />
+        <p>苏州太湖一号房车露营公园隶属于苏州盖普房车露营管理有限公司旗下营地项目，立足苏州西部，依托高新区镇湖原生态环境条件。公司占地170余亩，现为国家五星级汽车露营地。项目充分体现“生态、绿色、休闲”特色，倡导时尚的户外露营生活。太湖一号房车营地内共建设90个标准房车营位，45辆营地房车，每个营位除配备水电、排污接口以及野餐、水池、烧烤架等基础设备外，以便露营着使用。</p>
+        <van-icon @click="hide" size="20" style="top:410px;left:163px" name="cross" />
       </div>
     </div>
     <dl>
@@ -74,19 +78,19 @@
       </dt>
       <dd>
         <div>
-          <img src="@/assets/images/xiuXi.png" alt="" />
+          <img src="@/assets/images/xiuXi.png" alt />
           <p>公共休息区</p>
         </div>
         <div>
-          <img src="@/assets/images/xiuXi.png" alt="" />
+          <img src="@/assets/images/xiuXi.png" alt />
           <p>公共休息区</p>
         </div>
         <div>
-          <img src="@/assets/images/xiuXi.png" alt="" />
+          <img src="@/assets/images/xiuXi.png" alt />
           <p>公共休息区</p>
         </div>
         <div>
-          <img src="@/assets/images/xiuXi.png" alt="" />
+          <img src="@/assets/images/xiuXi.png" alt />
           <p>公共休息区</p>
         </div>
       </dd>
@@ -99,6 +103,7 @@ export default {
   data() {
     return {
       show: false,
+      hide: false,
       list: [
         {
           pic: require("@/assets/images/0d4fd1721b5f450d90171c24a465ee55.jpeg")
@@ -110,6 +115,17 @@ export default {
       ]
     };
   },
+  mounted() {
+    window.onscroll = () => {
+      var scroll =
+        document.body.scrollTop || document.documentElement.scrollTop;
+      if (scroll >= 50) {
+        this.hide = true;
+      } else {
+        this.hide = false;
+      }
+    };
+  },
   methods: {
     gengDuo() {
       this.show = true;
@@ -118,22 +134,32 @@ export default {
       this.show = false;
     },
     fanHui() {
-      this.$router.push("/home")
+      this.$router.push("/home");
     }
   }
 };
 </script>
 
 <style scoped>
+@font-face {
+  font-family: "my-icon";
+  src: url("../assets/images/zhuanFaHei.png") format("truetype");
+}
+.my-icon {
+  font-family: "my-icon";
+}
+.my-icon-extra::before {
+  content: "\e626";
+}
 .head > div > img:last-child {
   position: absolute;
-  left:350px;
+  left: 350px;
   top: 7px;
 }
 .head > div > img:first-child {
   position: absolute;
   top: 7px;
-  left:315px;
+  left: 315px;
 }
 .head > div > img {
   background: rgba(0, 0, 0, 0.5);
