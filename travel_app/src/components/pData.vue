@@ -1,16 +1,21 @@
 <template>
   <div>
      <div class="title">
+       <router-link to="/my">
           <van-icon name="arrow-left" color="#000" size="17px" />
+       </router-link>
           <h4 style="font-weight: normal;">个人信息</h4>
-          <span @click="save_info">保存</span>
+          <router-link to="/my">
+            <span @click="save_info" style="color:#000;">保存</span>
+          </router-link>
      </div>
-     <div class="tabout" style="margin-bottom: 8px;">
+     <div class="tabout" style="margin-bottom: 8px;padding:6px 16px">
           <ol type="text">头 像</ol>
-          <ol>
+          <ol style="display:flex;align-items: center;">
             <van-uploader :after-read="onRead" accept="image/*">
-              <van-icon style="border-radius:50%;background-color:#ccc;" name="user-o" color="#666" size="45px" />
+              <img :src="$store.getters.userpic" style="width:55px;border-radius:50%;" >
             </van-uploader>
+            <van-icon name="arrow" style="color:#444;size:20px" />
           </ol>
      </div>
      <div class="tabout">昵 称
@@ -39,6 +44,7 @@
       <ol class="sign"><input class="signtext" type="text" placeholder="请设置">
       </ol>
      </div>
+     <!-- 测试代码 ↓-->
      <van-popup position="bottom" v-model="show">
        
      </van-popup> 

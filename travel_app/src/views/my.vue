@@ -2,7 +2,7 @@
   <div>
     <div class="title" v-if="$store.getters.login">
       <div class="yiDengLu">
-        <router-link to="" tag="div">
+        <router-link to="/pData" tag="div">
           <img
             src="@/assets/images/piKaQiu.jpg"
             alt=""
@@ -12,7 +12,7 @@
           <h6>欢迎您</h6>
           <h5>***</h5>
         </div>
-        <router-link to="" tag="p">
+        <router-link to="/pData" tag="p">
           <img src="@/assets/images/xiuGai.png" alt="" />
         </router-link>
       </div>
