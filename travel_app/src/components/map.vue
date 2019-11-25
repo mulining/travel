@@ -53,7 +53,7 @@ module.exports = {
   },
   methods: {
     onClickLeft() {
-      this.$router.push("/zhenxuan1")
+      this.$router.push("/zhenxuan1");
     }
   }
 };
