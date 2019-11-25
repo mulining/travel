@@ -14,13 +14,13 @@
           </ol>
      </div>
      <div class="tabout">昵 称
-          <ol class="sign"><input class="signtext" type="text" placeholder="请设置"></ol>
+          <ol class="sign"><input class="signtext" v-model="nick" type="text" placeholder="请设置"></ol>
      </div>
      <div class="tabout">姓 名
-        <ol class="sign"><input class="signtext" type="text" placeholder="请设置"></ol>
+        <ol class="sign"><input class="signtext" v-model="uname" type="text" placeholder="请设置"></ol>
      </div>
      <van-cell is-link @click="showPopup">性   别
-         <ol style="float:right;" >{{value}}</ol>
+         <ol style="float:right;color:#555;" >{{value}}</ol>
      </van-cell>
      <van-popup position="bottom" style="height:170px" v-model="show1">
         <div  class="sex-box" style="font-size:16px;padding-left:10px">
@@ -31,12 +31,13 @@
         <div @click="sexvalue1" class="sex-box"><p>女</p></div>
         <div @click="sexvalue2" class="sex-box" style="border:none"><p>保密</p></div>
      </van-popup>
-     <van-cell is-link @click="showPopup1">所在地区<ol class="choice">请选择</ol></van-cell>
+     <van-cell is-link @click="showPopup1">所在地区<ol class="choice">{{cty_value}}</ol></van-cell>
      <van-popup position="bottom" v-model="show2">
-        45444
+        <van-area  :area-list="areaList" @confirm="myresult"/>
+        
      </van-popup>
      <div class="tabout">个性签名
-      <ol class="sign"><input class="signtext" type="text" placeholder="请设置">
+      <ol class="sign"><input class="signtext" v-model="s" type="text" placeholder="请设置">
       </ol>
      </div>
      <van-popup position="bottom" v-model="show">
@@ -53,16 +54,18 @@ export default {
     name: "Address",
   data() {
     return {
+        cty_value:"",//所在地区
         areaList,
       searchResult: [],
       uid:"",
       pic:"",
-      un: "",
+      nick:"",//昵称
+      uname:"",//姓名
       p:"",
       u_n:"",
       g:"",
     //   a:"",
-      s:"",
+      s:"",//个性签名
       files: {
         name: "",
         type: ""
@@ -72,13 +75,19 @@ export default {
       upImgUrl:null,
       show: false,
       show1: false,
-      value:"",
+      value:"",//性别
       show2: false,
       list:["请选择","男","女","保密"],
     };
   },
   
   methods: {
+      
+      myresult(e){
+        this.cty_value = e[0].name+"-"+e[1].name+"-"+e[2].name
+          console.log(this.cty_value) ;
+          return{}
+      },
     showPopup() {
       this.show1 = true;
     },
@@ -109,22 +118,31 @@ export default {
     // 个人信息保存到数据库
     save_info(){
         var url = "user/personal";
+        console.log(this);  
         this.axios
         .post(
             url,
             qs.stringify({
-                uid:this.uid,
-                pic:this.pic,
-                un: this.un,
-                p:this.p,
-                u_n:this.u_n,
-                g:this.g,
-                // a:this.a,
-                s:this.s,
+                // uid:this.uid,
+                // pic:this.pic,
+                // un: this.un,
+                // p:this.p,
+                // u_n:this.u_n,
+                // g:this.g,
+                // // a:this.a,
+                // s:this.s,
+                nick:encodeURIComponent(this.nick),
+                user_name:encodeURIComponent(this.uname),
+                gender:this.value,
+                cty_value:encodeURIComponent(this.cty_value),
+                sign:encodeURIComponent(this.s)
             })
         )
-        // .then(res=>{console.log(res)})
-    }
+
+        .then(res=>{console.log(res)})
+    },
+    
+    
   }
 };
 </script>
@@ -145,7 +163,7 @@ export default {
     justify-content: space-between;
   }
   .choice,.sign{
-    color:#999999;
+    color:#555;
   }
   .tabout{
     align-items: center;
