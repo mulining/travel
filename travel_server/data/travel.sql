@@ -262,16 +262,16 @@ INSERT INTO `travel_shared` (`id`, `uid`, `pic`, `title`, `subtitle`, `type`, `l
 --
 
 CREATE TABLE IF NOT EXISTS `travel_user` (
-  `id` int(11) PRIMARY KEY AUTO_INCREMENT,
-  `uname` varchar(32),
-  `upwd` varchar(32),
-  `user_name` varchar(20),
-  `nick` varchar(32),
-  `phone` varchar(11),
-  `gender` int(11),
-  `sign` varchar(128),
-  `pic` varchar(255)
-)
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uname` varchar(32) DEFAULT NULL,
+  `upwd` varchar(32) DEFAULT NULL,
+  `user_name` varchar(20) DEFAULT NULL,
+  `phone` varchar(11) DEFAULT NULL,
+  `gender` int(11) DEFAULT NULL,
+  `sign` varchar(128) DEFAULT NULL,
+  `pic` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- RELATIONSHIPS FOR TABLE `travel_user`:

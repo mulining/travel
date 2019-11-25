@@ -165,7 +165,7 @@ router.get("/personal", (req, res) => {
     });
     return;
   }
-  var sql = "SELECT FROM WHERE uid=?";
+  var sql = "SELECT user_name,nick,phone,gender,sign,pic FROM travel_user WHERE uid=?";
   pool.query(sql, [uid], (err, result) => {
     if (err) throw err;
     if (result.length > 0) {

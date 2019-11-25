@@ -13,7 +13,7 @@
           <ol type="text">头 像</ol>
           <ol style="display:flex;align-items: center;">
             <van-uploader :after-read="onRead" accept="image/*">
-              <img :src="$store.getters.userpic" style="width:55px;border-radius:50%;" >
+              <img :src="$store.getters.userpic" style="width:55px;border-radius:50%;" ref="goodsImg"/>
             </van-uploader>
             <van-icon name="arrow" style="color:#444;size:20px" />
           </ol>
@@ -88,7 +88,12 @@ export default {
   },
   
   methods: {
-      
+    onRead(file) {
+		       console.log(file);
+		       //将原图片显示为选择的图片
+		       this.$refs.goodsImg.src = file.content;
+		   },
+      // 个人信息:获取详细地址方法
       myresult(e){
         this.cty_value = e[0].name+"-"+e[1].name+"-"+e[2].name
           console.log(this.cty_value) ;
