@@ -58,20 +58,61 @@ router.get("/share", (req, res) => {
 // 查询一:当用户输入时,弹出下拉数据
 // 接口地址 : http://127.0.0.1:5050/pro/msglist/上海
 // 返回值: tabletype 是标识表标识 --> 0标识臻选表 1标识分享表
+// 数据库: 1. travel_camp  2. travel_shared
 router.get("/msglist/:keyword", (req, res) => {
-  var k = "%" + req.params.keyword + "%"; //获取到用户输入的查询关键词
+  var keyword = req.params.keyword;
+  if(!keyword.trim()){
+    res.send({code:-2,msg:"缺少关键词"});
+  }
+  var k = "%" + keyword + "%"; //获取到用户输入的查询关键词
+  // if (k.trim()) {
+  //   var sql =
+  //     "SELECT id,title,type FROM travel_camp WHERE title LIKE ? UNION SELECT id,title,type FROM travel_shared WHERE title LIKE ?";
+  //   pool.query(sql, [k, k], (err, result) => {
+  //     if (err) throw err;
+  //     if (result.length > 0) {
+  //       res.send({ code: 1, msg: "数据列表", data: result });
+  //     } else {
+  //       res.send({ code: -1, msg: "暂无数据!" });
+  //     }
+  //   });
+  // }
+  var msg = [];
   if (k.trim()) {
-    var sql =
-      "SELECT id,title FROM travel_camp WHERE title LIKE ? UNION SELECT id,title FROM travel_shared WHERE title LIKE ?";
-    pool.query(sql, [k, k], (err, result) => {
+    var sql1 ="SELECT id,title,type FROM travel_camp WHERE title LIKE ? ";
+    pool.query(sql1, [k], (err, result) => {
       if (err) throw err;
       if (result.length > 0) {
-        res.send({ code: 1, msg: "数据列表", data: result });
-      } else {
-        res.send({ code: -1, msg: "暂无数据!" });
+        for(var i = 0; i < result.length; i++){
+          result[i].tableC = 0;//0 代表travel_campbiao  
+          msg.push(result[i])
+        }
       }
+      console.log(11)
+      console.log(msg);
+      var sql2 = "SELECT id,title,type FROM travel_shared WHERE title LIKE ?";
+      pool.query(sql2, [k], (err, result) => {
+        if (err) throw err;
+        if (result.length > 0) {
+          for(var i = 0; i < result.length; i++){
+            result[i].tableC = 1;//1 代表travel_shared
+            msg.push(result[i])
+          }
+        }
+        console.log(10)
+        console.log(msg);
+        console.log(13);
+        console.log(msg.length);
+        if (msg.length > 0) {
+          res.send({ code: 1, msg: "数据列表", data: msg });
+        } else {
+          res.send({ code: -1, msg: "暂无数据!" });
+        }
+      });
     });
+    
   }
+  
 });
 
 // 导出

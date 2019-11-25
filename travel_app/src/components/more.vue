@@ -1,23 +1,18 @@
 <template>
   <div>
-    <div class="head" style="margin-bottom:0.8rem">
+    <div class="head">
       <!-- 搜索 -->
-      <div style="">
-        <img @click="fanHui" src="@/assets/images/zuoJianTou.png" alt="" />
-        <van-search
-          @search="queDing"
-          style="width:100%"
-          placeholder="搜索城市或营地名称"
-          v-model="value"
-        />
+      <div style>
+        <img @click="fanHui" src="@/assets/images/zuoJianTou.png" alt />
+        <van-search @search="queDing" style="width:100%" placeholder="搜索城市或营地名称" v-model="value" />
       </div>
       <div class="diTu">
-        <img src="@/assets/images/diTu.png" alt="" />
+        <img src="@/assets/images/diTu.png" alt />
         <p>地图</p>
       </div>
       <!-- 下拉菜单 -->
       <van-dropdown-menu active-color="#18eaee">
-        <router-link to="/home">
+        <router-link to="/city">
           <button class="btn">位置</button>
         </router-link>
         <van-dropdown-item v-model="value3" :options="option3" />
@@ -34,15 +29,17 @@
     </div>
     <div class="main" v-for="(item, i) of list" :key="i">
       <van-swipe
-        style="border-radius:5px;margin-top:0.8rem"
+        :class="lb[i]"
+        class="lunBo"
+        style="border-radius:5px;"
         :loop="false"
         :height="200"
       >
         <van-swipe-item v-for="(item, i) of lunBo" :key="i">
-          <img style="width:100%" :src="item.pic" alt="" />
+          <img style="width:100%" :src="item.pic" alt />
         </van-swipe-item>
       </van-swipe>
-      <p v-text="item.p"></p>
+      <p>臻选</p>
       <dl>
         <dt>
           <h6 v-text="item.h1"></h6>
@@ -62,10 +59,12 @@
 </template>
 
 <script>
+import funs from "@/assets/js/funs";
 export default {
   inject: ["reload"],
   data() {
     return {
+      lb: ["i1"],
       switch1: true,
       switch2: false,
       switch3: false,
@@ -74,62 +73,64 @@ export default {
       switch6: false,
       list: [
         {
-          p: "精选",
-          h1: "金迪士尼",
+          h1: "近迪士尼",
           h2: "距离市区1小时车程",
           h3: "距迪士尼地铁站1公里",
-          h4: "上海邻家露营地",
+          h4: "",
           h6: "湖泊型 |",
-          s: "野奢度假酒店 · 网红打卡地"
+          s: ""
         },
         {
-          p: "精选",
-          h1: "金迪士尼",
+          h1: "近迪士尼",
           h2: "距离市区1小时车程",
           h3: "距迪士尼地铁站1公里",
-          h4: "上海邻家露营地",
+          h4: "",
           h6: "湖泊型 |",
-          s: "野奢度假酒店 · 网红打卡地"
+          s: ""
         },
         {
-          p: "精选",
-          h1: "金迪士尼",
+          h1: "近迪士尼",
           h2: "距离市区1小时车程",
           h3: "距迪士尼地铁站1公里",
-          h4: "上海邻家露营地",
+          h4: "",
           h6: "湖泊型 |",
-          s: "野奢度假酒店 · 网红打卡地"
+          s: ""
+        },
+        {
+          h1: "近迪士尼",
+          h2: "距离市区1小时车程",
+          h3: "距迪士尼地铁站1公里",
+          h4: "",
+          h6: "湖泊型 |",
+          s: ""
         }
       ],
       lunBo: [
         {
-          pic: require("@/assets/images/t1.jpg")
-        },
-        {
-          pic: require("@/assets/images/t2.jpg")
-        },
-        {
-          pic: require("@/assets/images/t3.jpg")
-        },
-        {
-          pic: require("@/assets/images/t4.jpg")
-        },
-        {
-          pic: require("@/assets/images/t5.jpg")
-        },
-        {
-          pic: require("@/assets/images/t6.jpg")
+          pic: ""
         }
+        // {
+        //   pic: ""
+        // }
+        // {
+        //   pic: ""
+        // },
+        // {
+        //   pic: ""
+        // }
+        // {
+        //   pic: require("@/assets/images/t5.jpg")
+        // },
+        // {
+        //   pic: require("@/assets/images/t6.jpg")
+        // }
       ],
       hide: true,
       value3: 1,
       value3: 0,
       value2: 0,
       option2: [{ text: "123", value: 0 }],
-      option3: [
-        { text: "价格升序", value: 0 },
-        { text: "热度排序", value: 1 }
-      ]
+      option3: [{ text: "价格升序", value: 0 }, { text: "热度排序", value: 1 }]
     };
   },
   methods: {
@@ -143,12 +144,35 @@ export default {
     }
   },
   created() {
-    this.reload();
+    funs.getMore(res => {
+      console.log(res.data);
+      this.list[0].s = res.data.data[0].subtitle;
+      this.list[1].s = res.data.data[1].subtitle;
+      this.list[2].s = res.data.data[2].subtitle;
+      this.list[3].s = res.data.data[3].subtitle;
+      this.list[0].h4 = res.data.data[0].title;
+      this.list[1].h4 = res.data.data[1].title;
+      this.list[2].h4 = res.data.data[2].title;
+      this.list[3].h4 = res.data.data[3].title;
+      this.lunBo[0].pic = res.data.data[0].pic;
+      // this.lunBo[1].pic = res.data.data[1].pic;
+      // this.lunBo[2].pic = res.data.data[2].pic;
+      // this.lunBo[3].pic = res.data.data[3].pic;
+    });
   }
 };
 </script>
 
 <style scoped>
+.i1 {
+  margin-top: 120px;
+}
+.head {
+  width: 100%;
+  z-index: 10;
+  position: fixed;
+  top: 0;
+}
 .head > div:first-child > img {
   width: 1.5rem;
   height: 1.5rem;
@@ -158,11 +182,11 @@ export default {
   background: #fff;
   display: flex;
 }
-.head > .diTu > img {
+.diTu > img {
   width: 1rem;
   height: 1rem;
 }
-.head > .diTu {
+.diTu {
   position: absolute;
   right: 20px;
   top: 15px;

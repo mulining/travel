@@ -35,7 +35,7 @@ AMap.initAMapApiLoader({
 Vue.prototype.AMap = AMap;
 
 //即刻出发
-import { NavBar } from 'vant';
+import { NavBar } from "vant";
 import "../src/assets/resetVui.css";
 Vue.use(NavBar);
 import { Tab, Tabs } from "vant";
@@ -44,7 +44,7 @@ import { TreeSelect } from "vant";
 Vue.use(TreeSelect);
 import { Grid, GridItem } from "vant";
 Vue.use(Grid).use(GridItem);
-import { Lazyload } from 'vant';
+import { Lazyload } from "vant";
 Vue.use(Lazyload);
 
 Vue.use(Vant);
@@ -65,7 +65,8 @@ axios.defaults.withCredentials = true;
 var store = new Vuex.Store({
   // 共享的数据
   state: {
-    isLogin: false
+    isLogin: false,
+    pic:require("@/assets/images/piKaQiu.jpg"),//共享初始化用户头像数据
   },
 
   // 修改共享数据
@@ -79,15 +80,19 @@ var store = new Vuex.Store({
   getters: {
     login(state) {
       return state.isLogin;
+    },
+    userpic(state){
+      return state.pic;
     }
   }
 });
-
 /* eslint-disable no-new */
 new Vue({
   el: "#app",
   router,
-  components: { App },
+  components: {
+    App
+  },
   store,
   template: "<App/>"
 });

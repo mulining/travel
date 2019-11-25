@@ -14,7 +14,10 @@ const querystring = require("querystring");
 function verify(uid) {
   // 判断用户是否登录, 如果登录,返回true,否则返回false
   if (!uid) {
-    res.send({ code: -2, msg: "用户未登录,请登录!" });
+    res.send({
+      code: -2,
+      msg: "用户未登录,请登录!"
+    });
     return false;
   }
   return true;
@@ -26,11 +29,17 @@ router.post("/reg", (req, res) => {
   var uname = req.body.uname;
   var upwd = req.body.upwd;
   if (!uname) {
-    res.send({ code: -2, msg: "用户名不能为空" });
+    res.send({
+      code: -2,
+      msg: "用户名不能为空"
+    });
     return;
   }
   if (!upwd) {
-    res.send({ code: -3, msg: "密码不能为空" });
+    res.send({
+      code: -3,
+      msg: "密码不能为空"
+    });
     return;
   }
   // 具体格式放在前端验证
@@ -38,10 +47,16 @@ router.post("/reg", (req, res) => {
   pool.query(sql, [uname, upwd], (err, result) => {
     if (err) throw err;
     if (result.affectedRows > 0) {
-      res.send({ code: 1, msg: "注册成功!" });
+      res.send({
+        code: 1,
+        msg: "注册成功!"
+      });
       return;
     } else {
-      res.send({ code: -1, msg: "注册失败!" });
+      res.send({
+        code: -1,
+        msg: "注册失败!"
+      });
     }
   });
 });
@@ -52,11 +67,17 @@ router.post("/login", (req, res) => {
   var uname = req.body.uname;
   var upwd = req.body.upwd;
   if (!uname) {
-    res.send({ data: -2, msg: "用户名不能为空!" });
+    res.send({
+      data: -2,
+      msg: "用户名不能为空!"
+    });
     return;
   }
   if (!upwd) {
-    res.send({ data: -3, msg: "密码不能为空!" });
+    res.send({
+      data: -3,
+      msg: "密码不能为空!"
+    });
     return;
   }
   // 正则验证放在前端页面
@@ -67,10 +88,17 @@ router.post("/login", (req, res) => {
     if (result.length > 0) {
       // 将uid存入req.session
       req.session.uid = result[0].id;
-      res.send({ code: 1, msg: "登录成功!" });
+      console.log(req.session);
+      res.send({
+        code: 1,
+        msg: "登录成功!"
+      });
       return;
     } else {
-      res.send({ code: -1, msg: "登录失败!" });
+      res.send({
+        code: -1,
+        msg: "登录失败!"
+      });
     }
   });
 });
@@ -114,7 +142,7 @@ router.post("/personal", (req, res) => {
   if (verify(req)) {
     // 这里是说明用户处于登录状态,可以执行数据录入
     var sql =
-    'UPDATE travel_user SET phone=?,nick=?,user_name=?,gender=?,sign=?,pic=? WHERE id=?';
+      "UPDATE travel_user SET uname=?,phone=?,user_name=?,gender=?,sign=?,pic=? WHERE id=?";
     // address=?,
     pool.query(sql, [p, n,u_n, g, s, pic, id], (err, result) => {
       if (err) throw err;
@@ -131,16 +159,26 @@ router.post("/personal", (req, res) => {
 router.get("/personal", (req, res) => {
   var uid = req.session.uid;
   if (!uid) {
-    res.send({ code: -2, msg: "用户未登录,请登录!" });
+    res.send({
+      code: -2,
+      msg: "用户未登录,请登录!"
+    });
     return;
   }
   var sql = "SELECT FROM WHERE uid=?";
   pool.query(sql, [uid], (err, result) => {
     if (err) throw err;
     if (result.length > 0) {
-      res.send({ code: 1, msg: "查询成功!", data: result });
+      res.send({
+        code: 1,
+        msg: "查询成功!",
+        data: result
+      });
     } else {
-      res.send({ code: -1, msg: "用户数据为空!" });
+      res.send({
+        code: -1,
+        msg: "用户数据为空!"
+      });
     }
   });
 });

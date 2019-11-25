@@ -2,9 +2,7 @@
   <van-swipe :autoplay="3000">
     <van-swipe-item v-for="(image, index) in img" :key="index">
       <img class="lunBo" :src="image.img" />
-      <button @click="justGo" v-show="index ? hide : show">
-        {{ text[0] }}
-      </button>
+      <button @click="justGo" v-show="index ? hide : show">{{ text[0] }}</button>
       <button v-show="index ? show : hide">{{ text[1] }}</button>
     </van-swipe-item>
   </van-swipe>
