@@ -65,14 +65,17 @@ axios.defaults.withCredentials = true;
 var store = new Vuex.Store({
   // 共享的数据
   state: {
-    isLogin: false,
-    pic:require("@/assets/images/piKaQiu.jpg"),//共享初始化用户头像数据
+    isLogin: false, 
+    pic:require("./assets/images/piKaQiu.jpg"),//共享初始化用户头像数据
   },
 
   // 修改共享数据
   mutations: {
     userLogin(state) {
       state.isLogin = true;
+    },
+    upic(state,url){
+      state.pic = true;
     }
   },
 

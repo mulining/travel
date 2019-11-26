@@ -4,7 +4,7 @@
       <div class="yiDengLu">
         <router-link to="/pData" tag="div">
           <img
-            src="@/assets/images/piKaQiu.jpg"
+            :src="$store.getters.userpic"
             alt=""
           />
         </router-link>
