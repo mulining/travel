@@ -8,11 +8,26 @@
       <router-link tag="p" to="/reg">账号密码注册</router-link>
       <h2>欢迎您，请登录</h2>
       <div class="ipt">
-        <input class="yongHu" type="text" placeholder="请输入用户名" v-model="uname" />
-        <input class="miMa" type="password" placeholder="请输入密码" v-model="upwd" />
+        <input
+          class="yongHu"
+          type="text"
+          placeholder="请输入用户名"
+          v-model="uname"
+        />
+        <input
+          class="miMa"
+          type="password"
+          placeholder="请输入密码"
+          v-model="upwd"
+        />
         <button @click="login">立即登录</button>
         <div class="yueDu">
-          <input type="checkbox" v-model="yueDu" name="btn" id="btn1" />阅读并同意
+          <input
+            type="checkbox"
+            v-model="yueDu"
+            name="btn"
+            id="btn1"
+          />阅读并同意
           <a>《用户使用协议》</a>
           及
           <a>《隐私保护政策》</a>
@@ -24,6 +39,7 @@
 
 <script>
 import qs from "qs";
+import { mapMutations } from "vuex";
 import { Toast } from "vant";
 export default {
   data() {
@@ -34,6 +50,7 @@ export default {
     };
   },
   methods: {
+    ...mapMutations(["nickName"]),
     fanHui() {
       this.$router.push("/my");
     },
@@ -72,20 +89,13 @@ export default {
               this.$router.push("/my");
               this.$store.commit("userLogin");
             }
+          } else {
+            Toast("用户名不存在");
           }
         })
         .catch(err => {
           console.log(err);
         });
-    }
-  },
-  computed: {
-    userName() {
-      let localData = localStorage.userName;
-      if (this.$store.state.username === undefined) {
-        this.$store.commit("setUserName", localData);
-      }
-      return this.$store.state.userName;
     }
   }
 };

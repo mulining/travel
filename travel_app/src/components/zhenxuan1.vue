@@ -10,7 +10,6 @@
     >
       <!-- <van-icon name="search" slot="right" /> -->
       <van-icon name="star-o" color="#000" slot="right" />
-      <van-icon class="icon-camera" name="camera" slot="right"></van-icon>
     </van-nav-bar>
     <div class="head">
       <img @click="fanHui" src="@/assets/images/fanHui.png" alt />
@@ -28,7 +27,9 @@
     </div>
 
     <div class="title">
-      <van-tag mark color="#e0f523" style="color:#000;padding:3px 15px">臻选</van-tag>
+      <van-tag mark color="#e0f523" style="color:#000;padding:3px 15px"
+        >臻选</van-tag
+      >
       <div>
         <h6>处太湖一号露营公园内</h6>
         <h6>距市区1小时车程</h6>
@@ -63,13 +64,22 @@
     </div>
     <div class="jieShao">
       <h3>营地介绍</h3>
-      <p>苏州太湖一号房车露营公园隶属于苏州盖普房车露营管理有限公司旗下营地项目，立足苏州西部，依托高新区镇湖原生态环境条件。公司占地170余亩，现为国家五星级汽车露营地。项目充分体现“生态、绿色、休闲”特色，倡导时尚的户外露营生活。太湖一号房车营地内共建设90个</p>
+      <p>
+        苏州太湖一号房车露营公园隶属于苏州盖普房车露营管理有限公司旗下营地项目，立足苏州西部，依托高新区镇湖原生态环境条件。公司占地170余亩，现为国家五星级汽车露营地。项目充分体现“生态、绿色、休闲”特色，倡导时尚的户外露营生活。太湖一号房车营地内共建设90个
+      </p>
       <button @click="gengDuo" class="btn">查看更多</button>
       <div v-show="show" class="gengDuo">
         <h2>营地介绍</h2>
         <h3>营地描述</h3>
-        <p>苏州太湖一号房车露营公园隶属于苏州盖普房车露营管理有限公司旗下营地项目，立足苏州西部，依托高新区镇湖原生态环境条件。公司占地170余亩，现为国家五星级汽车露营地。项目充分体现“生态、绿色、休闲”特色，倡导时尚的户外露营生活。太湖一号房车营地内共建设90个标准房车营位，45辆营地房车，每个营位除配备水电、排污接口以及野餐、水池、烧烤架等基础设备外，以便露营着使用。</p>
-        <van-icon @click="hide" size="20" style="top:410px;left:163px" name="cross" />
+        <p>
+          苏州太湖一号房车露营公园隶属于苏州盖普房车露营管理有限公司旗下营地项目，立足苏州西部，依托高新区镇湖原生态环境条件。公司占地170余亩，现为国家五星级汽车露营地。项目充分体现“生态、绿色、休闲”特色，倡导时尚的户外露营生活。太湖一号房车营地内共建设90个标准房车营位，45辆营地房车，每个营位除配备水电、排污接口以及野餐、水池、烧烤架等基础设备外，以便露营着使用。
+        </p>
+        <van-icon
+          @click="yC"
+          size="20"
+          style="top:410px;left:163px"
+          name="cross"
+        />
       </div>
     </div>
     <dl>
@@ -130,7 +140,7 @@ export default {
     gengDuo() {
       this.show = true;
     },
-    hide() {
+    yC() {
       this.show = false;
     },
     fanHui() {
@@ -141,16 +151,6 @@ export default {
 </script>
 
 <style scoped>
-@font-face {
-  font-family: "my-icon";
-  src: url("../assets/images/zhuanFaHei.png") format("truetype");
-}
-.my-icon {
-  font-family: "my-icon";
-}
-.my-icon-extra::before {
-  content: "\e626";
-}
 .head > div > img:last-child {
   position: absolute;
   left: 350px;

@@ -3,14 +3,11 @@
     <div class="title" v-if="$store.getters.login">
       <div class="yiDengLu">
         <router-link to="/pData" tag="div">
-          <img
-            src="@/assets/images/piKaQiu.jpg"
-            alt=""
-          />
+          <img src="@/assets/images/piKaQiu.jpg" alt="" />
         </router-link>
         <div>
           <h6>欢迎您</h6>
-          <h5>***</h5>
+          <h5>{{ $store.getters.uname }}</h5>
         </div>
         <router-link to="/pData" tag="p">
           <img src="@/assets/images/xiuGai.png" alt="" />
@@ -26,24 +23,48 @@
     </div>
     <div class="daohang">
       <van-cell title="我的游记" icon="photograph">
-        <van-icon slot="right-icon" name="arrow" style="line-height: inherit;" />
+        <van-icon
+          slot="right-icon"
+          name="arrow"
+          style="line-height: inherit;"
+        />
       </van-cell>
       <van-cell title="我的收藏" icon="star-o">
-        <van-icon slot="right-icon" name="arrow" style="line-height: inherit;" />
+        <van-icon
+          slot="right-icon"
+          name="arrow"
+          style="line-height: inherit;"
+        />
       </van-cell>
       <van-cell title="我的积分" icon="column">
-        <van-icon slot="right-icon" name="arrow" style="line-height: inherit;" />
+        <van-icon
+          slot="right-icon"
+          name="arrow"
+          style="line-height: inherit;"
+        />
       </van-cell>
       <van-cell title="我的消息" icon="chat">
-        <van-icon slot="right-icon" name="arrow" style="line-height: inherit;" />
+        <van-icon
+          slot="right-icon"
+          name="arrow"
+          style="line-height: inherit;"
+        />
       </van-cell>
     </div>
     <div class="tuijian">
       <van-cell title="推荐给好友" icon="share">
-        <van-icon slot="right-icon" name="arrow" style="line-height: inherit;" />
+        <van-icon
+          slot="right-icon"
+          name="arrow"
+          style="line-height: inherit;"
+        />
       </van-cell>
       <van-cell title="设置" icon="setting">
-        <van-icon slot="right-icon" name="arrow" style="line-height: inherit;" />
+        <van-icon
+          slot="right-icon"
+          name="arrow"
+          style="line-height: inherit;"
+        />
       </van-cell>
     </div>
     <tab-bar></tab-bar>
@@ -51,15 +72,15 @@
 </template>
 
 <script>
-  import tabBar from "@/components/tabBar";
-  export default {
-    components: {
-      tabBar
-    },
-    data() {
-      return {};
-    }
-  };
+import tabBar from "@/components/tabBar";
+export default {
+  components: {
+    tabBar
+  },
+  data() {
+    return {};
+  }
+};
 </script>
 
 <style scoped>
@@ -178,28 +199,28 @@
   margin-bottom: 15px;
   font-size: 17px;
 } */
-  .van-image {
-    width: 43px;
-    height: 42px;
-  }
+.van-image {
+  width: 43px;
+  height: 42px;
+}
 
-  .van-cell__left-icon,
-  .van-cell__right-icon {
-    font-size: 22px;
-    color: rgb(119, 220, 245);
-  }
+.van-cell__left-icon,
+.van-cell__right-icon {
+  font-size: 22px;
+  color: rgb(119, 220, 245);
+}
 
-  .van-cell__title,
-  .van-cell__value {
-    font-size: 16px;
-  }
+.van-cell__title,
+.van-cell__value {
+  font-size: 16px;
+}
 
-  .tuijian {
-    margin-top: 20px;
-  }
+.tuijian {
+  margin-top: 20px;
+}
 
-  .daohang {
-    z-index: 0;
-    margin-top: 10px;
-  }
+.daohang {
+  z-index: 0;
+  margin-top: 10px;
+}
 </style>

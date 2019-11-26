@@ -67,13 +67,17 @@ var store = new Vuex.Store({
   // 共享的数据
   state: {
     isLogin: false,
-    pic:require("@/assets/images/piKaQiu.jpg"),//共享初始化用户头像数据
+    pic: require("@/assets/images/piKaQiu.jpg"), //共享初始化用户头像数据
+    nick: ""
   },
 
   // 修改共享数据
   mutations: {
     userLogin(state) {
       state.isLogin = true;
+    },
+    nickName(state, nick) {
+      state.nick = nick;
     }
   },
 
@@ -82,8 +86,11 @@ var store = new Vuex.Store({
     login(state) {
       return state.isLogin;
     },
-    userpic(state){
+    userpic(state) {
       return state.pic;
+    },
+    uname(state) {
+      return state.nick;
     }
   }
 });
