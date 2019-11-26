@@ -2,7 +2,7 @@
   <div>
     <!-- 搜索框 -->
     <van-search
-      v-model="value"
+      :v-model="$store.getters.inputValue"
       placeholder="请输入搜索关键词"
       show-action
       @cancel="onCancel"

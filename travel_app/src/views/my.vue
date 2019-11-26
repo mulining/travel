@@ -3,7 +3,7 @@
     <div class="title" v-if="$store.getters.login">
       <div class="yiDengLu">
         <router-link to="/pData" tag="div">
-          <img src="@/assets/images/piKaQiu.jpg" alt="" />
+          <img :src="$store.getters.userpic" alt="" />
         </router-link>
         <div>
           <h6>欢迎您</h6>
