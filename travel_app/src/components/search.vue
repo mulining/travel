@@ -5,19 +5,22 @@
         v-model="value"
         placeholder="请输入搜索关键词"
         show-action
-        @input="input"
+        @input="alertMsg"
         @search="onSearch"
         @cancel="onCancel"
       />
       <ul v-show="hide">
-        <li v-for="(item, i) of search" :key="i">
-          <div>
+        <li v-for="(item, i) of lists" :key="i">
+          <div class="alertText" >
             <span :class="yanSe">{{
-              item.slice(item.toLowerCase, value.length)
+              item.title.slice(item.title.toLowerCase, value.length)
             }}</span>
-            <span>{{ item.substr(value.length) }}</span>
+            <span>{{ item.title.substr(value.length) }}</span>
           </div>
           <img src="@/assets/images/zuoShangJT.png" alt />
+          <div @click="totap" class="mm" :data-id="item.id" :data-tablec="item.tableC" :data-type="item.type">
+            <!-- 空的遮罩 -->
+          </div>
         </li>
       </ul>
       <dl v-show="reMen">
@@ -47,7 +50,7 @@ export default {
   data() {
     return {
       souSuo: false,
-      hide: false,
+      hide: true,
       reMen: true,
       yingC: false,
       yanSe: { p: false },
@@ -68,7 +71,7 @@ export default {
         { s: "黄山" },
         { s: "扬州" }
       ],
-      lists: ["百度", "百度网盘"]
+      lists: []
       // lists: ["k"]
     };
   },
@@ -106,6 +109,38 @@ export default {
       if (this.liShi !== null) {
         this.souSuo = true;
       }
+    },
+    // 下拉列表
+    alertMsg(){
+      // 当用户输入时触发
+      // 获取当前的关键词
+      var k = this.value;
+      // 当数据存在才发送请求
+      if(k.trim()){
+        // 发送ajax请求数据
+        funs.getSearch(k, res => {
+          // 获取到数据,将数据显示到下拉列表中
+          console.log(res.data.data);
+          this.lists = res.data.data
+        });
+      }else{
+        this.lists = null
+      }
+      // 并显示到下拉菜单
+    },
+    totap(e){
+      // 获取id和type
+      var id = e.target.dataset.id;
+      var type = e.target.dataset.type;
+      var tableC = e.target.dataset.tablec;
+      console.log(id,type,tableC);
+      console.log(e.target.dataset)
+
+      // +++++++++++++++++++++++++++++++++++++++++
+      // 请求details下的路由 传递id type tableC数据查找对应的数据,并显示到新的页面!
+      // +++++++++++++++++++++++++++++++++++++++++
+      // this.$router.push("/fdadfd/fda/id=1&type=1&tableC=0");
+
     },
     // 点击取消按钮时触发
     onCancel() {
@@ -177,5 +212,19 @@ dl > dd {
 dl {
   width: 93%;
   margin: 8px auto 0;
+}
+/* 下拉列表的文字长度 */
+.alertText{
+  width: 260px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+/* 空的遮罩 */
+.mm{
+  position: absolute;
+  width: 100%;
+  height: 34px;
+  /* background: #ccc; */
 }
 </style>
