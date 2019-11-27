@@ -12,22 +12,22 @@
       <ul v-show="hide">
         <li v-for="(item, i) of search" :key="i">
           <div>
-            <span :class="yanSe">{{
+            <span :class="yanSe">
+              {{
               item.slice(item.toLowerCase, value.length)
-            }}</span>
+              }}
+            </span>
             <span>{{ item.substr(value.length) }}</span>
           </div>
-          <img src="@/assets/images/zuoShangJT.png" alt />
+          <img src="@/assets/images/zuoShangJT.png" alt>
         </li>
       </ul>
       <dl v-show="reMen">
         <dt v-show="souSuo">
           <h4>历史搜索</h4>
-          <img @click="shanChu" src="@/assets/images/laJi.png" alt />
+          <img @click="shanChu" src="@/assets/images/laJi.png" alt>
         </dt>
-        <dd class="d1" v-for="(item, i) of liShi" :key="i" v-show="yingC">
-          {{ liShi.join("") }}
-        </dd>
+        <dd class="d1" v-for="(item, i) of liShi" :key="i" v-show="yingC">{{ liShi.join("") }}</dd>
         <dt>
           <h4>热门搜索</h4>
         </dt>
@@ -93,6 +93,11 @@ export default {
     }
   },
   methods: {
+    chengShi() {
+      // console.log(123)
+      var arr = this.liShi.push(this.value);
+      console.log(arr);
+    },
     shanChu() {
       this.liShi.splice(0);
       this.souSuo = false;
