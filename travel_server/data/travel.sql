@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 2019-11-21 12:39:39
+-- Generation Time: 2019-11-23 07:50:25
 -- 服务器版本： 10.1.28-MariaDB
 -- PHP Version: 5.6.32
 
@@ -32,6 +32,7 @@ USE `travel`;
 -- 创建时间： 2019-11-16 13:14:00
 --
 
+DROP TABLE IF EXISTS `travel_camp`;
 CREATE TABLE IF NOT EXISTS `travel_camp` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `pic` varchar(255) DEFAULT NULL,
@@ -87,6 +88,7 @@ INSERT INTO `travel_camp` (`id`, `pic`, `title`, `subtitle`, `type`, `site`, `ad
 -- 创建时间： 2019-11-16 02:55:42
 --
 
+DROP TABLE IF EXISTS `travel_caro`;
 CREATE TABLE IF NOT EXISTS `travel_caro` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `img` varchar(255) DEFAULT NULL,
@@ -115,6 +117,7 @@ INSERT INTO `travel_caro` (`id`, `img`, `title`, `href`) VALUES
 -- 创建时间： 2019-11-16 02:55:42
 --
 
+DROP TABLE IF EXISTS `travel_class`;
 CREATE TABLE IF NOT EXISTS `travel_class` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `type_name` varchar(32) DEFAULT NULL,
@@ -144,6 +147,7 @@ INSERT INTO `travel_class` (`id`, `type_name`) VALUES
 -- 创建时间： 2019-11-16 02:55:42
 --
 
+DROP TABLE IF EXISTS `travel_collect`;
 CREATE TABLE IF NOT EXISTS `travel_collect` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uid` int(11) DEFAULT NULL,
@@ -165,11 +169,60 @@ CREATE TABLE IF NOT EXISTS `travel_collect` (
 -- --------------------------------------------------------
 
 --
+-- 表的结构 `travel_scroll`
+--
+-- 创建时间： 2019-11-23 06:17:35
+--
+
+DROP TABLE IF EXISTS `travel_scroll`;
+CREATE TABLE IF NOT EXISTS `travel_scroll` (
+  `id` int(11) NOT NULL,
+  `cid` int(11) NOT NULL,
+  `img1` varchar(255) NOT NULL,
+  `img2` varchar(255) NOT NULL,
+  `img3` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- RELATIONSHIPS FOR TABLE `travel_scroll`:
+--
+
+--
+-- 转存表中的数据 `travel_scroll`
+--
+
+INSERT INTO `travel_scroll` (`id`, `cid`, `img1`, `img2`, `img3`) VALUES
+(1, 1, './static/scroll/29816049.jpg', './static/scroll/4144468977.jpg', './static/scroll/208104921.jpg'),
+(2, 2, './static/scroll/292737539.jpg', './static/scroll/300536907.jpg', './static/scroll/314328083.jpg'),
+(3, 3, './static/scroll/320102993.jpg', './static/scroll/1044899256.jpg', './static/scroll/1051921069.jpg'),
+(4, 4, './static/scroll/1284965597.jpg', './static/scroll/3850709400.jpg', './static/scroll/1332576209.jpg'),
+(5, 5, './static/scroll/1381122787.jpg', './static/scroll/1409220719.jpg', './static/scroll/1409225056.jpg'),
+(6, 6, './static/scroll/1412327079.jpg', './static/scroll/1470325641.jpg', './static/scroll/1717815713.jpg'),
+(7, 7, './static/scroll/1731400392.jpg', './static/scroll/1733577956.jpg', './static/scroll/1752749994.jpg'),
+(8, 8, './static/scroll/1889032813.jpg', './static/scroll/1921188956.jpg', './static/scroll/2079800442.jpg'),
+(9, 9, './static/scroll/2082358749.jpg', './static/scroll/2085345343.jpg', './static/scroll/2170482243.jpg'),
+(10, 10, './static/scroll/2197066702.jpg', './static/scroll/2197418331.jpg', './static/scroll/2237241407.jpg'),
+(11, 11, './static/scroll/2251986177.jpg', './static/scroll/2332073807.jpg', './static/scroll/2356396868.jpg'),
+(12, 12, './static/scroll/2356505222.jpg', './static/scroll/2364227455.jpg', './static/scroll/2413913020.jpg'),
+(13, 13, './static/scroll/2413999471.jpg', './static/scroll/2414612350.jpg', './static/scroll/2422536042.jpg'),
+(14, 14, './static/scroll/2433795636.jpg', './static/scroll/2619094107.jpg', './static/scroll/2638977175.jpg'),
+(15, 15, './static/scroll/2656628652.jpg', './static/scroll/2670491509.jpg', './static/scroll/2742292546.jpg'),
+(16, 16, './static/scroll/2793569902.jpg', './static/scroll/2807680893.jpg', './static/scroll/2852770417.jpg'),
+(17, 17, './static/scroll/2920485246.jpg', './static/scroll/2921914130.jpg', './static/scroll/2996898994.jpg'),
+(18, 18, './static/scroll/3008060681.jpg', './static/scroll/.1673351825jpg', './static/scroll/3211466005.jpg'),
+(19, 19, './static/scroll/3237167858.jpg', './static/scroll/3306361875.jpg', './static/scroll/3328010001.jpg'),
+(20, 20, './static/scroll/3401777427.jpg', './static/scroll/3615919511.jpg', './static/scroll/3695221626.jpg');
+
+-- --------------------------------------------------------
+
+--
 -- 表的结构 `travel_shared`
 --
 -- 创建时间： 2019-11-21 05:50:29
 --
 
+DROP TABLE IF EXISTS `travel_shared`;
 CREATE TABLE IF NOT EXISTS `travel_shared` (
   `id` int(11) NOT NULL,
   `uid` int(11) NOT NULL,
@@ -261,6 +314,7 @@ INSERT INTO `travel_shared` (`id`, `uid`, `pic`, `title`, `subtitle`, `type`, `l
 -- 创建时间： 2019-11-16 02:55:42
 --
 
+DROP TABLE IF EXISTS `travel_user`;
 CREATE TABLE IF NOT EXISTS `travel_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uname` varchar(32) DEFAULT NULL,

@@ -5,21 +5,29 @@
         v-model="value"
         placeholder="请输入搜索关键词"
         show-action
-        @input="input"
+        @input="alertMsg"
         @search="onSearch"
         @cancel="onCancel"
       />
       <ul v-show="hide">
-        <li v-for="(item, i) of search" :key="i">
-          <div>
-            <span :class="yanSe">
-              {{
-              item.slice(item.toLowerCase, value.length)
-              }}
-            </span>
-            <span>{{ item.substr(value.length) }}</span>
+        <li v-for="(item, i) of lists" :key="i">
+          <div class="alertText">
+            <span :class="yanSe">{{
+              item.title.slice(item.title.toLowerCase, value.length)
+            }}</span>
+            <span>{{ item.title.substr(value.length) }}</span>
           </div>
-          <img src="@/assets/images/zuoShangJT.png" alt>
+          <img src="@/assets/images/zuoShangJT.png" alt />
+          <div
+            @click="totap"
+            class="mm"
+            :data-id="item.id"
+            :data-tablec="item.tableC"
+            :data-type="item.type"
+          >
+            <!-- 空的遮罩 -->
+            <!-- <div class="mask"></div> -->
+          </div>
         </li>
       </ul>
       <dl v-show="reMen">
@@ -68,8 +76,7 @@ export default {
         { s: "黄山" },
         { s: "扬州" }
       ],
-      lists: ["百度", "百度网盘"]
-      // lists: ["k"]
+      lists: []
     };
   },
   created() {
@@ -111,6 +118,41 @@ export default {
       if (this.liShi !== null) {
         this.souSuo = true;
       }
+      this.$router.push("/listDetails");
+    },
+    // 下拉列表
+    alertMsg() {
+      // 当用户输入时触发
+      this.hide = true;
+      // 获取当前的关键词
+      var k = this.value;
+      // 当数据存在才发送请求
+      if (k.trim()) {
+        // 发送ajax请求数据
+        funs.getSearch(k, res => {
+          // 获取到数据,将数据显示到下拉列表中
+          console.log(res.data.data);
+          this.lists = res.data.data;
+        });
+      } else {
+        this.lists = null;
+        this.hide = false;
+      }
+      // 并显示到下拉菜单
+    },
+    totap(e) {
+      // 获取id和type
+      var id = e.target.dataset.id;
+      var type = e.target.dataset.type;
+      var tableC = e.target.dataset.tablec;
+      console.log(id, type, tableC);
+      console.log(e.target.dataset);
+      this.$router.push("/travelDetails");
+
+      // +++++++++++++++++++++++++++++++++++++++++
+      // 请求details下的路由 传递id type tableC数据查找对应的数据,并显示到新的页面!
+      // +++++++++++++++++++++++++++++++++++++++++
+      // this.$router.push("/fdadfd/fda/id=1&type=1&tableC=0");
     },
     // 点击取消按钮时触发
     onCancel() {
@@ -121,6 +163,14 @@ export default {
 </script>
 
 <style scoped>
+/* .mask {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  position: fixed;
+  top: 0;
+  right: 0;
+} */
 dl > dt > img {
   width: 20px;
   height: 20px;
@@ -145,10 +195,6 @@ ul > li > img {
 .p {
   color: rgb(202, 202, 202);
 }
-ul > li {
-  border-bottom: 1px solid #f3e9e9;
-  padding: 3px;
-}
 ul > li > div > span:first-child {
   margin-right: -3px;
 }
@@ -159,10 +205,16 @@ ul > li {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 1px solid #f3e9e9;
+  padding: 3px;
 }
 ul {
-  width: 97%;
+  width: 100%;
+  height: 100%;
   margin: 0 auto;
+  position: fixed;
+  top:55px;
+  background: #fff;
 }
 dl > dt > h4 {
   font-size: 1rem;
@@ -182,5 +234,19 @@ dl > dd {
 dl {
   width: 93%;
   margin: 8px auto 0;
+}
+/* 下拉列表的文字长度 */
+.alertText {
+  width: 260px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+/* 空的遮罩 */
+.mm {
+  position: absolute;
+  width: 97%;
+  height: 34px;
+  /* background: #ccc; */
 }
 </style>

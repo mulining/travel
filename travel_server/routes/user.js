@@ -117,19 +117,34 @@ router.post("/rlbyphone", (req, res) => {
 // 用户个人信息录入 post 接口: /personal
 router.post("/personal", (req, res) => {
   var id = req.session.uid,
-    un = req.body.uname,
-    p = req.body.phone,
-    u_n = req.body.user_name,
-    g = req.body.gender,
+    //un = decodeURIComponent(req.body.uname) || "",//用户名--账号
+    p = req.body.phone || "2",
+    u_n = decodeURIComponent(req.body.user_name) || "",//用户真实姓名
+    n = decodeURIComponent(req.body.nick) || "",//昵称
+    g = decodeURIComponent(req.body.gender) || "保密",
     // a = req.body.address,
-    s = req.query.sign,
-    pic = req.body.pic;
+    s = decodeURIComponent(req.body.sign) || "这个人很懒，什么也没留下~",
+    pic = decodeURIComponent(req.body.pic) || "";//头像路径
+    if(g == "男"){
+      g = 1
+    }else if(g == "女"){
+      g = 0
+    }else{
+      g = 2
+    }
+    // console.log(req.body);
+    // console.log("p"+p);
+    // console.log("nick"+n);
+    // console.log("u_n"+u_n);
+    // console.log("g"+g);
+    // console.log("s"+s);
+    // console.log("pic"+pic);
   if (verify(req)) {
     // 这里是说明用户处于登录状态,可以执行数据录入
     var sql =
       "UPDATE travel_user SET uname=?,phone=?,user_name=?,gender=?,sign=?,pic=? WHERE id=?";
     // address=?,
-    pool.query(sql, [un, p, u_n, g, s, pic, id], (err, result) => {
+    pool.query(sql, [p, n,u_n, g, s, pic, id], (err, result) => {
       if (err) throw err;
       if (result.affectedRows > 0) {
         res.send({ code: 1, msg: "个人信息修改成功!" });
@@ -150,7 +165,7 @@ router.get("/personal", (req, res) => {
     });
     return;
   }
-  var sql = "SELECT FROM WHERE uid=?";
+  var sql = "SELECT user_name,nick,phone,gender,sign,pic FROM travel_user WHERE uid=?";
   pool.query(sql, [uid], (err, result) => {
     if (err) throw err;
     if (result.length > 0) {

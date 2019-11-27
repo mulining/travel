@@ -45,6 +45,11 @@
           </div>
         </li>
       </ul>
+      <router-link to="./share">
+        <div class="share" style="color:#00bcd4">
+          <van-icon class="plus_icon" name="plus"/>
+        </div>
+      </router-link>
     </div>
     <tab-bar></tab-bar>
   </div>
@@ -199,5 +204,20 @@ export default {
 }
 .van-col--8 {
   width: 33%;
+}
+.share{
+    background-color:#05c1bc;
+    width: 35px;
+    height: 35px;
+    position: fixed;
+    top: 565px;
+    right: 20px;
+    border-radius: 5px;
+}
+.plus_icon{
+    font-size: 25px; 
+    color: #fff; 
+    padding: 15%;
+    font-weight: 800;
 }
 </style>

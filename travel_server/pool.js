@@ -4,7 +4,7 @@ var mysql = require("mysql");
 //   user:"4z135x2jk5",
 //   password:"4l1j0k400x23xj253hy5h2h1x3klhm24w2ix011z",
 //   database:"app_tmaxtravel",
-//   port:3306,
+//   port:3306,123
 //   connectionLimit:20
 // })
 
