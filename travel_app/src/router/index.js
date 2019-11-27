@@ -21,7 +21,9 @@ import pData from "@/components/pData";
 import map from "@/components/map";
 import zhenxuan1 from "@/components/zhenxuan1";
 import city from "@/components/city";
-import share from "@/components/share";
+import listDetails from "@/components/listDetails";
+import travelDetails from "@/components/travelDetails";
+
 Vue.use(Router);
 
 export default new Router({
@@ -40,6 +42,16 @@ export default new Router({
       path: "/HelloWorld",
       name: "HelloWorld",
       component: HelloWorld
+    },
+    {
+      path: "/listDetails",
+      name: "listDetails",
+      component: listDetails
+    },
+    {
+      path: "/travelDetails",
+      name: "travelDetails",
+      component: travelDetails
     },
     {
       path: "/register",

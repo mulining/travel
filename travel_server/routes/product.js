@@ -54,30 +54,23 @@ router.get("/share", (req, res) => {
   });
 });
 
-// 查询
+// 查询 ---- 未完待续!!!....
 // 查询一:当用户输入时,弹出下拉数据
 // 接口地址 : http://127.0.0.1:5050/pro/msglist/上海
 // 返回值: tabletype 是标识表标识 --> 0标识臻选表 1标识分享表
 // 数据库: 1. travel_camp  2. travel_shared
+// 返回的data中属性有 :
+//    id - 每一个项目的id --> 用于details/v1/result路由传参的第一个参数
+//    title - 标题  
+//    type - 搜索到这条景点所属类型 --> 用户details/v1/result路由传参的第二个参数
+//    tableC - 这条记录是来自于哪个表   0 代表travel_campbiao   1 代表travel_shared
 router.get("/msglist/:keyword", (req, res) => {
   var keyword = req.params.keyword;
   if(!keyword.trim()){
     res.send({code:-2,msg:"缺少关键词"});
   }
   var k = "%" + keyword + "%"; //获取到用户输入的查询关键词
-  // if (k.trim()) {
-  //   var sql =
-  //     "SELECT id,title,type FROM travel_camp WHERE title LIKE ? UNION SELECT id,title,type FROM travel_shared WHERE title LIKE ?";
-  //   pool.query(sql, [k, k], (err, result) => {
-  //     if (err) throw err;
-  //     if (result.length > 0) {
-  //       res.send({ code: 1, msg: "数据列表", data: result });
-  //     } else {
-  //       res.send({ code: -1, msg: "暂无数据!" });
-  //     }
-  //   });
-  // }
-  var msg = [];
+  var msg = []; //存储所有查询到的数据,并返回
   if (k.trim()) {
     var sql1 ="SELECT id,title,type FROM travel_camp WHERE title LIKE ? ";
     pool.query(sql1, [k], (err, result) => {
@@ -88,8 +81,6 @@ router.get("/msglist/:keyword", (req, res) => {
           msg.push(result[i])
         }
       }
-      console.log(11)
-      console.log(msg);
       var sql2 = "SELECT id,title,type FROM travel_shared WHERE title LIKE ?";
       pool.query(sql2, [k], (err, result) => {
         if (err) throw err;
@@ -99,10 +90,6 @@ router.get("/msglist/:keyword", (req, res) => {
             msg.push(result[i])
           }
         }
-        console.log(10)
-        console.log(msg);
-        console.log(13);
-        console.log(msg.length);
         if (msg.length > 0) {
           res.send({ code: 1, msg: "数据列表", data: msg });
         } else {
@@ -110,7 +97,6 @@ router.get("/msglist/:keyword", (req, res) => {
         }
       });
     });
-    
   }
   
 });
