@@ -21,11 +21,16 @@ import pData from "@/components/pData";
 import map from "@/components/map";
 import zhenxuan1 from "@/components/zhenxuan1";
 import city from "@/components/city";
-
+import share from "@/components/share";
 Vue.use(Router);
 
 export default new Router({
   routes: [
+    {
+      path: "/share",
+      name: "share",
+      component: share
+    },
     {
       path: "/zhenxuan1",
       name: "zhenxuan1",
