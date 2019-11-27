@@ -140,7 +140,7 @@ export default {
       // 请求details下的路由 传递id type tableC数据查找对应的数据,并显示到新的页面!
       // +++++++++++++++++++++++++++++++++++++++++
       // this.$router.push("/fdadfd/fda/id=1&type=1&tableC=0");
-
+      
     },
     // 点击取消按钮时触发
     onCancel() {
