@@ -141,20 +141,8 @@ export default {
       window.scrollTo(0, 0);
     },
     xiangQing(id) {
-      this[id]();
-    },
-    1() {
-      this.$router.push("/zhenxuan1");
+      this.$router.push("/zhenxuan1/"+id);
       window.scrollTo(0, 0);
-    },
-    2() {
-      alert(234);
-    },
-    3() {
-      alert(456);
-    },
-    4() {
-      alert(897);
     }
     // xiangQing() {
     //   this.$router.push("/zhenxuan1");

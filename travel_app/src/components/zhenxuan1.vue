@@ -33,12 +33,13 @@
         <h6>处太湖一号露营公园内</h6>
         <h6>距市区1小时车程</h6>
       </div>
-      <h2>苏州太湖一号房车营地</h2>
+      <h2>{{lists.title}}</h2>
       <p>
-        湖泊型 |
-        <span>BBQ · 烧烤轰趴 · 儿童乐园 · 适合野餐</span>
+        {{lists.type}} |
+        <span>{{lists.subtitle}}</span>
       </p>
     </div>
+    <!-- 地图 -->
     <div class="map">
       <div class="diTu">
         <p class="mask"></p>
@@ -46,14 +47,14 @@
       <div class="zuoBiao">
         <img src="@/assets/images/diZhi.png" alt />
         <h6>
-          江苏省苏州市金阊区镇湖镇北太湖大道1699号
+          {{lists.address}}
           <van-icon name="arrow" color="#888" />
         </h6>
       </div>
       <div class="phone">
         <img src="@/assets/images/phone.png" alt />
         <h6>
-          110-110
+          {{lists.phone}}
           <van-icon name="arrow" color="#888" />
         </h6>
       </div>
@@ -61,37 +62,39 @@
         <img src="@/assets/images/daoHang.png" alt />
       </router-link>
     </div>
+    <!-- 营地介绍 -->
     <div class="jieShao">
       <h3>营地介绍</h3>
-      <p>苏州太湖一号房车露营公园隶属于苏州盖普房车露营管理有限公司旗下营地项目，立足苏州西部，依托高新区镇湖原生态环境条件。公司占地170余亩，现为国家五星级汽车露营地。项目充分体现“生态、绿色、休闲”特色，倡导时尚的户外露营生活。太湖一号房车营地内共建设90个</p>
+      <p>{{lists.intro}}</p>
       <button @click="gengDuo" class="btn">查看更多</button>
       <div v-show="show" class="gengDuo">
         <h2>营地介绍</h2>
         <h3>营地描述</h3>
-        <p>苏州太湖一号房车露营公园隶属于苏州盖普房车露营管理有限公司旗下营地项目，立足苏州西部，依托高新区镇湖原生态环境条件。公司占地170余亩，现为国家五星级汽车露营地。项目充分体现“生态、绿色、休闲”特色，倡导时尚的户外露营生活。太湖一号房车营地内共建设90个标准房车营位，45辆营地房车，每个营位除配备水电、排污接口以及野餐、水池、烧烤架等基础设备外，以便露营着使用。</p>
+        <p>{{lists.intro}}</p>
         <van-icon @click="hide" size="20" style="top:410px;left:163px" name="cross" />
       </div>
     </div>
+    <!-- 营地设备 -->
     <dl>
       <dt>
         <h3>营地设备</h3>
       </dt>
       <dd>
         <div>
-          <img src="@/assets/images/xiuXi.png" alt />
+          <img src="@/assets/imgs/sofa.png" alt />
           <p>公共休息区</p>
         </div>
         <div>
-          <img src="@/assets/images/xiuXi.png" alt />
-          <p>公共休息区</p>
+          <img src="@/assets/imgs/wifi.png" alt />
+          <p>免费WiFi</p>
         </div>
         <div>
-          <img src="@/assets/images/xiuXi.png" alt />
-          <p>公共休息区</p>
+          <img src="@/assets/imgs/eat.png" alt />
+          <p>野餐区</p>
         </div>
         <div>
-          <img src="@/assets/images/xiuXi.png" alt />
-          <p>公共休息区</p>
+          <img src="@/assets/imgs/BBQ.png" alt />
+          <p>烧烤设施</p>
         </div>
       </dd>
     </dl>
@@ -100,6 +103,9 @@
 
 <script>
 export default {
+  props:[
+    "id"
+  ],
   data() {
     return {
       show: false,
@@ -111,8 +117,12 @@ export default {
         {
           pic: require("@/assets/images/f37297b8e0b343fc94138737b94464fc.png")
         },
-        { pic: require("@/assets/images/291b76bb97ee4c62839077a5e49c85ff.jpg") }
-      ]
+        { 
+          pic: require     ("@/assets/images/291b76bb97ee4c62839077a5e49c85ff.jpg") 
+        }
+      ],
+      imgs:[],
+      lists:[]
     };
   },
   mounted() {
@@ -135,8 +145,25 @@ export default {
     },
     fanHui() {
       this.$router.push("/home");
-    }
-  }
+    },
+  },
+  created() {
+    var url="details/camp/"+this.id;//接口地址
+    this.axios
+    .get(url)
+    .then(res=>{
+      console.log(res);
+      var obj=res.data.data[0];
+      console.log(obj);
+      // this.imgs=obj.imgs; 暂无
+      this.lists=obj;
+
+      // wwwwwwwo(╥﹏╥)o
+    })
+    .catch(err=>{
+      console.log(err);
+    });
+  },
 };
 </script>
 
