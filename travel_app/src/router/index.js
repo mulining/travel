@@ -29,15 +29,16 @@ Vue.use(Router);
 
 export default new Router({
   routes: [
+    // {
+    //   path: "/share",
+    //   name: "share",
+    //   component: share
+    // },
     {
-      path: "/share",
-      name: "share",
-      component: share
-    },
-    {
-      path: "/zhenxuan1",
+      path: "/zhenxuan1/:id",
       name: "zhenxuan1",
-      component: zhenxuan1
+      component: zhenxuan1,
+      props:true
     },
     {
       path: "/HelloWorld",
