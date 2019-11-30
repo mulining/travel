@@ -14,7 +14,7 @@
     <div class="head">
       <img @click="fanHui" src="@/assets/images/fanHui.png" alt />
       <div>
-        <img src="@/assets/images/shouCang.png" alt />
+        <img @click="Collecting" src="@/assets/images/shouCang.png" alt />
         <img src="@/assets/images/zhuanFa.png" alt />
       </div>
     </div>
@@ -34,10 +34,10 @@
         <h6>处太湖一号露营公园内</h6>
         <h6>距市区1小时车程</h6>
       </div>
-      <h2>{{lists.title}}</h2>
+      <h2>{{ lists.title }}</h2>
       <p>
-        {{lists.type}} |
-        <span>{{lists.subtitle}}</span>
+        {{ lists.type }} |
+        <span>{{ lists.subtitle }}</span>
       </p>
     </div>
     <!-- 地图 -->
@@ -48,14 +48,14 @@
       <div class="zuoBiao">
         <img src="@/assets/images/diZhi.png" alt />
         <h6>
-          {{lists.address}}
+          {{ lists.address }}
           <van-icon name="arrow" color="#888" />
         </h6>
       </div>
       <div class="phone">
         <img src="@/assets/images/phone.png" alt />
         <h6>
-          {{lists.phone}}
+          {{ lists.phone }}
           <van-icon name="arrow" color="#888" />
         </h6>
       </div>
@@ -66,17 +66,13 @@
     <!-- 营地介绍 -->
     <div class="jieShao">
       <h3>营地介绍</h3>
-      <p>{{lists.intro}}</p>
+      <p>{{ lists.intro }}</p>
       <button @click="gengDuo" class="btn">查看更多</button>
       <div v-show="show" class="gengDuo">
         <h2>营地介绍</h2>
         <h3>营地描述</h3>
-        <p>{{lists.intro}}</p>
-        <van-icon class="icon"
-          @click="yC"
-          size="20"
-          name="cross"
-        />
+        <p>{{ lists.intro }}</p>
+        <van-icon class="icon" @click="yC" size="20" name="cross" />
       </div>
     </div>
     <!-- 营地设备 -->
@@ -107,10 +103,11 @@
 </template>
 
 <script>
+import Vue from "vue";
+import { Toast } from "vant";
+Vue.use(Toast);
 export default {
-  props:[
-    "id"
-  ],
+  props: ["id"],
   data() {
     return {
       show: false,
@@ -122,12 +119,12 @@ export default {
         {
           pic: require("@/assets/images/f37297b8e0b343fc94138737b94464fc.png")
         },
-        { 
-          pic: require     ("@/assets/images/291b76bb97ee4c62839077a5e49c85ff.jpg") 
+        {
+          pic: require("@/assets/images/291b76bb97ee4c62839077a5e49c85ff.jpg")
         }
       ],
-      imgs:[],
-      lists:[]
+      imgs: [],
+      lists: []
     };
   },
   mounted() {
@@ -142,6 +139,9 @@ export default {
     };
   },
   methods: {
+    Collecting() {
+      Toast("已加入收藏");
+    },
     gengDuo() {
       this.show = true;
     },
@@ -150,25 +150,25 @@ export default {
     },
     fanHui() {
       this.$router.push("/home");
-    },
+    }
   },
   created() {
-    var url="details/camp/"+this.id;//接口地址
+    var url = "details/camp/" + this.id; //接口地址
     this.axios
-    .get(url)
-    .then(res=>{
-      console.log(res);
-      var obj=res.data.data[0];
-      console.log(obj);
-      // this.imgs=obj.imgs; 暂无
-      this.lists=obj;
+      .get(url)
+      .then(res => {
+        console.log(res);
+        var obj = res.data.data[0];
+        console.log(obj);
+        // this.imgs=obj.imgs; 暂无
+        this.lists = obj;
 
-      // wwwwwwwo(╥﹏╥)o
-    })
-    .catch(err=>{
-      console.log(err);
-    });
-  },
+        // wwwwwwwo(╥﹏╥)o
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
 };
 </script>
 
@@ -260,10 +260,10 @@ dl > dt > h3 {
   padding: 10px;
   background: #fff;
 }
-.jieShao .icon{
-  position:absolute;
-  bottom:50px;
-  display:flex;
+.jieShao .icon {
+  position: absolute;
+  bottom: 50px;
+  display: flex;
   justify-content: center;
   left: 0;
   right: 0;

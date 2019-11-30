@@ -3,7 +3,11 @@
     <my-header></my-header>
     <!-- 搜索 -->
     <router-link to="/search">
-      <van-search id="d" placeholder="输入目的地，查找体验线路或营地" v-model="value" />
+      <van-search
+        id="d"
+        placeholder="输入目的地，查找体验线路或营地"
+        v-model="value"
+      />
     </router-link>
     <!-- 轮播 -->
     <lun-bo></lun-bo>
@@ -20,11 +24,17 @@
         </li>
         <li class="mainRight">
           <div>
-            <img src="@/assets/images/6388f48e1e134324a1934a964b11b892.png" alt />
+            <img
+              src="@/assets/images/6388f48e1e134324a1934a964b11b892.png"
+              alt
+            />
             <p>100%最美新西兰</p>
           </div>
           <div>
-            <img src="@/assets/images/0e838b2501d04ba8a8dd21f211d432fd.jpg" alt />
+            <img
+              src="@/assets/images/0e838b2501d04ba8a8dd21f211d432fd.jpg"
+              alt
+            />
             <p>耶稣露营新玩法</p>
           </div>
         </li>
@@ -101,8 +111,8 @@ export default {
         }
       ],
       sst: ["", "ss2", "ss2", "ss2"],
-      yingDi:[],
-      ydTitle: ["上新","臻选","臻选","臻选"],
+      yingDi: [],
+      ydTitle: ["上新", "臻选", "臻选", "臻选"],
       value: ""
     };
   },
@@ -112,7 +122,7 @@ export default {
       window.scrollTo(0, 0);
     },
     xiangQing(id) {
-      this.$router.push("/zhenxuan1/"+id);
+      this.$router.push("/zhenxuan1/" + id);
       window.scrollTo(0, 0);
     }
     // xiangQing() {
@@ -121,19 +131,20 @@ export default {
     // }
   },
   created() {
-    var url="/pro/camp";
-    this.axios.get(url)
-    .then(res=>{
-      console.log(res);
-      var obj=res.data.data;
-      console.log(obj);
-      // ┭┮﹏┭┮
-      this.yingDi=obj;
-    })
-    .catch(err=>{
-      console.log(err);
-    })
-  },
+    var url = "/pro/camp";
+    this.axios
+      .get(url)
+      .then(res => {
+        // console.log(res);
+        var obj = res.data.data;
+        // console.log(obj);
+        // ┭┮﹏┭┮
+        this.yingDi = obj;
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
 };
 </script>
 
