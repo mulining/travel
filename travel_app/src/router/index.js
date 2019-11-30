@@ -24,13 +24,23 @@ import city from "@/components/city";
 import listDetails from "@/components/listDetails";
 import travelDetails from "@/components/travelDetails";
 import share from "@/components/share";
+<<<<<<< HEAD
 import myPlace from "@/components/myPlace";
+=======
+import Collecting from "@/components/Collecting";
+>>>>>>> d50da23a3bb4bf97fe24bb8902f3fc9143903e60
 
 Vue.use(Router);
 
 export default new Router({
   routes: [
+    // {
+    //   path: "/share",
+    //   name: "share",
+    //   component: share
+    // },
     {
+<<<<<<< HEAD
       path: "/myPlace",
       name: "myPlace",
       component: myPlace
@@ -39,11 +49,17 @@ export default new Router({
       path: "/share",
       name: "share",
       component: share
+=======
+      path: "/zhenxuan1/:id",
+      name: "zhenxuan1",
+      component: zhenxuan1,
+      props: true
+>>>>>>> d50da23a3bb4bf97fe24bb8902f3fc9143903e60
     },
     {
-      path: "/zhenxuan1",
-      name: "zhenxuan1",
-      component: zhenxuan1
+      path: "/Collecting",
+      name: "Collecting",
+      component: Collecting
     },
     {
       path: "/HelloWorld",
