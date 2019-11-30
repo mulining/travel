@@ -11,10 +11,9 @@ export default {
     axios.get("pro/camp").then(callback);
   },
   getSearch(k, callback) {
+    var url = `/pro/msglist/${k}`;
     axios
-      .get("/pro/msglist/keyword", {
-        params: { k }
-      })
+      .get(url)
       .then(callback);
   }
 };

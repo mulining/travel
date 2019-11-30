@@ -55,18 +55,21 @@ Vue.config.productionTip = false;
 //注册Mintui
 Vue.use(MintUI);
 axios.defaults.baseURL = "http://127.0.0.1:5050";
+axios.defaults.withCredentials = true;
+
 // axios.defaults.baseURL = "http://tmaxtravel.applinzi.com:5050";
 //axios 注册Vue
 Vue.prototype.axios = axios;
 //配置访问服务器的基础路径
-axios.defaults.withCredentials = true;
 
 // 创建存储对象
 var store = new Vuex.Store({
   // 共享的数据
   state: {
-    isLogin: false, 
-    pic:require("./assets/images/piKaQiu.jpg"),//共享初始化用户头像数据
+    isLogin: false,
+    pic: require("@/assets/images/piKaQiu.jpg"), //共享初始化用户头像数据
+    nick: "",
+    value: ""
   },
 
   // 修改共享数据
@@ -74,7 +77,10 @@ var store = new Vuex.Store({
     userLogin(state) {
       state.isLogin = true;
     },
-    upic(state,url){
+    nickName(state, nick) {
+      state.nick = nick;
+    },
+    upic(state, url) {
       state.pic = true;
     }
   },
@@ -84,8 +90,14 @@ var store = new Vuex.Store({
     login(state) {
       return state.isLogin;
     },
-    userpic(state){
+    userpic(state) {
       return state.pic;
+    },
+    uname(state) {
+      return state.nick;
+    },
+    inputValue(state) {
+      return state.value;
     }
   }
 });

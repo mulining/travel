@@ -45,13 +45,16 @@
       <div class="yD">
         <div class="yingDi" v-for="(item, i) of yingDi" :key="i">
           <a @click="xiangQing(item.id)" href="javascript:;">
+            <!--  -->
+            <!-- 传个id呜呜呜呜o(╥﹏╥)o -->
+            <!--  -->
             <div>
               <img :src="item.pic" alt />
-              <p :class="sst[i]" v-text="item.p1"></p>
+              <p :class="sst[i]" v-text="ydTitle[i]"></p>
             </div>
-            <h6 v-text="item.h6"></h6>
-            <h3 v-text="item.h3"></h3>
-            <h5 v-text="item.h5"></h5>
+            <h6 v-text="item.subtitle"></h6>
+            <h3 v-text="item.title"></h3>
+            <h5 v-text="item.type"></h5>
           </a>
         </div>
       </div>
@@ -97,41 +100,9 @@ export default {
           h6: "江浙泸周末去这里"
         }
       ],
-      sst: [, "ss2", "ss2", "ss2"],
-      yingDi: [
-        {
-          id: "1",
-          pic: require("@/assets/images/33dbdef8721143ac817cbd229cd02e98.jpg"),
-          p1: "上新",
-          h6: "毗邻太湖 踏春游玩好去处",
-          h3: "苏州太湖一号房车营地",
-          h5: "湖泊型"
-        },
-        {
-          id: "2",
-          pic: require("@/assets/images/t7.jpg"),
-          p1: "臻选",
-          h6: "迪士尼附近 网红打卡圣地",
-          h3: "上海领家露营地",
-          h5: "湖泊型"
-        },
-        {
-          id: "3",
-          pic: require("@/assets/images/0d4fd1721b5f450d90171c24a465ee55.jpeg"),
-          p1: "臻选",
-          h6: "环境优雅 适合家庭亲子",
-          h3: "北京日光山谷露营地",
-          h5: "城市型"
-        },
-        {
-          id: "4",
-          pic: require("@/assets/images/200512000000t7inhD54B_R_300_225.jpg"),
-          p1: "臻选",
-          h6: "呼吸纯氧 青山相伴 风景秀丽",
-          h3: "途居黄山露营地",
-          h5: "山地型"
-        }
-      ],
+      sst: ["", "ss2", "ss2", "ss2"],
+      yingDi:[],
+      ydTitle: ["上新","臻选","臻选","臻选"],
       value: ""
     };
   },
@@ -148,7 +119,21 @@ export default {
     //   this.$router.push("/zhenxuan1");
     //   window.scrollTo(0, 0);
     // }
-  }
+  },
+  created() {
+    var url="/pro/camp";
+    this.axios.get(url)
+    .then(res=>{
+      console.log(res);
+      var obj=res.data.data;
+      console.log(obj);
+      // ┭┮﹏┭┮
+      this.yingDi=obj;
+    })
+    .catch(err=>{
+      console.log(err);
+    })
+  },
 };
 </script>
 

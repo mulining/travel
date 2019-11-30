@@ -10,7 +10,6 @@
     >
       <!-- <van-icon name="search" slot="right" /> -->
       <van-icon name="star-o" color="#000" slot="right" />
-      <van-icon class="icon-camera" name="camera" slot="right"></van-icon>
     </van-nav-bar>
     <div class="head">
       <img @click="fanHui" src="@/assets/images/fanHui.png" alt />
@@ -28,7 +27,9 @@
     </div>
 
     <div class="title">
-      <van-tag mark color="#e0f523" style="color:#000;padding:3px 15px">臻选</van-tag>
+      <van-tag mark color="#e0f523" style="color:#000;padding:3px 15px"
+        >臻选</van-tag
+      >
       <div>
         <h6>处太湖一号露营公园内</h6>
         <h6>距市区1小时车程</h6>
@@ -71,7 +72,11 @@
         <h2>营地介绍</h2>
         <h3>营地描述</h3>
         <p>{{lists.intro}}</p>
-        <van-icon @click="hide" size="20" style="top:410px;left:163px" name="cross" />
+        <van-icon class="icon"
+          @click="yC"
+          size="20"
+          name="cross"
+        />
       </div>
     </div>
     <!-- 营地设备 -->
@@ -140,7 +145,7 @@ export default {
     gengDuo() {
       this.show = true;
     },
-    hide() {
+    yC() {
       this.show = false;
     },
     fanHui() {
@@ -168,16 +173,6 @@ export default {
 </script>
 
 <style scoped>
-@font-face {
-  font-family: "my-icon";
-  src: url("../assets/images/zhuanFaHei.png") format("truetype");
-}
-.my-icon {
-  font-family: "my-icon";
-}
-.my-icon-extra::before {
-  content: "\e626";
-}
 .head > div > img:last-child {
   position: absolute;
   left: 350px;
@@ -208,16 +203,18 @@ export default {
 }
 .gengDuo > h2 {
   font-size: 0.9rem;
-  margin: 10px 0;
+  margin: 20px 18px 10px;
+}
+.gengDuo > h3 {
+  margin: 10px 18px;
 }
 .gengDuo > p {
-  width: 93%;
-  margin-top: 10px;
+  margin: 10px 18px;
   font-size: 0.8rem;
+  text-indent: 25px;
 }
 .gengDuo {
   z-index: 10;
-  padding: 10px;
   position: fixed;
   float: left;
   top: 0;
@@ -262,6 +259,14 @@ dl > dt > h3 {
 .jieShao {
   padding: 10px;
   background: #fff;
+}
+.jieShao .icon{
+  position:absolute;
+  bottom:50px;
+  display:flex;
+  justify-content: center;
+  left: 0;
+  right: 0;
 }
 .map > p > img {
   width: 25px;
