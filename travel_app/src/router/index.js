@@ -23,11 +23,18 @@ import zhenxuan1 from "@/components/zhenxuan1";
 import city from "@/components/city";
 import listDetails from "@/components/listDetails";
 import travelDetails from "@/components/travelDetails";
+import share from "@/components/share";
+import myPlace from "@/components/myPlace";
 
 Vue.use(Router);
 
 export default new Router({
   routes: [
+    {
+      path: "/myPlace",
+      name: "myPlace",
+      component: myPlace
+    },
     {
       path: "/share",
       name: "share",
