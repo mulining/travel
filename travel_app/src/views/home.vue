@@ -15,7 +15,7 @@
           <img src="@/assets/images/e42461a81f764d7b997cfce51fe5e5c8.jpg" alt />
           <div class="fangChe">
             <p>房车出行必备</p>
-            <p>星空下露营，圆一个房车梦</p>
+            <p>星空下露营,圆一个房车梦</p>
           </div>
         </li>
         <li class="mainRight">
@@ -45,9 +45,7 @@
       <div class="yD">
         <div class="yingDi" v-for="(item, i) of yingDi" :key="i">
           <a @click="xiangQing(item.id)" href="javascript:;">
-            <!--  -->
-            <!-- 传个id呜呜呜呜o(╥﹏╥)o -->
-            <!--  -->
+            <!-- 传个id o(╥﹏╥)o -->
             <div>
               <img :src="item.pic" alt />
               <p :class="sst[i]" v-text="ydTitle[i]"></p>
@@ -259,6 +257,11 @@ export default {
   font-size: 1rem;
 }
 
+.fangChe{
+  background-color:rgba(255, 255, 255, 0.6);
+  /* width: 100%; */
+}
+
 .mainBottom > li:last-child > img {
   width: 100%;
   border-radius: 3px;
@@ -291,7 +294,8 @@ export default {
 .main > .mainRight > div:last-child > p {
   position: absolute;
   top: 107px;
-  right: 40px;
+  /* right: 40px; */
+  margin: 0 5px;
   font-size: 1rem;
   color: rgb(247, 245, 245);
 }
@@ -305,24 +309,28 @@ export default {
 .main > li .fangChe > p:first-child {
   color: #000;
   font-size: 1rem;
+  margin: 0 3px;
 }
 
 .main > li .fangChe > p:last-child {
   font-size: 0.1rem;
   color: rgb(46, 44, 46);
+  margin: 0 3px;
 }
 
 .main > li .fangChe {
   position: absolute;
-  top: 85px;
-  left: 10px;
+  width: 49%;
+  top: 88px;
+  /* left: 10px; */
   z-index: 1;
 }
 
 .main > .mainRight > div:first-child > p {
   position: absolute;
   top: 38px;
-  right: 40px;
+  /* right: 40px; */
+  margin: 0 5px;
   font-size: 1rem;
   color: rgb(247, 245, 245);
 }

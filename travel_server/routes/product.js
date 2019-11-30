@@ -38,6 +38,24 @@ router.get("/camp", (req, res) => {
   });
 });
 
+// 正选营地更多分页查询！！！
+// 接口地址：http://127.0.0.1:5050/pro/campmore?start=0&count=20
+// 参数： start开始页面，count每页展示的数据条数！
+// 算法：start=（当前页码-1）*每页的数据量；
+router.get("/campmore", (req, res) => {
+  var s = Number(req.query.start) || 0;
+  var c = Number(req.query.count) || 10;
+  var sql = `SELECT id,pic,label1,label2,title,subtitle,type FROM travel_camp LIMIT ?,?`; //限制显示前四个数据
+  pool.query(sql,[s,c], (err, result) => {
+    if (err) throw err;
+    if (result.length) {
+      res.send({ code: 1, msg: "首页臻选营地查询成功!", data: result });
+    } else {
+      res.send({ code: -1, msg: "首页臻选营地查询失败!" });
+    }
+  });
+});
+
 //分享
 // 请求方法get 接口：/share
 // 数据表 ：travel_shared

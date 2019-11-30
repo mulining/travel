@@ -11,7 +11,7 @@ const pool = require("../pool.js");
 router.get("/camp/:id", (req, res) => {
   var id = req.params.id;
   var sql =
-    "SELECT pic,title,subtitle,type,site,address,intro,phone,share_time FROM travel_camp WHERE id=?";
+    "SELECT pic,title,subtitle,type,label1,label2,site,address,longitude,latitude,intro,phone,share_time FROM travel_camp WHERE id=?";
   pool.query(sql, [id], (err, result) => {
     if (err) throw err;
     if (result.length) {
