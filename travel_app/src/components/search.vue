@@ -12,10 +12,11 @@
       <ul v-show="hide">
         <li v-for="(item, i) of lists" :key="i">
           <div class="alertText">
-            <span :class="yanSe">{{
+            <span>{{ item.title }}</span>
+            <!-- <span :class="yanSe">{{
               item.title.slice(item.title.toLowerCase, value.length)
             }}</span>
-            <span>{{ item.title.substr(value.length) }}</span>
+            <span>{{ item.title.substr(value.length) }}</span> -->
           </div>
           <img src="@/assets/images/zuoShangJT.png" alt />
           <div
@@ -213,7 +214,7 @@ ul {
   height: 100%;
   margin: 0 auto;
   position: fixed;
-  top:55px;
+  top: 55px;
   background: #fff;
 }
 dl > dt > h4 {
