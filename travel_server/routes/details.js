@@ -7,19 +7,109 @@ const pool = require("../pool.js");
 //请求方法get  接口:details/camp/id - id是对应的哪个数据的详细信息
 //数据表 : travel_camp
 // 请求的列有: pic/title/subtitle/type/site/intro/phone/share_time
-
+//测试接口地址： 127.0.0.1:5050/details/camp/1
 router.get("/camp/:id", (req, res) => {
-  var id = req.params.id;
-  var sql =
-    "SELECT pic,title,subtitle,type,site,address,intro,phone,share_time FROM travel_camp WHERE id=?";
-  pool.query(sql, [id], (err, result) => {
-    if (err) throw err;
-    if (result.length) {
-      res.send({ code: 1, msg: "臻选营地详情查询成功!", data: result });
-    } else {
-      res.send({ code: -1, msg: "臻选营地详情查询失败!" });
-    }
+  var id = Number(req.params.id);
+  var data;
+  var data1 = "" //负责用来存放所有结果
+  var data2 = "" //负责用来存放所有结果
+  var sql1 =
+    "SELECT pic,title,subtitle,type,label1,label2,site,address,intro,phone,share_time FROM travel_camp WHERE id=?";
+  var sql2 = "SELECT img1,img2,img3 FROM travel_scroll WHERE cid=?";       //查找图片
+  var sql3 = "SELECT type_name FROM travel_class WHERE id=?";              //查找类型
+  // 获取camp数据
+  data = new Promise((resolve,reject)=>{
+    pool.query(sql1, [id], (err, result) => {
+      if (err) throw err;
+      if(result.length >0){
+        // 对象解构 -- 为了重组数据结构
+        ({pic,title,subtitle,type,label1,label2,site,address,intro,phone,share_time} = result[0]);
+        // console.log(result[0].pic); // ./static/imgs/1d39d3efc99d4800b99c81d4525c41e1.jpeg
+        // 搜索对应类型
+        //console.log(type); // 1
+        var datas = {};
+        datas.pic = [pic];
+        datas.title = title;
+        datas.subtitle = subtitle;
+        datas.type = type;
+        datas.label1 = label1;
+        datas.label2 = label2;
+        datas.site = site;
+        datas.address = address;
+        datas.intro = intro;
+        datas.phone = phone;
+        // console.log(result);
+        resolve(datas);
+      }
+    }); // pool.query结尾  //data1结尾
+  }).then(mydata=>{
+    // console.log(res);
+    // 这里读取type值，查询type类型的内容
+    // 方法二： 使用promise和promise.all相结合。promise.all是让一步程序同步进行的
+    data1 = new Promise((resolve,reject)=>{
+      var type = mydata.type;
+      var type_name;
+      pool.query(sql3,[type],(err,result)=>{
+        if(err)throw err;
+        if(result.length > 0){
+          type_name = result[0].type_name;
+          mydata.type = type_name;
+        }
+        resolve(mydata);
+      });
+    });
+    data2 = new Promise((resolve,reject)=>{
+      pool.query(sql2,[id],(err,result)=>{
+        if(err)throw err;
+        if(result.length > 0){
+          ({img1,img2,img3} = result);
+          var obj = result[0];
+          for(var item in obj){
+            mydata.pic.push(obj[item]);
+          } //图片查到
+        }
+        resolve(mydata);
+      });
+    });
+    Promise.all([data1,data2]).then(result=>{
+      console.log(result);
+      res.send({code:1,msg:"臻选数据查询成功！",result});
+    });
+    // 方法一：使用回调函数
+    // select(res,callback1,callback2);
   });
+  // 方法一： 使用回调函数，为后边的两个查询创建两个回调函数，将获取到的数据传给下一个，在第一个查询到的.then中调用select函数，将res传入！
+  // function select(res,callback1,callback2){
+  //   var type = res.type;
+  //   var type_name;
+  //   pool.query(sql3,[type],(err,result)=>{
+  //     if(err)throw err;
+  //     if(result.length > 0){
+  //       type_name = result[0].type_name;
+  //       res.type = type_name;
+  //       callback1(res);
+  //     }
+  //   });
+  //   pool.query(sql2,[type],(err,result)=>{
+  //     if(err)throw err;
+  //     if(result.length > 0){
+  //       ({img1,img2,img3} = result);
+  //       var obj = result[0];
+  //       for(var item in obj){
+  //         res.pic.push(obj[item]);
+  //       } //图片查到
+  //       callback2(res);
+  //     }
+  //   });
+  // }
+  // function callback1(res){
+  //   console.log(res);
+  // }
+
+  // function callback2(res){
+  //   console.log(res);
+  // }
+
 });
 
 // 用户搜索的查询结果
