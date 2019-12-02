@@ -3,7 +3,11 @@
     <my-header></my-header>
     <!-- 搜索 -->
     <router-link to="/search">
-      <van-search id="d" placeholder="输入目的地，查找体验线路或营地" v-model="value" />
+      <van-search
+        id="d"
+        placeholder="输入目的地，查找体验线路或营地"
+        v-model="value"
+      />
     </router-link>
     <!-- 轮播 -->
     <lun-bo></lun-bo>
@@ -15,16 +19,22 @@
           <img src="@/assets/images/e42461a81f764d7b997cfce51fe5e5c8.jpg" alt />
           <div class="fangChe">
             <p>房车出行必备</p>
-            <p>星空下露营，圆一个房车梦</p>
+            <p>星空下露营,圆一个房车梦</p>
           </div>
         </li>
         <li class="mainRight">
           <div>
-            <img src="@/assets/images/6388f48e1e134324a1934a964b11b892.png" alt />
+            <img
+              src="@/assets/images/6388f48e1e134324a1934a964b11b892.png"
+              alt
+            />
             <p>100%最美新西兰</p>
           </div>
           <div>
-            <img src="@/assets/images/0e838b2501d04ba8a8dd21f211d432fd.jpg" alt />
+            <img
+              src="@/assets/images/0e838b2501d04ba8a8dd21f211d432fd.jpg"
+              alt
+            />
             <p>耶稣露营新玩法</p>
           </div>
         </li>
@@ -45,13 +55,14 @@
       <div class="yD">
         <div class="yingDi" v-for="(item, i) of yingDi" :key="i">
           <a @click="xiangQing(item.id)" href="javascript:;">
+            <!-- 传个id o(╥﹏╥)o -->
             <div>
               <img :src="item.pic" alt />
-              <p :class="sst[i]" v-text="item.p1"></p>
+              <p :class="sst[i]" v-text="ydTitle[i]"></p>
             </div>
-            <h6 v-text="item.h6"></h6>
-            <h3 v-text="item.h3"></h3>
-            <h5 v-text="item.h5"></h5>
+            <h6 v-text="item.subtitle"></h6>
+            <h3 v-text="item.title"></h3>
+            <h5 v-text="item.type"></h5>
           </a>
         </div>
       </div>
@@ -97,41 +108,9 @@ export default {
           h6: "江浙泸周末去这里"
         }
       ],
-      sst: [, "ss2", "ss2", "ss2"],
-      yingDi: [
-        {
-          id: "1",
-          pic: require("@/assets/images/33dbdef8721143ac817cbd229cd02e98.jpg"),
-          p1: "上新",
-          h6: "毗邻太湖 踏春游玩好去处",
-          h3: "苏州太湖一号房车营地",
-          h5: "湖泊型"
-        },
-        {
-          id: "2",
-          pic: require("@/assets/images/t7.jpg"),
-          p1: "臻选",
-          h6: "迪士尼附近 网红打卡圣地",
-          h3: "上海领家露营地",
-          h5: "湖泊型"
-        },
-        {
-          id: "3",
-          pic: require("@/assets/images/0d4fd1721b5f450d90171c24a465ee55.jpeg"),
-          p1: "臻选",
-          h6: "环境优雅 适合家庭亲子",
-          h3: "北京日光山谷露营地",
-          h5: "城市型"
-        },
-        {
-          id: "4",
-          pic: require("@/assets/images/200512000000t7inhD54B_R_300_225.jpg"),
-          p1: "臻选",
-          h6: "呼吸纯氧 青山相伴 风景秀丽",
-          h3: "途居黄山露营地",
-          h5: "山地型"
-        }
-      ],
+      sst: ["", "ss2", "ss2", "ss2"],
+      yingDi: [],
+      ydTitle: ["上新", "臻选", "臻选", "臻选"],
       value: ""
     };
   },
@@ -141,25 +120,28 @@ export default {
       window.scrollTo(0, 0);
     },
     xiangQing(id) {
-      this[id]();
-    },
-    1() {
-      this.$router.push("/zhenxuan1");
+      this.$router.push("/zhenxuan1/" + id);
       window.scrollTo(0, 0);
-    },
-    2() {
-      alert(234);
-    },
-    3() {
-      alert(456);
-    },
-    4() {
-      alert(897);
     }
     // xiangQing() {
     //   this.$router.push("/zhenxuan1");
     //   window.scrollTo(0, 0);
     // }
+  },
+  created() {
+    var url = "/pro/camp";
+    this.axios
+      .get(url)
+      .then(res => {
+        // console.log(res);
+        var obj = res.data.data;
+        // console.log(obj);
+        // ┭┮﹏┭┮
+        this.yingDi = obj;
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 };
 </script>
@@ -286,6 +268,11 @@ export default {
   font-size: 1rem;
 }
 
+.fangChe{
+  background-color:rgba(255, 255, 255, 0.6);
+  /* width: 100%; */
+}
+
 .mainBottom > li:last-child > img {
   width: 100%;
   border-radius: 3px;
@@ -318,7 +305,8 @@ export default {
 .main > .mainRight > div:last-child > p {
   position: absolute;
   top: 107px;
-  right: 40px;
+  /* right: 40px; */
+  margin: 0 5px;
   font-size: 1rem;
   color: rgb(247, 245, 245);
 }
@@ -332,24 +320,28 @@ export default {
 .main > li .fangChe > p:first-child {
   color: #000;
   font-size: 1rem;
+  margin: 0 3px;
 }
 
 .main > li .fangChe > p:last-child {
   font-size: 0.1rem;
   color: rgb(46, 44, 46);
+  margin: 0 3px;
 }
 
 .main > li .fangChe {
   position: absolute;
-  top: 85px;
-  left: 10px;
+  width: 49%;
+  top: 88px;
+  /* left: 10px; */
   z-index: 1;
 }
 
 .main > .mainRight > div:first-child > p {
   position: absolute;
   top: 38px;
-  right: 40px;
+  /* right: 40px; */
+  margin: 0 5px;
   font-size: 1rem;
   color: rgb(247, 245, 245);
 }

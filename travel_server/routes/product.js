@@ -29,7 +29,7 @@ router.get("/index_slide", (req, res) => {
 // 补充了id数据项（2019-11-29修改）
 
 router.get("/camp", (req, res) => {
-  var sql = `SELECT id,pic,title,subtitle,type FROM travel_camp LIMIT 4`; //限制显示前四个数据
+  var sql = "SELECT id,pic,title,subtitle,type FROM travel_camp LIMIT 4"; //限制显示前四个数据
   pool.query(sql, (err, result) => {
     if (err) throw err;
     if (result.length) {

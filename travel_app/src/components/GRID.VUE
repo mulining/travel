@@ -63,9 +63,12 @@ export default {
   .grid .van-image{
     overflow: hidden;
     border-radius: 10%;
+    width: 100%;
   }
   .grid .van-image__img{
-    width: 107px;
+    /* width: 107px; */
+    width: 100%;
+    height: 100%;
   }
   .grid .van-grid-item__content {
     padding: 8px;
@@ -74,19 +77,22 @@ export default {
     border: none;
   }
   .grid p{
-    margin: -30px 0px 0px 0px;
+    /* margin: -30px 0px 0px 0px; */
     color: #fff;
     background-color:rgba(136, 135, 143, 0.25); 
     border-radius: 40%;
     font-weight: 600;
     z-index: 1;
-    font-size: 15px;
+    font-size: 15rpx;
     position: absolute;
   }
   .grid img{
+    width: 20%;
     position: absolute;
     z-index: 1;
-    margin: 25px 0px 0px 30px;
+    /* margin: 25px 0px 0px 30px; */
+    bottom: 22px;
+    right: 20px;
   }
   .grid .img{
     display: none;

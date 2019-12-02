@@ -12,10 +12,11 @@
       <ul v-show="hide">
         <li v-for="(item, i) of lists" :key="i">
           <div class="alertText">
-            <span :class="yanSe">{{
+            <span>{{ item.title }}</span>
+            <!-- <span :class="yanSe">{{
               item.title.slice(item.title.toLowerCase, value.length)
             }}</span>
-            <span>{{ item.title.substr(value.length) }}</span>
+            <span>{{ item.title.substr(value.length) }}</span> -->
           </div>
           <img src="@/assets/images/zuoShangJT.png" alt />
           <div
@@ -33,11 +34,9 @@
       <dl v-show="reMen">
         <dt v-show="souSuo">
           <h4>历史搜索</h4>
-          <img @click="shanChu" src="@/assets/images/laJi.png" alt />
+          <img @click="shanChu" src="@/assets/images/laJi.png" alt>
         </dt>
-        <dd class="d1" v-for="(item, i) of liShi" :key="i" v-show="yingC">
-          {{ liShi.join("") }}
-        </dd>
+        <dd class="d1" v-for="(item, i) of liShi" :key="i" v-show="yingC">{{ liShi.join("") }}</dd>
         <dt>
           <h4>热门搜索</h4>
         </dt>
@@ -102,6 +101,11 @@ export default {
     }
   },
   methods: {
+    chengShi() {
+      // console.log(123)
+      var arr = this.liShi.push(this.value);
+      console.log(arr);
+    },
     shanChu() {
       this.liShi.splice(0);
       this.souSuo = false;
@@ -210,7 +214,7 @@ ul {
   height: 100%;
   margin: 0 auto;
   position: fixed;
-  top:55px;
+  top: 55px;
   background: #fff;
 }
 dl > dt > h4 {
