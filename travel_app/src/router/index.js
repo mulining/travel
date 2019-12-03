@@ -23,17 +23,23 @@ import zhenxuan1 from "@/components/zhenxuan1";
 import city from "@/components/city";
 import listDetails from "@/components/listDetails";
 import travelDetails from "@/components/travelDetails";
-import share from "@/components/share"
+import share from "@/components/share";
+import setup from "@/components/setup"
 
 Vue.use(Router);
 
 export default new Router({
   routes: [
-    // {
-    //   path: "/share",
-    //   name: "share",
-    //   component: share
-    // },
+    {
+      path:"/setup",
+      name:"setup",
+      component:setup
+    },
+    {
+       path: "/share",
+      name: "share",
+       component: share
+     },
     {
       path: "/zhenxuan1/:id",
       name: "zhenxuan1",

@@ -59,13 +59,15 @@
           style="line-height: inherit;"
         />
       </van-cell>
-      <van-cell title="设置" icon="setting">
-        <van-icon
-          slot="right-icon"
-          name="arrow"
-          style="line-height: inherit;"
-        />
-      </van-cell>
+      <router-link to="/setup">
+          <van-cell title="设置" icon="setting">
+            <van-icon
+              slot="right-icon"
+              name="arrow"
+              style="line-height: inherit;"
+            />
+          </van-cell>
+      </router-link>
     </div>
     <tab-bar></tab-bar>
   </div>
