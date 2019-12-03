@@ -19,12 +19,12 @@
         v-model="upwd"
       />
       <button @click="reg">注册</button>
-      <div class="yueDu">
-        <input type="checkbox" name="btn" id="btn1" />阅读并同意
+      <!-- <div class="yueDu">
+        <input type=" checkbox" name="btn" id="btn1" />阅读并同意
         <a>《用户使用协议》</a>
         及
         <a>《隐私保护政策》</a>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>

@@ -1,23 +1,18 @@
 <template>
   <div>
-    <div class="head" style="margin-bottom:0.8rem">
+    <div class="head">
       <!-- 搜索 -->
-      <div style="">
-        <img @click="fanHui" src="@/assets/images/zuoJianTou.png" alt="" />
-        <van-search
-          @search="queDing"
-          style="width:100%"
-          placeholder="搜索城市或营地名称"
-          v-model="value"
-        />
+      <div style>
+        <img @click="fanHui" src="@/assets/images/zuoJianTou.png" alt />
+        <van-search @search="queDing" style="width:100%" placeholder="搜索城市或营地名称" v-model="value" />
       </div>
       <div class="diTu">
-        <img src="@/assets/images/diTu.png" alt="" />
+        <img src="@/assets/images/diTu.png" alt />
         <p>地图</p>
       </div>
       <!-- 下拉菜单 -->
       <van-dropdown-menu active-color="#18eaee">
-        <router-link to="/home">
+        <router-link to="/city">
           <button class="btn">位置</button>
         </router-link>
         <van-dropdown-item v-model="value3" :options="option3" />
@@ -34,26 +29,27 @@
     </div>
     <div class="main" v-for="(item, i) of list" :key="i">
       <van-swipe
-        style="border-radius:5px;margin-top:0.8rem"
+        :class="lb[i]"
+        class="lunBo"
+        style="border-radius:5px;"
         :loop="false"
         :height="200"
       >
-        <van-swipe-item v-for="(item, i) of lunBo" :key="i">
-          <img style="width:100%" :src="item.pic" alt="" />
+        <van-swipe-item v-for="(item, i) of list" :key="i">
+          <img style="width:100%" :src="item.pic" alt />
         </van-swipe-item>
       </van-swipe>
-      <p v-text="item.p"></p>
+      <p>臻选</p>
       <dl>
         <dt>
-          <h6 v-text="item.h1"></h6>
-          <h6 v-text="item.h2"></h6>
-          <h6 v-text="item.h3"></h6>
+          <h6 v-text="item.label1"></h6>
+          <h6 v-text="item.label2"></h6>
         </dt>
         <dd>
-          <h5 v-text="item.h4"></h5>
+          <h5 v-text="item.title"></h5>
           <h6>
-            {{ item.h6 }}
-            <span v-text="item.s"></span>
+            {{ item.type }}|
+            <span v-text="item.subtitle"></span>
           </h6>
         </dd>
       </dl>
@@ -62,63 +58,22 @@
 </template>
 
 <script>
+import funs from "@/assets/js/funs";
 export default {
   inject: ["reload"],
   data() {
     return {
+      lb: ["i1"],
       switch1: true,
       switch2: false,
       switch3: false,
       switch4: false,
       switch5: false,
       switch6: false,
-      list: [
-        {
-          p: "精选",
-          h1: "金迪士尼",
-          h2: "距离市区1小时车程",
-          h3: "距迪士尼地铁站1公里",
-          h4: "上海邻家露营地",
-          h6: "湖泊型 |",
-          s: "野奢度假酒店 · 网红打卡地"
-        },
-        {
-          p: "精选",
-          h1: "金迪士尼",
-          h2: "距离市区1小时车程",
-          h3: "距迪士尼地铁站1公里",
-          h4: "上海邻家露营地",
-          h6: "湖泊型 |",
-          s: "野奢度假酒店 · 网红打卡地"
-        },
-        {
-          p: "精选",
-          h1: "金迪士尼",
-          h2: "距离市区1小时车程",
-          h3: "距迪士尼地铁站1公里",
-          h4: "上海邻家露营地",
-          h6: "湖泊型 |",
-          s: "野奢度假酒店 · 网红打卡地"
-        }
-      ],
+      list: [],
       lunBo: [
         {
-          pic: require("@/assets/images/u=3704064287,856200149&fm=26&gp=0.jpg")
-        },
-        {
-          pic: require("@/assets/images/u=2730421875,2341573905&fm=26&gp=0.jpg")
-        },
-        {
-          pic: require("@/assets/images/u=2137189422,197364613&fm=26&gp=0.jpg")
-        },
-        {
-          pic: require("@/assets/images/u=769771342,520870808&fm=26&gp=0.jpg")
-        },
-        {
-          pic: require("@/assets/images/u=1260138052,2561790311&fm=26&gp=0.jpg")
-        },
-        {
-          pic: require("@/assets/images/u=4153368400,383764819&fm=26&gp=0.jpg")
+          pic: ""
         }
       ],
       hide: true,
@@ -126,10 +81,7 @@ export default {
       value3: 0,
       value2: 0,
       option2: [{ text: "123", value: 0 }],
-      option3: [
-        { text: "价格升序", value: 0 },
-        { text: "热度排序", value: 1 }
-      ]
+      option3: [{ text: "价格升序", value: 0 }, { text: "热度排序", value: 1 }]
     };
   },
   methods: {
@@ -143,12 +95,47 @@ export default {
     }
   },
   created() {
-    this.reload();
+    // funs.getMore(res => {
+    //   console.log(res.data);
+    //   this.list[0].s = res.data.data[0].subtitle;
+    //   this.list[1].s = res.data.data[1].subtitle;
+    //   this.list[2].s = res.data.data[2].subtitle;
+    //   this.list[3].s = res.data.data[3].subtitle;
+    //   this.list[0].h4 = res.data.data[0].title;
+    //   this.list[1].h4 = res.data.data[1].title;
+    //   this.list[2].h4 = res.data.data[2].title;
+    //   this.list[3].h4 = res.data.data[3].title;
+    //   this.lunBo[0].pic = res.data.data[0].pic;
+
+      // this.lunBo[1].pic = res.data.data[1].pic;
+      // this.lunBo[2].pic = res.data.data[2].pic;
+      // this.lunBo[3].pic = res.data.data[3].pic;
+      var url="pro/campmore?start=4&count=4";//接口地址
+      this.axios.get(url)
+      .then(res=>{
+        console.log(res);
+        var obj=res.data.data;
+        console.log(obj);
+        this.list=obj;
+      })
+      .catch(err=>{
+        console.log(err);
+      })
+    // });
   }
 };
 </script>
 
 <style scoped>
+.i1 {
+  margin-top: 120px;
+}
+.head {
+  width: 100%;
+  z-index: 10;
+  position: fixed;
+  top: 0;
+}
 .head > div:first-child > img {
   width: 1.5rem;
   height: 1.5rem;
@@ -158,11 +145,11 @@ export default {
   background: #fff;
   display: flex;
 }
-.head > .diTu > img {
+.diTu > img {
   width: 1rem;
   height: 1rem;
 }
-.head > .diTu {
+.diTu {
   position: absolute;
   right: 20px;
   top: 15px;

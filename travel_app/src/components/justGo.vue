@@ -11,28 +11,27 @@
     </div>
     <!-- Tab标签页 -->
     <div>
-      <van-tabs line-height="5px" color="#52e0f05e" v-model="activeName">
-        <van-tab title="推荐" name="tj" data-id="1">
+      <van-tabs line-height="5px" color="#52e0f05e" v-model="activeName" class="container">
+        <van-tab title="推荐" name="tj">
           <!-- treeSelect分类选择 -->
-          <tree-select></tree-select>
+          <tree-select :id="0"></tree-select>
         </van-tab>
-        <van-tab title="境内" name="jn" data-id="2">
+        <van-tab title="境内" name="jn">
           <!-- treeSelect分类选择 -->
-          <tree-select></tree-select>
+          <tree-select :id="1"></tree-select>
         </van-tab>
-        <van-tab title="境外" name="jw" data-id="3">
+        <van-tab title="境外" name="jw">
           <!-- treeSelect分类选择 -->
-          <tree-select></tree-select>
+          <tree-select :id="2"></tree-select>
         </van-tab>
       </van-tabs>
     </div>
-    <!-- Tag标记 -->
-    <div>
-
-    </div>
     <!-- 下一步按钮 -->
-    
     <div class="next">
+      <!-- Tag标记 -->
+      <div class="check">
+        选择目的地...
+      </div>
       <router-link to="/login">下一步</router-link>
     </div>
   </div>
@@ -47,7 +46,7 @@ export default {
   },
   data(){
     return {
-      activeName: 'tj'
+      activeName: 'tj',
     };
   },
   methods: {
@@ -63,21 +62,41 @@ export default {
   .justgo{
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: flex-end;
   }
+  .justgo > .next{
+    width: 100%;
+    height: 90px;
+    position: fixed;
+    bottom: 0px;
+  }
+  /* 下一步按钮 */
   .justgo > .next a{
-    border-top: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
-  }
-  .van-sidebar-item--select {
-    color: #000 !important
-  }
-  .justgo > .next a{
+    color: #4bcedd;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
     display: block;
     width: 100%;
     height: 50px;
     text-align: center;
     line-height: 50px;
     font-size: 15px;
+    background-color: #fff;
+  }
+  /* 选择目的地 */
+  .justgo .check{
+    height: 40px;
+    line-height: 40px;
+    border-top: 1px solid #ddd;
+    font-size: 15px;
+    color: #ccc;
+    background-color: #fff;
+    padding-left: 10px;
+  }
+  .justgo .van-nav-bar .van-icon {
+    color: inherit;
+  }
+  .justgo .container{
+    height: 100%;
   }
 </style>

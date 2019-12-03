@@ -18,11 +18,49 @@ import login from "@/components/login";
 import personal from "@/components/personal";
 import more from "@/components/more";
 import pData from "@/components/pData";
+import map from "@/components/map";
+import zhenxuan1 from "@/components/zhenxuan1";
+import city from "@/components/city";
+import listDetails from "@/components/listDetails";
+import travelDetails from "@/components/travelDetails";
+import share from "@/components/share";
+import Collecting from "@/components/Collecting";
 
 Vue.use(Router);
 
 export default new Router({
   routes: [
+    // {
+    //   path: "/share",
+    //   name: "share",
+    //   component: share
+    // },
+    {
+      path: "/zhenxuan1/:id",
+      name: "zhenxuan1",
+      component: zhenxuan1,
+      props: true
+    },
+    {
+      path: "/Collecting",
+      name: "Collecting",
+      component: Collecting
+    },
+    {
+      path: "/HelloWorld",
+      name: "HelloWorld",
+      component: HelloWorld
+    },
+    {
+      path: "/listDetails",
+      name: "listDetails",
+      component: listDetails
+    },
+    {
+      path: "/travelDetails",
+      name: "travelDetails",
+      component: travelDetails
+    },
     {
       path: "/register",
       name: "register",
@@ -30,8 +68,13 @@ export default new Router({
     },
     {
       path: "/",
-      name: "HelloWorld",
-      component: HelloWorld
+      name: "home",
+      component: home
+    },
+    {
+      path: "/map/:id",
+      name: "map",
+      component: map
     },
     {
       path: "/personal",
@@ -47,6 +90,11 @@ export default new Router({
       path: "/myHeader",
       name: "myHeader",
       component: myHeader
+    },
+    {
+      path: "/city",
+      name: "city",
+      component: city
     },
     {
       path: "/login",

@@ -3,7 +3,7 @@
     <div class="title">
       <div>
         <img
-          src="@/assets/images/u=1724821872,4223408992&fm=26&gp=0.jpg"
+          src="@/assets/images/piKaQiu.jpg"
           alt=""
         />
         <div>

@@ -14,7 +14,10 @@ const querystring = require("querystring");
 function verify(uid) {
   // 判断用户是否登录, 如果登录,返回true,否则返回false
   if (!uid) {
-    res.send({ code: -2, msg: "用户未登录,请登录!" });
+    res.send({
+      code: -2,
+      msg: "用户未登录,请登录!"
+    });
     return false;
   }
   return true;
@@ -26,11 +29,17 @@ router.post("/reg", (req, res) => {
   var uname = req.body.uname;
   var upwd = req.body.upwd;
   if (!uname) {
-    res.send({ code: -2, msg: "用户名不能为空" });
+    res.send({
+      code: -2,
+      msg: "用户名不能为空"
+    });
     return;
   }
   if (!upwd) {
-    res.send({ code: -3, msg: "密码不能为空" });
+    res.send({
+      code: -3,
+      msg: "密码不能为空"
+    });
     return;
   }
   // 具体格式放在前端验证
@@ -38,10 +47,16 @@ router.post("/reg", (req, res) => {
   pool.query(sql, [uname, upwd], (err, result) => {
     if (err) throw err;
     if (result.affectedRows > 0) {
-      res.send({ code: 1, msg: "注册成功!" });
+      res.send({
+        code: 1,
+        msg: "注册成功!"
+      });
       return;
     } else {
-      res.send({ code: -1, msg: "注册失败!" });
+      res.send({
+        code: -1,
+        msg: "注册失败!"
+      });
     }
   });
 });
@@ -52,11 +67,17 @@ router.post("/login", (req, res) => {
   var uname = req.body.uname;
   var upwd = req.body.upwd;
   if (!uname) {
-    res.send({ data: -2, msg: "用户名不能为空!" });
+    res.send({
+      data: -2,
+      msg: "用户名不能为空!"
+    });
     return;
   }
   if (!upwd) {
-    res.send({ data: -3, msg: "密码不能为空!" });
+    res.send({
+      data: -3,
+      msg: "密码不能为空!"
+    });
     return;
   }
   // 正则验证放在前端页面
@@ -68,10 +89,16 @@ router.post("/login", (req, res) => {
       // 将uid存入req.session
       req.session.uid = result[0].id;
       console.log(req.session);
-      res.send({ code: 1, msg: "登录成功!" });
+      res.send({
+        code: 1,
+        msg: "登录成功!"
+      });
       return;
     } else {
-      res.send({ code: -1, msg: "登录失败!" });
+      res.send({
+        code: -1,
+        msg: "登录失败!"
+      });
     }
   });
 });
@@ -89,19 +116,35 @@ router.post("/rlbyphone", (req, res) => {
 
 // 用户个人信息录入 post 接口: /personal
 router.post("/personal", (req, res) => {
-  var uid = req.session.uid,
-    un = req.body.uname,
-    p = req.body.phone,
-    u_n = req.body.user_name,
-    g = req.body.gender,
-    a = req.body.address,
-    s = req.query.sign,
-    pic = req.body.pic;
+  var id = req.session.uid,
+    //un = decodeURIComponent(req.body.uname) || "",//用户名--账号
+    p = req.body.phone || "2",
+    u_n = decodeURIComponent(req.body.user_name) || "",//用户真实姓名
+    n = decodeURIComponent(req.body.nick) || "",//昵称
+    g = decodeURIComponent(req.body.gender) || "保密",
+    // a = req.body.address,
+    s = decodeURIComponent(req.body.sign) || "这个人很懒，什么也没留下~",
+    pic = decodeURIComponent(req.body.pic) || "";//头像路径
+    if(g == "男"){
+      g = 1
+    }else if(g == "女"){
+      g = 0
+    }else{
+      g = 2
+    }
+    // console.log(req.body);
+    // console.log("p"+p);
+    // console.log("nick"+n);
+    // console.log("u_n"+u_n);
+    // console.log("g"+g);
+    // console.log("s"+s);
+    // console.log("pic"+pic);
   if (verify(req)) {
     // 这里是说明用户处于登录状态,可以执行数据录入
     var sql =
-      "UPDATE travel_personal SET uname=?,phone=?,user_name=?,gender=?,address=?,sign=?,pic=? WHERE uid=?";
-    pool.query(sql, [un, p, u_n, g, a, s, pic, uid], (err, result) => {
+      "UPDATE travel_user SET uname=?,phone=?,user_name=?,gender=?,sign=?,pic=? WHERE id=?";
+    // address=?,
+    pool.query(sql, [p, n,u_n, g, s, pic, id], (err, result) => {
       if (err) throw err;
       if (result.affectedRows > 0) {
         res.send({ code: 1, msg: "个人信息修改成功!" });
@@ -116,16 +159,26 @@ router.post("/personal", (req, res) => {
 router.get("/personal", (req, res) => {
   var uid = req.session.uid;
   if (!uid) {
-    res.send({ code: -2, msg: "用户未登录,请登录!" });
+    res.send({
+      code: -2,
+      msg: "用户未登录,请登录!"
+    });
     return;
   }
-  var sql = "SELECT FROM WHERE uid=?";
+  var sql = "SELECT user_name,nick,phone,gender,sign,pic FROM travel_user WHERE uid=?";
   pool.query(sql, [uid], (err, result) => {
     if (err) throw err;
     if (result.length > 0) {
-      res.send({ code: 1, msg: "查询成功!", data: result });
+      res.send({
+        code: 1,
+        msg: "查询成功!",
+        data: result
+      });
     } else {
-      res.send({ code: -1, msg: "用户数据为空!" });
+      res.send({
+        code: -1,
+        msg: "用户数据为空!"
+      });
     }
   });
 });
