@@ -24,25 +24,19 @@ import city from "@/components/city";
 import listDetails from "@/components/listDetails";
 import travelDetails from "@/components/travelDetails";
 import share from "@/components/share";
-<<<<<<< HEAD
 import setup from "@/components/setup"
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
 import myPlace from "@/components/myPlace";
-=======
 import Collecting from "@/components/Collecting";
->>>>>>> d50da23a3bb4bf97fe24bb8902f3fc9143903e60
-=======
-import Collecting from "@/components/Collecting";
->>>>>>> d50da23a3bb4bf97fe24bb8902f3fc9143903e60
->>>>>>> 081daf6b679083df0534475796924e304ba1c046
 
 Vue.use(Router);
 
 export default new Router({
   routes: [
-<<<<<<< HEAD
+    {
+      path:"/myPlace",
+      name:"myplace",
+      component:myPlace
+    },
     {
       path:"/setup",
       name:"setup",
@@ -53,36 +47,11 @@ export default new Router({
       name: "share",
        component: share
      },
-=======
-    // {
-    //   path: "/share",
-    //   name: "share",
-    //   component: share
-    // },
-<<<<<<< HEAD
->>>>>>> 081daf6b679083df0534475796924e304ba1c046
     {
-<<<<<<< HEAD
-      path: "/myPlace",
-      name: "myPlace",
-      component: myPlace
-    },
-    {
-      path: "/share",
-      name: "share",
-      component: share
-=======
-=======
-    {
->>>>>>> d50da23a3bb4bf97fe24bb8902f3fc9143903e60
       path: "/zhenxuan1/:id",
       name: "zhenxuan1",
       component: zhenxuan1,
       props: true
-<<<<<<< HEAD
->>>>>>> d50da23a3bb4bf97fe24bb8902f3fc9143903e60
-=======
->>>>>>> d50da23a3bb4bf97fe24bb8902f3fc9143903e60
     },
     {
       path: "/Collecting",
