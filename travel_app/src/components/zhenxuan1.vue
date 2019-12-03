@@ -9,7 +9,7 @@
       left-arrow
     >
       <!-- <van-icon name="search" slot="right" /> -->
-      <van-icon name="star-o" color="#000" slot="right" />
+    <van-icon name="star-o" color="#000" slot="right" />
     </van-nav-bar>
     <div class="head">
       <img @click="fanHui" src="@/assets/images/fanHui.png" alt />
@@ -30,9 +30,9 @@
       <van-tag mark color="#e0f523" style="color:#000;padding:3px 15px"
         >臻选</van-tag
       >
-      <div>
-        <h6>处太湖一号露营公园内</h6>
-        <h6>距市区1小时车程</h6>
+      <div class="label">
+        <h6>{{lists.label1}}</h6>
+        <h6>{{lists.label2}}</h6>
       </div>
       <h2>{{ lists.title }}</h2>
       <p>
@@ -59,7 +59,10 @@
           <van-icon name="arrow" color="#888" />
         </h6>
       </div>
-      <router-link to="/map" tag="p">
+      <router-link :to="{name:'map',params:{id:id}}" tag="p">
+      <!--  map(id){
+      this.$router.push({path:'map',query:{id:id}})
+    } -->
         <img src="@/assets/images/daoHang.png" alt />
       </router-link>
     </div>
@@ -123,8 +126,13 @@ export default {
           pic: require("@/assets/images/291b76bb97ee4c62839077a5e49c85ff.jpg")
         }
       ],
+<<<<<<< HEAD
+      imgs:[],
+      lists:[],
+=======
       imgs: [],
       lists: []
+>>>>>>> d50da23a3bb4bf97fe24bb8902f3fc9143903e60
     };
   },
   mounted() {
@@ -153,6 +161,28 @@ export default {
     }
   },
   created() {
+<<<<<<< HEAD
+    //获取源数据
+    // let data=sessionStorage.getItem('id');
+    //Object.assign方法 赋值(目标对象,源对象)
+    // Object.assign(this.id);
+
+    var url="details/camp/"+this.id;//接口地址
+    this.axios
+    .get(url)
+    .then(res=>{
+      console.log(res);
+      var obj=res.data.data[0];
+      console.log(obj);
+      // this.imgs=obj.imgs; 暂无
+      this.lists=obj;
+      // wwwwwwwo(╥﹏╥)o
+    })
+    .catch(err=>{
+      console.log(err);
+    });
+  },
+=======
     var url = "details/camp/" + this.id; //接口地址
     this.axios
       .get(url)
@@ -169,6 +199,7 @@ export default {
         console.log(err);
       });
   }
+>>>>>>> d50da23a3bb4bf97fe24bb8902f3fc9143903e60
 };
 </script>
 
@@ -200,6 +231,15 @@ export default {
   position: absolute;
   align-items: center;
   /* justify-content: space-between; */
+}
+.title .label{
+  /* height: 18px; */
+  /* display: inline-flex; */
+  /* 自动换行 */
+  word-break: break-all;
+}
+.title h6{
+  white-space: nowrap;
 }
 .gengDuo > h2 {
   font-size: 0.9rem;

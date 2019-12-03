@@ -98,7 +98,7 @@ export default new Router({
       component: home
     },
     {
-      path: "/map",
+      path: "/map/:id",
       name: "map",
       component: map
     },

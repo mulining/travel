@@ -1,7 +1,7 @@
 <template>
   <div>
     <van-nav-bar
-      title="苏州太湖一号房车营地"
+      :title="title"
       left-arrow
       @click-left="onClickLeft"
       @click-right="onClickRight"
@@ -11,7 +11,7 @@
         <el-amap-circle-marker
           v-for="(marker, i) in markers"
           :key="i"
-          :center="marker.center"
+          :center="center"
           :radius="10"
           :fill-color="marker.fillColor"
           :fill-opacity="marker.fillOpacity"
@@ -29,16 +29,19 @@
 </style>
 
 <script>
-module.exports = {
+// module.exports = 
+export default
+{
   data() {
     return {
       zoom: 12,
       // 经纬度
-      center: [120.42474699050904, 31.215710946646606],
+      //此处只写[],会找不到坐标，需要给一个初始值
+      center: [0,0],
       markers: [
         {
           // 圆心经纬度
-          center: [120.42474699050904, 31.215710946646606],
+          // center: [],
           radius: 20,
           fillOpacity: 1,
           fillColor: "rgba(0,0,255,1)",
@@ -48,13 +51,32 @@ module.exports = {
             }
           }
         }
-      ]
+      ],
+      title:"",
     };
   },
   methods: {
     onClickLeft() {
-      this.$router.push("/zhenxuan1");
+      //保存当前页面上数据
+      // sessionStorage.setItem('id',this.id);
+      this.$router.push("/zhenxuan1/"+this.$route.params.id);
     }
-  }
+  },
+  created() {
+    // var mid=this.$route.params.id;
+    // console.log(mid);
+    var url="details/camp/"+this.$route.params.id;
+    this.axios
+    .get(url)
+    .then(res=>{
+      var obj=res.data.data[0];
+      console.log(obj);
+      this.center=[obj.longitude,obj.latitude];
+      this.title=obj.title;
+    })
+    .catch(err=>{
+      console.log(err);
+    })
+  },
 };
 </script>

@@ -35,22 +35,21 @@
         :loop="false"
         :height="200"
       >
-        <van-swipe-item v-for="(item, i) of lunBo" :key="i">
+        <van-swipe-item v-for="(item, i) of list" :key="i">
           <img style="width:100%" :src="item.pic" alt />
         </van-swipe-item>
       </van-swipe>
       <p>臻选</p>
       <dl>
         <dt>
-          <h6 v-text="item.h1"></h6>
-          <h6 v-text="item.h2"></h6>
-          <h6 v-text="item.h3"></h6>
+          <h6 v-text="item.label1"></h6>
+          <h6 v-text="item.label2"></h6>
         </dt>
         <dd>
-          <h5 v-text="item.h4"></h5>
+          <h5 v-text="item.title"></h5>
           <h6>
-            {{ item.h6 }}
-            <span v-text="item.s"></span>
+            {{ item.type }}|
+            <span v-text="item.subtitle"></span>
           </h6>
         </dd>
       </dl>
@@ -71,59 +70,11 @@ export default {
       switch4: false,
       switch5: false,
       switch6: false,
-      list: [
-        {
-          h1: "近迪士尼",
-          h2: "距离市区1小时车程",
-          h3: "距迪士尼地铁站1公里",
-          h4: "",
-          h6: "湖泊型 |",
-          s: ""
-        },
-        {
-          h1: "近迪士尼",
-          h2: "距离市区1小时车程",
-          h3: "距迪士尼地铁站1公里",
-          h4: "",
-          h6: "湖泊型 |",
-          s: ""
-        },
-        {
-          h1: "近迪士尼",
-          h2: "距离市区1小时车程",
-          h3: "距迪士尼地铁站1公里",
-          h4: "",
-          h6: "湖泊型 |",
-          s: ""
-        },
-        {
-          h1: "近迪士尼",
-          h2: "距离市区1小时车程",
-          h3: "距迪士尼地铁站1公里",
-          h4: "",
-          h6: "湖泊型 |",
-          s: ""
-        }
-      ],
+      list: [],
       lunBo: [
         {
           pic: ""
         }
-        // {
-        //   pic: ""
-        // }
-        // {
-        //   pic: ""
-        // },
-        // {
-        //   pic: ""
-        // }
-        // {
-        //   pic: require("@/assets/images/t5.jpg")
-        // },
-        // {
-        //   pic: require("@/assets/images/t6.jpg")
-        // }
       ],
       hide: true,
       value3: 1,
@@ -144,21 +95,33 @@ export default {
     }
   },
   created() {
-    funs.getMore(res => {
-      console.log(res.data);
-      this.list[0].s = res.data.data[0].subtitle;
-      this.list[1].s = res.data.data[1].subtitle;
-      this.list[2].s = res.data.data[2].subtitle;
-      this.list[3].s = res.data.data[3].subtitle;
-      this.list[0].h4 = res.data.data[0].title;
-      this.list[1].h4 = res.data.data[1].title;
-      this.list[2].h4 = res.data.data[2].title;
-      this.list[3].h4 = res.data.data[3].title;
-      this.lunBo[0].pic = res.data.data[0].pic;
+    // funs.getMore(res => {
+    //   console.log(res.data);
+    //   this.list[0].s = res.data.data[0].subtitle;
+    //   this.list[1].s = res.data.data[1].subtitle;
+    //   this.list[2].s = res.data.data[2].subtitle;
+    //   this.list[3].s = res.data.data[3].subtitle;
+    //   this.list[0].h4 = res.data.data[0].title;
+    //   this.list[1].h4 = res.data.data[1].title;
+    //   this.list[2].h4 = res.data.data[2].title;
+    //   this.list[3].h4 = res.data.data[3].title;
+    //   this.lunBo[0].pic = res.data.data[0].pic;
+
       // this.lunBo[1].pic = res.data.data[1].pic;
       // this.lunBo[2].pic = res.data.data[2].pic;
       // this.lunBo[3].pic = res.data.data[3].pic;
-    });
+      var url="pro/campmore?start=4&count=4";//接口地址
+      this.axios.get(url)
+      .then(res=>{
+        console.log(res);
+        var obj=res.data.data;
+        console.log(obj);
+        this.list=obj;
+      })
+      .catch(err=>{
+        console.log(err);
+      })
+    // });
   }
 };
 </script>
