@@ -29,7 +29,7 @@
           style="line-height: inherit;"
         />
       </van-cell>
-      <van-cell title="我的收藏" icon="star-o">
+      <van-cell @click="Collecting" title="我的收藏" icon="star-o">
         <van-icon
           slot="right-icon"
           name="arrow"
@@ -81,6 +81,11 @@ export default {
   },
   data() {
     return {};
+  },
+  methods: {
+    Collecting() {
+      this.$router.push("/Collecting")
+    }
   }
 };
 </script>

@@ -9,12 +9,12 @@
       left-arrow
     >
       <!-- <van-icon name="search" slot="right" /> -->
-      <van-icon name="star-o" color="#000" slot="right" />
+    <van-icon name="star-o" color="#000" slot="right" />
     </van-nav-bar>
     <div class="head">
       <img @click="fanHui" src="@/assets/images/fanHui.png" alt />
       <div>
-        <img src="@/assets/images/shouCang.png" alt />
+        <img @click="Collecting" src="@/assets/images/shouCang.png" alt />
         <img src="@/assets/images/zhuanFa.png" alt />
       </div>
     </div>
@@ -30,14 +30,14 @@
       <van-tag mark color="#e0f523" style="color:#000;padding:3px 15px"
         >臻选</van-tag
       >
-      <div>
-        <h6>处太湖一号露营公园内</h6>
-        <h6>距市区1小时车程</h6>
+      <div class="label">
+        <h6>{{lists.label1}}</h6>
+        <h6>{{lists.label2}}</h6>
       </div>
-      <h2>{{lists.title}}</h2>
+      <h2>{{ lists.title }}</h2>
       <p>
-        {{lists.type}} |
-        <span>{{lists.subtitle}}</span>
+        {{ lists.type }} |
+        <span>{{ lists.subtitle }}</span>
       </p>
     </div>
     <!-- 地图 -->
@@ -48,35 +48,34 @@
       <div class="zuoBiao">
         <img src="@/assets/images/diZhi.png" alt />
         <h6>
-          {{lists.address}}
+          {{ lists.address }}
           <van-icon name="arrow" color="#888" />
         </h6>
       </div>
       <div class="phone">
         <img src="@/assets/images/phone.png" alt />
         <h6>
-          {{lists.phone}}
+          {{ lists.phone }}
           <van-icon name="arrow" color="#888" />
         </h6>
       </div>
-      <router-link to="/map" tag="p">
+      <router-link :to="{name:'map',params:{id:id}}" tag="p">
+      <!--  map(id){
+      this.$router.push({path:'map',query:{id:id}})
+    } -->
         <img src="@/assets/images/daoHang.png" alt />
       </router-link>
     </div>
     <!-- 营地介绍 -->
     <div class="jieShao">
       <h3>营地介绍</h3>
-      <p>{{lists.intro}}</p>
+      <p>{{ lists.intro }}</p>
       <button @click="gengDuo" class="btn">查看更多</button>
       <div v-show="show" class="gengDuo">
         <h2>营地介绍</h2>
         <h3>营地描述</h3>
-        <p>{{lists.intro}}</p>
-        <van-icon class="icon"
-          @click="yC"
-          size="20"
-          name="cross"
-        />
+        <p>{{ lists.intro }}</p>
+        <van-icon class="icon" @click="yC" size="20" name="cross" />
       </div>
     </div>
     <!-- 营地设备 -->
@@ -107,10 +106,11 @@
 </template>
 
 <script>
+import Vue from "vue";
+import { Toast } from "vant";
+Vue.use(Toast);
 export default {
-  props:[
-    "id"
-  ],
+  props: ["id"],
   data() {
     return {
       show: false,
@@ -122,12 +122,17 @@ export default {
         {
           pic: require("@/assets/images/f37297b8e0b343fc94138737b94464fc.png")
         },
-        { 
-          pic: require     ("@/assets/images/291b76bb97ee4c62839077a5e49c85ff.jpg") 
+        {
+          pic: require("@/assets/images/291b76bb97ee4c62839077a5e49c85ff.jpg")
         }
       ],
+<<<<<<< HEAD
       imgs:[],
-      lists:[]
+      lists:[],
+=======
+      imgs: [],
+      lists: []
+>>>>>>> d50da23a3bb4bf97fe24bb8902f3fc9143903e60
     };
   },
   mounted() {
@@ -142,6 +147,9 @@ export default {
     };
   },
   methods: {
+    Collecting() {
+      Toast("已加入收藏");
+    },
     gengDuo() {
       this.show = true;
     },
@@ -150,9 +158,15 @@ export default {
     },
     fanHui() {
       this.$router.push("/home");
-    },
+    }
   },
   created() {
+<<<<<<< HEAD
+    //获取源数据
+    // let data=sessionStorage.getItem('id');
+    //Object.assign方法 赋值(目标对象,源对象)
+    // Object.assign(this.id);
+
     var url="details/camp/"+this.id;//接口地址
     this.axios
     .get(url)
@@ -162,13 +176,30 @@ export default {
       console.log(obj);
       // this.imgs=obj.imgs; 暂无
       this.lists=obj;
-
       // wwwwwwwo(╥﹏╥)o
     })
     .catch(err=>{
       console.log(err);
     });
   },
+=======
+    var url = "details/camp/" + this.id; //接口地址
+    this.axios
+      .get(url)
+      .then(res => {
+        console.log(res);
+        var obj = res.data.data[0];
+        console.log(obj);
+        // this.imgs=obj.imgs; 暂无
+        this.lists = obj;
+
+        // wwwwwwwo(╥﹏╥)o
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+>>>>>>> d50da23a3bb4bf97fe24bb8902f3fc9143903e60
 };
 </script>
 
@@ -200,6 +231,15 @@ export default {
   position: absolute;
   align-items: center;
   /* justify-content: space-between; */
+}
+.title .label{
+  /* height: 18px; */
+  /* display: inline-flex; */
+  /* 自动换行 */
+  word-break: break-all;
+}
+.title h6{
+  white-space: nowrap;
 }
 .gengDuo > h2 {
   font-size: 0.9rem;
@@ -260,10 +300,10 @@ dl > dt > h3 {
   padding: 10px;
   background: #fff;
 }
-.jieShao .icon{
-  position:absolute;
-  bottom:50px;
-  display:flex;
+.jieShao .icon {
+  position: absolute;
+  bottom: 50px;
+  display: flex;
   justify-content: center;
   left: 0;
   right: 0;
