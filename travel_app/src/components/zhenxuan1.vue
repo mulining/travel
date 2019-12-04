@@ -166,11 +166,12 @@ export default {
     .get(url)
     .then(res=>{
       console.log(res);
-      var obj=res.data.data[0];
+      var obj=res.data.result[0];
       console.log(obj);
       // this.imgs=obj.imgs; 暂无
       this.lists=obj;
       // wwwwwwwo(╥﹏╥)o
+      console.log(obj.type)
     })
     .catch(err=>{
       console.log(err);

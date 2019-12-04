@@ -24,17 +24,29 @@ import city from "@/components/city";
 import listDetails from "@/components/listDetails";
 import travelDetails from "@/components/travelDetails";
 import share from "@/components/share";
+import setup from "@/components/setup"
+import myPlace from "@/components/myPlace";
 import Collecting from "@/components/Collecting";
 
 Vue.use(Router);
 
 export default new Router({
   routes: [
-    // {
-    //   path: "/share",
-    //   name: "share",
-    //   component: share
-    // },
+    {
+      path:"/myPlace",
+      name:"myplace",
+      component:myPlace
+    },
+    {
+      path:"/setup",
+      name:"setup",
+      component:setup
+    },
+    {
+       path: "/share",
+      name: "share",
+       component: share
+     },
     {
       path: "/zhenxuan1/:id",
       name: "zhenxuan1",

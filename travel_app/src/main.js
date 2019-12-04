@@ -11,6 +11,7 @@ import "vant/lib/index.css";
 import qs from "qs";
 import Vuex from "vuex";
 
+
 Vue.use(Vuex);
 
 import AMap from "vue-amap";

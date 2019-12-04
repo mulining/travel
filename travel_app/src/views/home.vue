@@ -135,7 +135,7 @@ export default {
       .then(res => {
         // console.log(res);
         var obj = res.data.data;
-        // console.log(obj);
+        console.log(obj);
         // ┭┮﹏┭┮
         this.yingDi = obj;
       })
