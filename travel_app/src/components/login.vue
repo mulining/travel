@@ -58,15 +58,17 @@ export default {
       var ureg = new RegExp(/^[a-z][a-zA-Z0-9_]{4,15}$/);
       var preg = new RegExp(/^[a-zA-Z]\w{5,17}$/);
       var u = this.uname;
-      console.log(u);
       var p = this.upwd;
-      console.log(p);
       if (!ureg.test(u)) {
         Toast("用户名格式为开头小写字母，4-15位");
         return;
       }
       if (!preg.test(p)) {
         Toast("密码格式为字母开头，5-17位");
+        return;
+      }
+      if (this.yueDu == false) {
+        Toast("请阅读并同意用户协议及隐私保护");
         return;
       }
       //发送ajax请求
@@ -80,15 +82,19 @@ export default {
           })
         )
         .then(res => {
-          console.log(res);
+          // console.log(res);//res.data.uid-->用户id
           if (res.data.code == 1) {
-            if (this.yueDu == false) {
-              Toast("请阅读并同意用户协议及隐私保护");
-            } else {
-              Toast.success("登陆成功");
+            Toast.success("登陆成功");
+            // 根据用户id查询用户信息
+            this.axios.get("user/personal").then(res=>{
+              // 将用户信息，保存到vuex
+              console.log(res);
+              // <<<<<<<<<<<<<<<<<<<<<< 未完待续!!!!!
+              // this.$store.fixUserInfo(res.data);
               this.$router.push("/my");
               this.$store.commit("userLogin");
-            }
+              // >>>>>>>>>>>>>>>>>>>>>>>
+            });
           } else {
             Toast("用户名不存在");
           }

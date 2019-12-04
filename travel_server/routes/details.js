@@ -14,7 +14,7 @@ router.get("/camp/:id", (req, res) => {
   var data1 = "" //负责用来存放所有结果
   var data2 = "" //负责用来存放所有结果
   var sql1 =
-    "SELECT pic,title,subtitle,type,label1,label2,site,address,intro,phone,share_time FROM travel_camp WHERE id=?";
+    "SELECT pic,title,subtitle,type,label1,label2,site,address,longitude,latitude,intro,phone,share_time FROM travel_camp WHERE id=?";
   var sql2 = "SELECT img1,img2,img3 FROM travel_scroll WHERE cid=?";       //查找图片
   var sql3 = "SELECT type_name FROM travel_class WHERE id=?";              //查找类型
   // 获取camp数据
@@ -23,7 +23,7 @@ router.get("/camp/:id", (req, res) => {
       if (err) throw err;
       if(result.length >0){
         // 对象解构 -- 为了重组数据结构
-        ({pic,title,subtitle,type,label1,label2,site,address,intro,phone,share_time} = result[0]);
+        ({pic,title,subtitle,type,label1,label2,site,address,longitude,latitude,intro,phone,share_time} = result[0]);
         // console.log(result[0].pic); // ./static/imgs/1d39d3efc99d4800b99c81d4525c41e1.jpeg
         // 搜索对应类型
         //console.log(type); // 1
@@ -36,6 +36,8 @@ router.get("/camp/:id", (req, res) => {
         datas.label2 = label2;
         datas.site = site;
         datas.address = address;
+        datas.longitude = longitude;
+        datas.latitude = latitude;
         datas.intro = intro;
         datas.phone = phone;
         // console.log(result);
