@@ -4,7 +4,8 @@
   "description": "// T-MAX团队 定制旅行项目",
   "main": "ServerAPI.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
@@ -16,6 +17,10 @@
     "npm": "^6.13.1"
   },
   "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://git.sinacloud.com/tmaxtravel"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC"

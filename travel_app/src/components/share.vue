@@ -5,7 +5,7 @@
                 <span><van-icon name="arrow-left" style="font-size:20px;color:#555;"/></span>
             </router-link>
             <p>发布游记</p>
-            <span class="share_bar">发布</span>
+            <span class="share_bar" @click="share">发布</span>
         </div>
         <div class="share_pic">
            <van-uploader v-model="fileList" multiple preview-size="110px" :max-count="9"/>
@@ -53,22 +53,18 @@
 export default {
     data(){
         return{
+            message:"",//用户的文字信息
             tab_list:[
                 "全部","娱乐","休闲","探险"
             ],
-            fileList: [ ],
+            fileList: [ ], //上传的照片路径
             show: false,
             show1:false,
-            value:[],
+            value:[], //接收用户选择的标签
         }
     },
     methods:{
-        quanbu(e){
-            // this.value = this.tab_list[0]
-            // this.value = this.tab_list[1]
-            // this.value = this.tab_list[2]
-            // this.value = this.tab_list[3]
-            // console.log(e.target.innerText);
+        quanbu(e){ //标签添加限制方法
             if(this.value.length > 2){
                 this.$toast("最多只能添加3个标签！");
                 return;
@@ -79,15 +75,25 @@ export default {
                 this.value.push(e.target.innerText);
             }
         },
-        chacha(){
+        chacha(){ //关闭页面
             this.show=false
         },
         showPopup() {
-      this.show = true;
-    },
-        afterRead(file) {
-        // 此时可以自行将文件上传至服务器
-        console.log(file);
+            this.show = true;
+        },
+        afterRead(file) { //这是什么方法？
+            // 此时可以自行将文件上传至服务器
+            console.log(file);
+        },
+        //提交发布
+        share(){
+            console.log(this.message);
+            console.log(this.fileList);//参数：content:""  file:{name:"",size:"",type:""}
+            console.log(this.value);
+            // 获取用户uid
+            // 收集用户数据
+            // 将数据添加到用户数据表中
+            // 更新列表，将最新数据显示在前面
         }
     }
 }
