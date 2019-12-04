@@ -126,13 +126,8 @@ export default {
           pic: require("@/assets/images/291b76bb97ee4c62839077a5e49c85ff.jpg")
         }
       ],
-<<<<<<< HEAD
       imgs:[],
       lists:[],
-=======
-      imgs: [],
-      lists: []
->>>>>>> d50da23a3bb4bf97fe24bb8902f3fc9143903e60
     };
   },
   mounted() {
@@ -161,7 +156,6 @@ export default {
     }
   },
   created() {
-<<<<<<< HEAD
     //获取源数据
     // let data=sessionStorage.getItem('id');
     //Object.assign方法 赋值(目标对象,源对象)
@@ -182,24 +176,6 @@ export default {
       console.log(err);
     });
   },
-=======
-    var url = "details/camp/" + this.id; //接口地址
-    this.axios
-      .get(url)
-      .then(res => {
-        console.log(res);
-        var obj = res.data.data[0];
-        console.log(obj);
-        // this.imgs=obj.imgs; 暂无
-        this.lists = obj;
-
-        // wwwwwwwo(╥﹏╥)o
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
->>>>>>> d50da23a3bb4bf97fe24bb8902f3fc9143903e60
 };
 </script>
 
