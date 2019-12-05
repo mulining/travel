@@ -30,15 +30,40 @@ router.get("/index_slide", (req, res) => {
 
 router.get("/camp", (req, res) => {
   var sql = "SELECT id,pic,title,subtitle,type FROM travel_camp LIMIT 4"; //限制显示前四个数据
-  pool.query(sql, (err, result) => {
-    if (err) throw err;
-    if (result.length) {
-      res.send({ code: 1, msg: "首页臻选营地查询成功!", data: result });
-    } else {
+  new Promise((resolve,reject)=>{
+    pool.query(sql, (err, result) => {
+      var data;
+      if (err) throw err;
+      if (result.length) {
+        data = result;
+      }
+      resolve(data);
+    });
+  }).then(firstdata=>{
+    if(!firstdata){
       res.send({ code: -1, msg: "首页臻选营地查询失败!" });
     }
-  });
-});
+    // console.log(result);//result数组
+    var camps = [];//用于存放最终的结果
+    for(let i = 0; i < firstdata.length; i++){
+      camps.push(new Promise((resolve,reject)=>{
+        let type = firstdata[i].type;//类型，根据类型编号查询类型
+        let sql = `SELECT type_name FROM travel_class WHERE id=${type}`;
+        pool.query(sql,(err,seconddata)=>{
+          if(err)throw err;
+          // 将这个数据组和起来
+          firstdata[i].type = seconddata[0].type_name;
+          // console.log(firstdata);
+          resolve(firstdata);
+        });
+      }));
+    }
+    // 使用promise.all处理所有promise
+    Promise.all(camps).then(result=>{
+      res.send({ code: 1, msg: "首页臻选营地查询成功!", data: result[0] });
+    });
+  });//.then结尾
+});//该路由结尾
 
 // 正选营地更多分页查询！！！
 // 接口地址：http://127.0.0.1:5050/pro/campmore?start=0&count=20

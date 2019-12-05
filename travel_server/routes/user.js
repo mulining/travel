@@ -84,14 +84,14 @@ router.post("/login", (req, res) => {
   var sql = "SELECT id FROM travel_user WHERE uname=? AND upwd=md5(?)";
   pool.query(sql, [uname, upwd], (err, result) => {
     if (err) throw err;
-    console.log(1);
     if (result.length > 0) {
       // 将uid存入req.session
       req.session.uid = result[0].id;
       console.log(req.session);
       res.send({
         code: 1,
-        msg: "登录成功!"
+        msg: "登录成功!",
+        uid:result[0].id
       });
       return;
     } else {
@@ -165,14 +165,14 @@ router.get("/personal", (req, res) => {
     });
     return;
   }
-  var sql = "SELECT user_name,nick,phone,gender,sign,pic FROM travel_user WHERE uid=?";
+  var sql = "SELECT user_name,nick,phone,gender,sign,pic FROM travel_user WHERE id=?";
   pool.query(sql, [uid], (err, result) => {
     if (err) throw err;
     if (result.length > 0) {
       res.send({
         code: 1,
         msg: "查询成功!",
-        data: result
+        data: result[0]
       });
     } else {
       res.send({

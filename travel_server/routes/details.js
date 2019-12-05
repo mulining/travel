@@ -9,13 +9,12 @@ const pool = require("../pool.js");
 // 请求的列有: pic/title/subtitle/type/site/intro/phone/share_time
 //测试接口地址： 127.0.0.1:5050/details/camp/1
 router.get("/camp/:id", (req, res) => {
-<<<<<<< HEAD
   var id = Number(req.params.id);
   var data;
   var data1 = "" //负责用来存放所有结果
   var data2 = "" //负责用来存放所有结果
   var sql1 =
-    "SELECT pic,title,subtitle,type,label1,label2,site,address,intro,phone,share_time FROM travel_camp WHERE id=?";
+    "SELECT pic,title,subtitle,type,label1,label2,site,address,longitude,latitude,intro,phone,share_time FROM travel_camp WHERE id=?";
   var sql2 = "SELECT img1,img2,img3 FROM travel_scroll WHERE cid=?";       //查找图片
   var sql3 = "SELECT type_name FROM travel_class WHERE id=?";              //查找类型
   // 获取camp数据
@@ -24,7 +23,7 @@ router.get("/camp/:id", (req, res) => {
       if (err) throw err;
       if(result.length >0){
         // 对象解构 -- 为了重组数据结构
-        ({pic,title,subtitle,type,label1,label2,site,address,intro,phone,share_time} = result[0]);
+        ({pic,title,subtitle,type,label1,label2,site,address,longitude,latitude,intro,phone,share_time} = result[0]);
         // console.log(result[0].pic); // ./static/imgs/1d39d3efc99d4800b99c81d4525c41e1.jpeg
         // 搜索对应类型
         //console.log(type); // 1
@@ -37,6 +36,8 @@ router.get("/camp/:id", (req, res) => {
         datas.label2 = label2;
         datas.site = site;
         datas.address = address;
+        datas.longitude = longitude;
+        datas.latitude = latitude;
         datas.intro = intro;
         datas.phone = phone;
         // console.log(result);
@@ -78,18 +79,6 @@ router.get("/camp/:id", (req, res) => {
     });
     // 方法一：使用回调函数
     // select(res,callback1,callback2);
-=======
-  var id = req.params.id;
-  var sql =
-    "SELECT pic,title,subtitle,type,label1,label2,site,address,longitude,latitude,intro,phone,share_time FROM travel_camp WHERE id=?";
-  pool.query(sql, [id], (err, result) => {
-    if (err) throw err;
-    if (result.length) {
-      res.send({ code: 1, msg: "臻选营地详情查询成功!", data: result });
-    } else {
-      res.send({ code: -1, msg: "臻选营地详情查询失败!" });
-    }
->>>>>>> 4244a7f89c88b53ec31285739f704dbc828a5e01
   });
   // 方法一： 使用回调函数，为后边的两个查询创建两个回调函数，将获取到的数据传给下一个，在第一个查询到的.then中调用select函数，将res传入！
   // function select(res,callback1,callback2){

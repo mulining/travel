@@ -67,9 +67,10 @@ Vue.prototype.axios = axios;
 var store = new Vuex.Store({
   // 共享的数据
   state: {
+    uid:"",
     isLogin: false,
     pic: require("@/assets/images/piKaQiu.jpg"), //共享初始化用户头像数据
-    nick: "",
+    nick: "游客",
     value: ""
   },
 
@@ -83,11 +84,19 @@ var store = new Vuex.Store({
     },
     upic(state, url) {
       state.pic = true;
+    },
+    fixUserInfo(state,obj){
+      state.uid = obj.uid;
+      state.pic = obj.pic;
+      state.nick = obj.nick;
     }
   },
 
   // 获取共享数据(如果获取vuex共享只能用定义函数)
   getters: {
+    getUid(state){
+      return state.uid;
+    },
     login(state) {
       return state.isLogin;
     },
@@ -99,6 +108,9 @@ var store = new Vuex.Store({
     },
     inputValue(state) {
       return state.value;
+    },
+    getUserInfo(state){
+      return state;
     }
   }
 });
