@@ -20,8 +20,8 @@
     </div>
     <div>
       <van-swipe :autoplay="3000" indicator-color="white">
-        <van-swipe-item v-for="(item, i) of list" :key="i">
-          <img class="lunbo" :src="item.pic" alt />
+        <van-swipe-item v-for="(item, i) of imgs" :key="i">
+          <img class="lunbo" :src="item" alt />
         </van-swipe-item>
       </van-swipe>
     </div>
@@ -115,17 +115,17 @@ export default {
     return {
       show: false,
       hide: false,
-      list: [
-        {
-          pic: require("@/assets/images/0d4fd1721b5f450d90171c24a465ee55.jpeg")
-        },
-        {
-          pic: require("@/assets/images/f37297b8e0b343fc94138737b94464fc.png")
-        },
-        {
-          pic: require("@/assets/images/291b76bb97ee4c62839077a5e49c85ff.jpg")
-        }
-      ],
+      // list: [
+      //   {
+      //     pic: require("@/assets/images/0d4fd1721b5f450d90171c24a465ee55.jpeg")
+      //   },
+      //   {
+      //     pic: require("@/assets/images/f37297b8e0b343fc94138737b94464fc.png")
+      //   },
+      //   {
+      //     pic: require("@/assets/images/291b76bb97ee4c62839077a5e49c85ff.jpg")
+      //   }
+      // ],
       imgs:[],
       lists:[],
     };
@@ -168,10 +168,10 @@ export default {
       console.log(res);
       var obj=res.data.result[0];
       console.log(obj);
-      // this.imgs=obj.imgs; 暂无
+      this.imgs=obj.pic;
       this.lists=obj;
       // wwwwwwwo(╥﹏╥)o
-      console.log(obj.type)
+      console.log(obj.pic)
     })
     .catch(err=>{
       console.log(err);
