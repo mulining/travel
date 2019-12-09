@@ -72,14 +72,65 @@ router.get("/camp", (req, res) => {
 router.get("/campmore", (req, res) => {
   var s = Number(req.query.start) || 0;
   var c = Number(req.query.count) || 10;
-  var sql = `SELECT id,pic,label1,label2,title,subtitle,type FROM travel_camp LIMIT ?,?`; //限制显示前四个数据
-  pool.query(sql,[s,c], (err, result) => {
-    if (err) throw err;
-    if (result.length) {
-      res.send({ code: 1, msg: "首页臻选营地查询成功!", data: result });
-    } else {
-      res.send({ code: -1, msg: "首页臻选营地查询失败!" });
-    }
+  var data,data1,data2;
+  var sql1 = `SELECT id,pic,title,subtitle,type,label1,label2 FROM travel_camp LIMIT ?,?`; 
+  var sql2 = "SELECT img1,img2,img3 FROM travel_scroll WHERE cid=?"; 
+  var sql3 = "SELECT type_name FROM travel_class WHERE id=?";  
+  data = new Promise((resolve,reject)=>{
+    pool.query(sql1, [s,c], (err, result) => {
+      if (err) throw err;
+      if(result.length >0){
+        // 对象解构 -- 为了重组数据结构
+        ({id,pic,title,subtitle,type,label1,label2} = result[0]);
+        // console.log(result[0].pic); // ./static/imgs/1d39d3efc99d4800b99c81d4525c41e1.jpeg
+        // 搜索对应类型
+        //console.log(type); // 1
+        var datas = {};
+        datas.id = id;
+        datas.pic = [pic];
+        datas.title = title;
+        datas.subtitle = subtitle;
+        datas.type = type;
+        datas.label1 = label1;
+        datas.label2 = label2;
+        resolve(datas);
+      }
+    }); // pool.query结尾  //data1结尾
+  }).then(mydata=>{
+    // console.log(res);
+    // 这里读取type值，查询type类型的内容
+    // 方法二： 使用promise和promise.all相结合。promise.all是让一步程序同步进行的
+    data1 = new Promise((resolve,reject)=>{
+      var type = mydata.type;
+      var type_name;
+      pool.query(sql3,[type],(err,result)=>{
+        if(err)throw err;
+        if(result.length > 0){
+          type_name = result[0].type_name;
+          mydata.type = type_name;
+        }
+        resolve(mydata);
+      });
+    });
+    data2 = new Promise((resolve,reject)=>{
+      pool.query(sql2,[id],(err,result)=>{
+        if(err)throw err;
+        if(result.length > 0){
+          ({img1,img2,img3} = result);
+          var obj = result[0];
+          for(var item in obj){
+            mydata.pic.push(obj[item]);
+          } //图片查到
+        }
+        resolve(mydata);
+      });
+    });
+    Promise.all([data1,data2]).then(result=>{
+      console.log(result);
+      res.send({code:1,msg:"臻选数据查询成功！",result});
+    });
+    // 方法一：使用回调函数
+    // select(res,callback1,callback2);
   });
 });
 
