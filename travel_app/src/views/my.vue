@@ -52,13 +52,18 @@
       </van-cell>
     </div>
     <div class="tuijian">
-      <van-cell title="推荐给好友" icon="share">
+      <!-- <van-cell is-link @click="showPopup">展示弹出层</van-cell> -->
+      <van-cell title="推荐给好友" icon="share" is-link @click="showPopup">
         <van-icon
           slot="right-icon"
           name="arrow"
           style="line-height: inherit;"
         />
       </van-cell>
+      <van-popup 
+        v-model="show"
+        position="bottom"
+        :style="{ height: '20%' }">fdsjakflafjkl</van-popup>
       <router-link to="/setup">
           <van-cell title="设置" icon="setting">
             <van-icon
@@ -80,11 +85,16 @@ export default {
     tabBar
   },
   data() {
-    return {};
+    return {
+      show: false
+    };
   },
   methods: {
     Collecting() {
       this.$router.push("/Collecting")
+    },
+     showPopup() {
+      this.show = true;
     }
   }
 };

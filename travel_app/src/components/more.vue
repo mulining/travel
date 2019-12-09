@@ -35,7 +35,7 @@
         :loop="false"
         :height="200"
       >
-        <van-swipe-item v-for="(item, i) of list" :key="i">
+        <van-swipe-item v-for="(item,i) of list" :key="i">
           <img style="width:100%" :src="item.pic" alt />
         </van-swipe-item>
       </van-swipe>
@@ -54,6 +54,7 @@
         </dd>
       </dl>
     </div>
+    <button @click="loadMore">加载更多</button>
   </div>
 </template>
 
@@ -70,12 +71,9 @@ export default {
       switch4: false,
       switch5: false,
       switch6: false,
+      start:1,
+      count:4,
       list: [],
-      lunBo: [
-        {
-          pic: ""
-        }
-      ],
       hide: true,
       value3: 1,
       value3: 0,
@@ -92,36 +90,28 @@ export default {
     },
     onConfirm() {
       this.$refs.item.toggle();
-    }
-  },
-  created() {
-    // funs.getMore(res => {
-    //   console.log(res.data);
-    //   this.list[0].s = res.data.data[0].subtitle;
-    //   this.list[1].s = res.data.data[1].subtitle;
-    //   this.list[2].s = res.data.data[2].subtitle;
-    //   this.list[3].s = res.data.data[3].subtitle;
-    //   this.list[0].h4 = res.data.data[0].title;
-    //   this.list[1].h4 = res.data.data[1].title;
-    //   this.list[2].h4 = res.data.data[2].title;
-    //   this.list[3].h4 = res.data.data[3].title;
-    //   this.lunBo[0].pic = res.data.data[0].pic;
-
-      // this.lunBo[1].pic = res.data.data[1].pic;
-      // this.lunBo[2].pic = res.data.data[2].pic;
-      // this.lunBo[3].pic = res.data.data[3].pic;
-      var url="pro/campmore?start=4&count=4";//接口地址
+    },
+    //加载更多
+    loadMore(){
+      var url="pro/campmore?start="+this.start+"&count="+this.count;//接口地址
+      console.log(this.start,this.count)
+      this.start+=4; 
+      this.count+=this.start;
       this.axios.get(url)
       .then(res=>{
-        console.log(res);
-        var obj=res.data.data;
-        console.log(obj);
-        this.list=obj;
+        // console.log(res);
+        var list=res.data.data;
+        console.log(list);
+        this.list=list.concat(res.data.data);
+        console.log(this.list);
       })
       .catch(err=>{
         console.log(err);
       })
-    // });
+    }
+  },
+  created() {
+    this.loadMore();
   }
 };
 </script>

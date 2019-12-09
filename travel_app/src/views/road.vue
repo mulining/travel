@@ -174,7 +174,7 @@ export default {
   border: 1px solid #ccc;
   border-radius: 5px;
   margin: 5px 0 5px 0;
-  height: 180px;
+  height: 200px;
   overflow: hidden;
   position: relative;
 }
@@ -197,7 +197,10 @@ export default {
   width: 16px;
 }
 .neirong ul li .pp {
-  padding: 3px;
+  padding: 3px 3px 10px;
+}
+.neirong ul li .pp p:nth-child(2){
+  padding-top:10px;
 }
 .neirong ul li p:nth-child(3) {
   padding-top: 7px;

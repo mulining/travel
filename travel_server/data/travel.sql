@@ -260,7 +260,7 @@ INSERT INTO `travel_scroll` (`id`, `cid`, `img1`, `img2`, `img3`) VALUES
 (15, 15, './static/scroll/2656628652.jpg', './static/scroll/2670491509.jpg', './static/scroll/2742292546.jpg'),
 (16, 16, './static/scroll/2793569902.jpg', './static/scroll/2807680893.jpg', './static/scroll/2852770417.jpg'),
 (17, 17, './static/scroll/2920485246.jpg', './static/scroll/2921914130.jpg', './static/scroll/2996898994.jpg'),
-(18, 18, './static/scroll/3008060681.jpg', './static/scroll/.1673351825jpg', './static/scroll/3211466005.jpg'),
+(18, 18, './static/scroll/3008060681.jpg', './static/scroll/1673351825.jpg', './static/scroll/3211466005.jpg'),
 (19, 19, './static/scroll/3237167858.jpg', './static/scroll/3306361875.jpg', './static/scroll/3328010001.jpg'),
 (20, 20, './static/scroll/3401777427.jpg', './static/scroll/3615919511.jpg', './static/scroll/3695221626.jpg');
 
