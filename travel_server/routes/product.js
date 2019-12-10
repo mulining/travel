@@ -72,7 +72,7 @@ router.get("/camp", (req, res) => {
 router.get("/campmore", (req, res) => {
   var s = Number(req.query.start) || 0;
   var c = Number(req.query.count) || 10;
-  var data,data1,data2;
+  var data,data1=[],data2=[],data3 = [] ;//存放最终结果;
   var sql1 = `SELECT id,pic,title,subtitle,type,label1,label2 FROM travel_camp LIMIT ?,?`; 
   var sql2 = "SELECT img1,img2,img3 FROM travel_scroll WHERE cid=?"; 
   var sql3 = "SELECT type_name FROM travel_class WHERE id=?";  
@@ -81,57 +81,62 @@ router.get("/campmore", (req, res) => {
       if (err) throw err;
       if(result.length >0){
         // 对象解构 -- 为了重组数据结构
-        ({id,pic,title,subtitle,type,label1,label2} = result[0]);
-        // console.log(result[0].pic); // ./static/imgs/1d39d3efc99d4800b99c81d4525c41e1.jpeg
-        // 搜索对应类型
-        //console.log(type); // 1
-        var datas = {};
-        datas.id = id;
-        datas.pic = [pic];
-        datas.title = title;
-        datas.subtitle = subtitle;
-        datas.type = type;
-        datas.label1 = label1;
-        datas.label2 = label2;
-        resolve(datas);
+        let datas = []
+        for(var i = 0;i < result.length; i++){
+          ({id,pic,title,subtitle,type,label1,label2} = result[i]);
+          let data = {};
+          data.id = id;
+          data.pic = [pic];
+          data.title = title;
+          data.subtitle = subtitle;
+          data.type = type;
+          data.label1 = label1;
+          data.label2 = label2;
+          datas.push(data);
+        }
+        resolve(datas);//将第一次拿到的未处理的数据，抛给.then进行加工处理
       }
     }); // pool.query结尾  //data1结尾
-  }).then(mydata=>{
-    // console.log(res);
+  }).then(mydata=>{ //这里接到的是数组 - 未处理的4条数据
     // 这里读取type值，查询type类型的内容
     // 方法二： 使用promise和promise.all相结合。promise.all是让一步程序同步进行的
-    data1 = new Promise((resolve,reject)=>{
-      var type = mydata.type;
-      var type_name;
-      pool.query(sql3,[type],(err,result)=>{
-        if(err)throw err;
-        if(result.length > 0){
-          type_name = result[0].type_name;
-          mydata.type = type_name;
-        }
-        resolve(mydata);
+    for(let i = 0; i < mydata.length; i++){ //这里循环遍历数组中每一项，对每一项的内容进行加工（异步）
+      data2.push(new Promise((resolve,reject)=>{ //将
+        let type = mydata[i].type;
+        let type_name;
+        pool.query(sql3,[type],(err,result)=>{
+          if(err)throw err;
+          if(result.length > 0){
+            type_name = result[0].type_name;
+            mydata[i].type = type_name;
+          }
+          //console.log(mydata[i]);
+          resolve(mydata[i]);
+        });
+      }));
+    }
+    Promise.all(data2).then(mydata=>{
+      mydata.forEach((ele)=>{
+        data3.push(new Promise( (resolve,reject)=>{
+          pool.query(sql2,[ele.id],(err,result)=>{
+            if(err)throw err;
+            if(result.length > 0){
+              ({img1,img2,img3} = result);
+              var obj = result[0];
+              for(var item in obj){
+                ele.pic.push(obj[item]);
+              } //图片查到
+            }
+            resolve(ele);
+          });
+        } ));
       });
-    });
-    data2 = new Promise((resolve,reject)=>{
-      pool.query(sql2,[id],(err,result)=>{
-        if(err)throw err;
-        if(result.length > 0){
-          ({img1,img2,img3} = result);
-          var obj = result[0];
-          for(var item in obj){
-            mydata.pic.push(obj[item]);
-          } //图片查到
-        }
-        resolve(mydata);
+      Promise.all(data3).then(mydata=>{
+        // console.log(mydata);
+        res.send({code:1,msg:"臻选数据查询成功！",result:mydata});
       });
-    });
-    Promise.all([data1,data2]).then(result=>{
-      console.log(result);
-      res.send({code:1,msg:"臻选数据查询成功！",result});
-    });
-    // 方法一：使用回调函数
-    // select(res,callback1,callback2);
-  });
+    });//内层第二个promise结束
+  });//外层new promise.then结束
 });
 
 //分享

@@ -94,16 +94,12 @@ export default {
     //加载更多
     loadMore(){
       var url="pro/campmore?start="+this.start+"&count="+this.count;//接口地址
-      console.log(this.start,this.count)
       this.start+=4; 
       this.count+=this.start;
       this.axios.get(url)
       .then(res=>{
-        // console.log(res);
-        var list=res.data.data;
-        console.log(list);
-        this.list=list.concat(res.data.data);
-        console.log(this.list);
+        var list=res.data.result;
+        this.list=list.concat(list);
       })
       .catch(err=>{
         console.log(err);
