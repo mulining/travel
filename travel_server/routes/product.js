@@ -132,7 +132,7 @@ router.get("/campmore", (req, res) => {
         } ));
       });
       Promise.all(data3).then(mydata=>{
-        // console.log(mydata);
+        console.log(mydata);
         res.send({code:1,msg:"臻选数据查询成功！",result:mydata});
       });
     });//内层第二个promise结束
