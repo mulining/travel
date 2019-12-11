@@ -5,7 +5,7 @@
       z-index="10"
       @click-left="fanHui"
       fixed="true"
-      title="苏州太湖一号房车营地"
+      :title="this.lists.title"
       left-arrow
     >
       <!-- <van-icon name="search" slot="right" /> -->
@@ -152,7 +152,8 @@ export default {
       this.show = false;
     },
     fanHui() {
-      this.$router.push("/home");
+      // this.$router.push("/home");
+      this.$router.go(-1);
     }
   },
   created() {

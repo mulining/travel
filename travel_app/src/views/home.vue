@@ -16,7 +16,7 @@
       <p class="yeShe">野奢·逸趣</p>
       <ul class="main">
         <li>
-          <img src="@/assets/images/e42461a81f764d7b997cfce51fe5e5c8.jpg" alt />
+          <img src="@/assets/images/e42461a81f764d7b997cfce51fe5e5c8.jpg" alt/>
           <div class="fangChe">
             <p>房车出行必备</p>
             <p>星空下露营,圆一个房车梦</p>

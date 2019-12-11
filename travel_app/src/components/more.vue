@@ -28,6 +28,7 @@
       </van-dropdown-menu>
     </div>
     <div class="main" v-for="(item, i) of list" :key="i">
+      <a href="javascript:;" @click="xiangQing(item.id)">
       <van-swipe
         :class="lb[i]"
         class="lunBo"
@@ -46,15 +47,17 @@
           <h6 v-text="item.label2"></h6>
         </dt>
         <dd>
-          <h5 v-text="item.title"></h5>
+          <h5 style="color:#333" v-text="item.title"></h5>
           <h6>
             {{ item.type }}|
             <span v-text="item.subtitle"></span>
           </h6>
         </dd>
       </dl>
+      </a>
     </div>
-    <button @click="loadMore">加载更多</button>
+    <van-button v-if="this.list.length<19" size="large" @click="loadMore">加载更多</van-button>
+    <van-button v-if="this.list.length==19" disabled size="large">暂时没有更多数据了...</van-button>
   </div>
 </template>
 
@@ -91,19 +94,26 @@ export default {
     onConfirm() {
       this.$refs.item.toggle();
     },
+    xiangQing(id) {
+      this.$router.push("/zhenxuan1/" + id);
+      window.scrollTo(0, 0);
+    },
     //加载更多
     loadMore(){
       var url="pro/campmore?start="+this.start+"&count="+this.count;//接口地址
       console.log(this.start,this.count)
-      this.start+=4; 
-      this.count+=this.start;
+      this.start+=4;
       this.axios.get(url)
       .then(res=>{
         // console.log(res);
-        var list=res.data.data;
+        var list=res.data.result;
         console.log(list);
-        this.list=list.concat(res.data.data);
+        this.list=this.list.concat(list);
         console.log(this.list);
+        // if(this.start>19){
+        //   this.$toast("暂时没有更多数据了");
+        //   return;
+        // }
       })
       .catch(err=>{
         console.log(err);
