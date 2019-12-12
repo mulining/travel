@@ -23,7 +23,7 @@
     </div>
     <div class="neirong">
       <ul>
-        <li v-for="(item, i) of mylist" :key="i">
+        <li v-for="(item, i) of mylist" :key="i" @click="goRoadShare">
           <img :src="item.pic" alt="" />
           <div class="pp">
             <p>{{ item.title }}</p>
@@ -82,6 +82,9 @@ export default {
     };
   },
   methods: {
+    goRoadShare(){
+      this.$router.push('/roadShare');
+    },
     loadMore() {
       var url = "pro/share";
       this.axios

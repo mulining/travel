@@ -36,8 +36,8 @@
         :loop="false"
         :height="200"
       >
-        <van-swipe-item v-for="(item,i) of list" :key="i">
-          <img style="width:100%" :src="item.pic" alt />
+        <van-swipe-item v-for="(pic,i) of item.pic" :key="i">
+          <img style="width:100%" :src="pic" alt />
         </van-swipe-item>
       </van-swipe>
       <p>臻选</p>
@@ -110,10 +110,7 @@ export default {
         console.log(list);
         this.list=this.list.concat(list);
         console.log(this.list);
-        // if(this.start>19){
-        //   this.$toast("暂时没有更多数据了");
-        //   return;
-        // }
+        
       })
       .catch(err=>{
         console.log(err);

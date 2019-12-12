@@ -97,6 +97,8 @@ export default {
             });
           } else {
             Toast("用户名不存在");
+            this.uname="";
+            this.upwd="";
           }
         })
         .catch(err => {
