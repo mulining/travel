@@ -16,7 +16,7 @@
       <p class="yeShe">野奢·逸趣</p>
       <ul class="main">
         <li>
-          <img src="@/assets/images/e42461a81f764d7b997cfce51fe5e5c8.jpg" alt/>
+          <img src="@/assets/images/e42461a81f764d7b997cfce51fe5e5c8.jpg" alt @click="to1"/>
           <div class="fangChe">
             <p>房车出行必备</p>
             <p>星空下露营,圆一个房车梦</p>
@@ -27,6 +27,7 @@
             <img
               src="@/assets/images/6388f48e1e134324a1934a964b11b892.png"
               alt
+              @click="to2"
             />
             <p>100%最美新西兰</p>
           </div>
@@ -34,12 +35,13 @@
             <img
               src="@/assets/images/0e838b2501d04ba8a8dd21f211d432fd.jpg"
               alt
+              @click="to3"
             />
             <p>耶稣露营新玩法</p>
           </div>
         </li>
       </ul>
-      <ul class="mainBottom">
+      <ul class="mainBottom" @click="to4">
         <li>
           <p>东八区的这里没有时差，也不是你想象的模样</p>
           <p>16983·阅读</p>
@@ -122,11 +124,27 @@ export default {
     xiangQing(id) {
       this.$router.push("/zhenxuan1/" + id);
       window.scrollTo(0, 0);
-    }
+    },
     // xiangQing() {
     //   this.$router.push("/zhenxuan1");
     //   window.scrollTo(0, 0);
     // }
+    to1(){
+      this.$router.push("zhenxuan1/18");
+      window.scrollTo(0,0);
+    },
+    to2(){
+      this.$router.push("zhenxuan1/19");
+      window.scrollTo(0,0);
+    },
+    to3(){
+      this.$router.push("zhenxuan1/13");
+      window.scrollTo(0,0);
+    },
+    to4(){
+      this.$router.push("zhenxuan1/9");
+      window.scrollTo(0,0);
+    }
   },
   created() {
     var url = "/pro/camp";

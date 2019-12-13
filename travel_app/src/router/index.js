@@ -48,6 +48,12 @@ export default new Router({
       component: ()=> import(/*webpackChunkName: "home"*/'../views/home')
     },
     {
+      path: "/roadShare",
+      name: "roadShare",
+      // component: roadShare
+      component: ()=> import(/*webpackChunkName: "roadShare"*/'../components/roadShare')
+    },
+    {
       path:"/myPlace",
       name:"myplace",
       // component:myPlace
