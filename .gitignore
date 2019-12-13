@@ -14,3 +14,6 @@ yarn-error.log*
 *.sln
 
 /travel_app/node_modules
+/travel_app/_node_modules
+/travel_server/node_modules
+/travel_app/dist
