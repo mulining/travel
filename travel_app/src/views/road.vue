@@ -24,25 +24,21 @@
     <div class="neirong">
       <ul>
         <li v-for="(item, i) of mylist" :key="i" @click="goRoadShare">
-          <img :src="item.pic" alt="" />
-          <div class="pp">
-            <p>{{ item.title }}</p>
-            <p>
-              <van-row>
-                <van-col span="5">
-                  <img src="../assets/images/icon-test-copy (2).png" alt="" />
-                </van-col>
-                <van-col span="14">
-                  <span>定制旅行+</span>
-                </van-col>
-                <van-col span="5">
-                  <img src="../assets/images/dianzan.png" alt="" />{{
-                    item.likes
-                  }}
-                </van-col>
-              </van-row>
-            </p>
+          <div>
+            <img :src="item.pic" alt="" />
+            <div class="pp">
+              <p>{{ item.title }}</p>
+            </div>
           </div>
+          <p class="pb">
+            <span>
+              <img src="../assets/images/icon-test-copy (2).png" alt="" />
+              <span>定制旅行+</span>
+            </span>
+            <span>
+              <img src="../assets/images/dianzan.png" alt="" />{{item.likes}}
+            </span>
+          </p>
         </li>
       </ul>
       <router-link to="./share">
@@ -78,13 +74,31 @@ export default {
         { text: "最新", value: "c" }
       ],
       mylist:[],
-      list: []
+      list: [],
+      loading:false,
+      finished:false,
     };
   },
+  // mounted() {
+  //   let h=document.getElementsByTagName("img");
+  //   console.log(h[0].);
+  // },
   methods: {
     goRoadShare(){
       this.$router.push('/roadShare');
+      window.scrollTo(0,0);
     },
+    // onLoad(){
+    //   setTimeout(()=>{
+    //     for(let i=0;i<10;i++){
+    //       this.list.push(this.mylist.length+1);
+    //     }
+    //     this.loading=false;
+    //     if(this.mylist.length>=20){
+    //       this.finished=true;
+    //     }
+    //   },500);
+    // },
     loadMore() {
       var url = "pro/share";
       this.axios
@@ -146,7 +160,12 @@ export default {
 
 <style scoped>
 .title {
+  position: fixed;
+  width: 100%;
   box-shadow: 0px 6px 10px #aaa;
+  top: 0px;
+  z-index: 1;
+  background: #fff;
 }
 .van-col--6 {
   margin-top: 20px;
@@ -163,6 +182,7 @@ export default {
   padding-top: 20px;
   width: 95%;
   margin: 0 auto;
+  margin-top: 35px;
 }
 .neirong ul {
   list-style: none;
@@ -170,6 +190,7 @@ export default {
   flex-direction: row;
   justify-content: space-between;
   flex-wrap: wrap;
+  height: auto;
 }
 .neirong ul li {
   width: 48%;
@@ -177,53 +198,52 @@ export default {
   border: 1px solid #ccc;
   border-radius: 5px;
   margin: 5px 0 5px 0;
-  height: 200px;
+  /* height: 200px; */
   overflow: hidden;
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
-/* .neirong ul li:nth-child(1) {
-  height: 250px;
-} */
 .neirong ul li img {
-  height: 139px;
+  /* height: 139px; */
+  max-height: 240px;
   width: 100%;
   object-fit: cover;
 }
 .neirong ul li p {
-  width: 171px;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  display: -webkit-box;
+  /* white-space: nowrap; */
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
-.neirong ul li p img {
+.neirong ul li p.pb img {
   height: 16px;
   width: 16px;
 }
 .neirong ul li .pp {
   padding: 3px 3px 10px;
 }
-.neirong ul li .pp p:nth-child(2){
-  padding-top:10px;
-}
-.neirong ul li p:nth-child(3) {
-  padding-top: 7px;
-}
-.van-col--8 {
-  width: 33%;
+.neirong .pb{
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 5px;
+  
 }
 .share{
-    background-color:#05c1bc;
-    width: 35px;
-    height: 35px;
-    position: fixed;
-    top: 565px;
-    right: 20px;
-    border-radius: 5px;
+  background-color:#05c1bc;
+  width: 35px;
+  height: 35px;
+  position: fixed;
+  top: 565px;
+  right: 20px;
+  border-radius: 5px;
 }
 .plus_icon{
-    font-size: 25px; 
-    color: #fff; 
-    padding: 15%;
-    font-weight: 800;
+  font-size: 25px; 
+  color: #fff; 
+  padding: 15%;
+  font-weight: 800;
 }
 </style>

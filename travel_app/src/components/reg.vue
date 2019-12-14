@@ -109,7 +109,6 @@ export default {
 .ctn > button {
   position: absolute;
   top: 340px;
-  left: 51px;
   width: 75%;
   padding: 8px;
   border-radius: 20px;
@@ -137,7 +136,6 @@ textarea::-webkit-input-placeholder {
   top: 225px;
   border-bottom: 1px solid #fff;
   padding: 10px;
-  left: 50px;
 }
 .ctn > .miMa {
   position: absolute;
@@ -146,7 +144,6 @@ textarea::-webkit-input-placeholder {
   background: transparent;
   padding: 10px;
   top: 270px;
-  left: 50px;
 }
 .ctn > img {
   position: absolute;
@@ -167,10 +164,7 @@ textarea::-webkit-input-placeholder {
   background-size: 100% 100%;
 }
 .ctn {
-  width: 90%;
-  position: absolute;
-  left: 0;
-  top: 0;
-  margin: 0 auto;
+  display: flex;
+  justify-content: center;
 }
 </style>

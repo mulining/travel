@@ -110,10 +110,28 @@ export default {
 </script>
 
 <style scoped>
+.beiJing > .bJMask {
+  width: 100%;
+  height: 100%;
+  background: rgba(21, 21, 21, 0.4);
+}
+.beiJing {
+  width: 100%;
+  position: relative;
+  height: 667px;
+  background: url("../assets/images/d6cf8fbfc53d4dbf93dee23a227c530c.jpg")
+    no-repeat;
+  background-size: 100% 100%;
+}
+.ctn > img {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+}
 .ctn > p {
   position: absolute;
   top: 15px;
-  right: -20px;
+  right: 15px;
   color: #fff;
 }
 .ipt {
@@ -135,18 +153,15 @@ export default {
 .yueDu {
   position: absolute;
   top: 400px;
-  left: 50px;
   color: #fff;
   display: flex;
   justify-items: center;
   line-height: 10px;
-  width: 100%;
   text-align: center;
 }
 .ctn > div > button {
   position: absolute;
   top: 340px;
-  left: 51px;
   width: 75%;
   padding: 8px;
   border-radius: 20px;
@@ -154,7 +169,7 @@ export default {
   background-image: linear-gradient(90deg, #63e6dc, #00dbc1);
   border: none;
 }
-.ctn > h2 {
+.ctn h2 {
   font-weight: 600;
   font-size: 1.5rem;
   color: #fff;
@@ -174,7 +189,6 @@ textarea::-webkit-input-placeholder {
   top: 225px;
   border-bottom: 1px solid #fff;
   padding: 10px;
-  left: 50px;
 }
 .miMa {
   position: absolute;
@@ -183,30 +197,5 @@ textarea::-webkit-input-placeholder {
   background: transparent;
   padding: 10px;
   top: 270px;
-  left: 50px;
-}
-.ctn > img {
-  position: absolute;
-  left: 10px;
-  top: 10px;
-}
-.beiJing > .bJMask {
-  width: 100%;
-  height: 100%;
-  background: rgba(21, 21, 21, 0.4);
-}
-.beiJing {
-  width: 100%;
-  position: relative;
-  height: 667px;
-  background: url("../assets/images/d6cf8fbfc53d4dbf93dee23a227c530c.jpg")
-    no-repeat;
-  background-size: 100% 100%;
-}
-.ctn {
-  width: 86%;
-  position: absolute;
-  left: 0;
-  top: 0;
 }
 </style>

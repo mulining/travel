@@ -2,6 +2,7 @@
   <div class="roadShare">
     <!-- 导航栏 -->
     <van-nav-bar
+      id="nav"
       v-show="hide"
       z-index="10"
       @click-left="backToRoad"
@@ -15,7 +16,7 @@
     <!-- 头部 -->
     <road-header></road-header>
     <!-- 一堆div -->
-    <img src="../../static/images/jd.jpg" alt="">
+    <img id="cover" src="../../static/images/jd.jpg" alt="">
     <!-- 标签 -->
     <div class="tips">
       <h6>休闲</h6>
@@ -30,7 +31,7 @@
       <img src="../assets/imgs/travel.png" alt="">
       <div>
         <!-- 发布者 -->
-        <span>定智旅行+</span>
+        <span>定制旅行+</span>
         <!-- 时间 -->
         <span class="time">19-01-17 13:18</span>
       </div>
@@ -124,13 +125,14 @@
     <!-- 发表评论区 -->
     <div class="talk">
       <!-- 评论 -->
-      <!-- <textarea type="text"> -->
-      <textarea name="" id="" cols="30" rows="10" placeholder="互动一下吧..."></textarea>
+      <!-- <input type="text"> -->
+      <textarea name="" id="text" cols="30" rows="10" @focus="focus" placeholder="互动一下吧..." @blur="blur"></textarea>
       <!-- 点赞 -->
-      <div class="like">
+      <div class="like" v-show="t" @click="thumb">
         <img src="../assets/imgs/like.png" alt="">
+        <span>{{num}}</span>
       </div>
-      <span>3</span>
+      <div class="show" v-show="f">发表</div>
     </div>
   </div>
 </template>
@@ -143,17 +145,41 @@ export default {
   data(){
     return{
       hide:false,
+      t:true,
+      f:false,
+      num:3,
     }
   },
   methods: {
     backToRoad(){
       this.$router.push('./road');
+    },
+    focus(){
+      let t=document.getElementById("text");
+      t.placeholder="发表评论...";
+      // console.log(t.nextElementSibling);
+      this.t=false;
+      this.f=true;
+    },
+    blur(){
+      let t=document.getElementById("text");
+      t.placeholder="互动一下吧...";
+      this.t=true;
+      this.f=false;
+    },
+    thumb(){
+      if(this.num==3){
+        this.num+=1;
+      }else{
+        this.num-=1;
+      }
     }
   },
   mounted() {
+    let h=document.getElementById("cover");
     window.onscroll=()=>{
       var scroll = document.body.scrollTop ||  document.documentElement.scrollTop;
-      if(scroll>=350){
+      if(scroll>=h.scrollHeight-47){
         this.hide=true;
       }else{
         this.hide=false;
@@ -274,14 +300,45 @@ export default {
     padding: 2px 5px;
     background: #eee;
     border: none;
+    border-radius: 3px;
+    line-height: 25px;
+  }
+  .roadShare textarea:focus{
+    border: 1px solid #1ee2e56b;
   }
   .roadShare .talk img{
     width: 30px;
     margin: 4px 0;
   }
   .roadShare .talk span{
+    position: absolute;
     font-size: 15px;
     color: #666;
     line-height: 40px;
   }
+  .roadShare #nav{
+    animation: change 0.2s;
+  }
+  .roadShare .talk .like{
+    width: 14%;
+  }
+  .roadShare .talk .show{
+    width: 12%;
+    margin-right: 8px;
+    text-align: center;
+    line-height: 40px;
+    font-size: 14px;
+    color: #14babd;
+  }
+  @keyframes change {
+  0%{
+    opacity: 0.6;
+  }
+  50%{
+    opacity: 0.8;
+  }
+  100%{
+    opacity: 1;
+  }
+}
 </style>

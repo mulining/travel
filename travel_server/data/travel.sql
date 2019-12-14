@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 2019-11-30 07:45:23
+-- Generation Time: 2019-12-14 11:52:12
 -- 服务器版本： 10.1.28-MariaDB
 -- PHP Version: 5.6.32
 
@@ -361,7 +361,7 @@ INSERT INTO `travel_shared` (`id`, `uid`, `pic`, `title`, `subtitle`, `type`, `l
 --
 -- 表的结构 `travel_user`
 --
--- 创建时间： 2019-11-27 08:24:16
+-- 创建时间： 2019-12-14 10:50:20
 --
 
 DROP TABLE IF EXISTS `travel_user`;
@@ -375,6 +375,7 @@ CREATE TABLE IF NOT EXISTS `travel_user` (
   `gender` int(11) DEFAULT NULL,
   `sign` varchar(128) DEFAULT NULL,
   `pic` varchar(255) DEFAULT NULL,
+  `userfolder` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
@@ -388,8 +389,8 @@ CREATE TABLE IF NOT EXISTS `travel_user` (
 -- 转存表中的数据 `travel_user`
 --
 
-INSERT INTO `travel_user` (`id`, `uname`, `upwd`, `user_name`, `nick`, `phone`, `gender`, `sign`, `pic`) VALUES
-(1, '2', '4ead6d8a7004fc8500f2e5df29e19c88', 'hh', '', 'hh', 2, 'hhh', 'undefined');
+INSERT INTO `travel_user` (`id`, `uname`, `upwd`, `user_name`, `nick`, `phone`, `gender`, `sign`, `pic`, `userfolder`) VALUES
+(1, '2', '4ead6d8a7004fc8500f2e5df29e19c88', 'hh', '', 'hh', 2, 'hhh', 'undefined', '');
 
 --
 -- 限制导出的表
