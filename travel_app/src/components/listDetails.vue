@@ -3,28 +3,32 @@
     <!-- 搜索框 -->
     <van-search
       :v-model="$store.getters.inputValue"
-      placeholder="请输入搜索关键词"
+      :value="this.lname"
+      readonly
       show-action
       @cancel="onCancel"
-    />
+    >
+    </van-search>
     <!-- 详情列表 -->
     <div
       class="main"
-      @click="details(item.id)"
+      @click="toDetails"
       v-for="(item, i) of list"
       :key="i"
     >
-      <img :src="item.pic" alt="" />
-      <div>
-        <h4 v-text="item.h4"></h4>
+      <img :src="item.pic[0]" alt="" />
+      <div class="det">
         <div>
-          <p v-text="item.p1"></p>
-          <p v-text="item.p2"></p>
-          <p v-text="item.p3"></p>
+          <h4 v-text="item.title"></h4>
+          <div class="type">
+            <p v-text="item.type"></p>
+            <p v-text="item.label1"></p>
+            <p v-text="item.label2"></p>
+          </div>
         </div>
         <div class="diZhi">
-          <img :src="item.diZhiPic" alt="" />
-          <h6 v-text="item.h6"></h6>
+          <img :src="require('../assets/images/diZhi.png')" alt="" />
+          <h6 v-text="item.address"></h6>
         </div>
       </div>
     </div>
@@ -32,84 +36,86 @@
 </template>
 
 <script>
+import funs from "@/assets/js/funs";
 export default {
   data() {
     return {
       value: "",
-      list: [
-        {
-          id: "1",
-          pic: require("@/assets/images/1719929824.jpg"),
-          h4: "北京日光山谷谈搜发现之旅",
-          p1: "家庭游",
-          p2: "情侣游",
-          p3: "家庭游玩",
-          diZhiPic: require("@/assets/images/diZhi1.png"),
-          h6: "日光山谷 | 2天"
-        },
-        {
-          pic: require("@/assets/images/1719929824.jpg"),
-          h4: "北京日光山谷谈搜发现之旅",
-          p1: "家庭游",
-          p2: "情侣游",
-          p3: "家庭游玩",
-          diZhiPic: require("@/assets/images/diZhi1.png"),
-          h6: "日光山谷 | 2天"
-        },
-        {
-          pic: require("@/assets/images/1719929824.jpg"),
-          h4: "北京日光山谷谈搜发现之旅",
-          p1: "家庭游",
-          p2: "情侣游",
-          p3: "家庭游玩",
-          diZhiPic: require("@/assets/images/diZhi1.png"),
-          h6: "日光山谷 | 2天"
-        }
-      ]
+      list: [],
+      lname: ""
     };
   },
   methods: {
     onCancel() {
-      this.$router.push("/home");
+      this.$router.push("/search");
     },
-    details(id) {
-      this[id]();
-    },
-    1() {
-      this.$router.push("/travelDetails");
-      window.scrollTo(0, 0);
+    toDetails(){
+      this.$router.push("/zhenxuan1/"+1);
     }
-  }
+  },
+  created() {
+    var url="details/camp/"+this.$route.params.lid;
+    var lname=this.$route.params.lname;
+    this.lname=lname;
+    this.axios
+    .get(url)
+    .then(res=>{
+      // console.log(res.data);
+      var obj=res.data.result;
+      console.log(obj);
+      this.list=obj;
+    })
+    .catch(err=>{
+      console.log(err);
+    })
+  },
 };
 </script>
 
 <style scoped>
 .main > div > .diZhi > img {
-  margin-right: 4px;
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
 }
 .main > div > .diZhi {
-  margin-top: 25px;
+  display: flex;
+  margin-top: 3px;
   color: #888;
 }
-.main > div > div > p:nth-child(2) {
-  margin: 0 5px;
+.main .det{
+  width: 63%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 8px 0;
 }
-.main > div > div > p {
+.main > div h6{
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.main > div div > p:nth-child(2) {
+  margin: 1px 2px;
+}
+.main > div div > p {
   border: 1px solid #ddd;
   padding: 2px;
   color: #666;
+  margin: 1px 0;
 }
-.main > div > div {
+.main > div .type {
   display: flex;
+  flex-wrap: wrap;
 }
-.main > div > h4 {
-  font-size: 0.9rem;
-  margin: 3px 0;
+.main > div h4 {
+  font-size: 15.5px;
+  margin: 0 0 4px;
 }
 .main > img {
   width: 100px;
   height: 100px;
-  margin-right: 10px;
+  margin: 10px;
 }
 .main {
   background: #fff;

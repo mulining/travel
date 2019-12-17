@@ -236,7 +236,7 @@ export default {
   width: 35px;
   height: 35px;
   position: fixed;
-  top: 565px;
+  bottom: 60px;
   right: 20px;
   border-radius: 5px;
 }
