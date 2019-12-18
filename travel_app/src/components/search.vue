@@ -1,6 +1,7 @@
 <template>
   <div>
     <form action="/">
+      <!-- 搜索 -->
       <van-search
         v-model="value"
         placeholder="请输入搜索关键词"
@@ -13,10 +14,6 @@
         <li v-for="(item, i) of lists" :key="i">
           <div class="alertText">
             <span>{{ item.title }}</span>
-            <!-- <span :class="yanSe">{{
-              item.title.slice(item.title.toLowerCase, value.length)
-            }}</span>
-            <span>{{ item.title.substr(value.length) }}</span> -->
           </div>
           <img src="@/assets/images/zuoShangJT.png" alt />
           <div
@@ -31,20 +28,26 @@
           </div>
         </li>
       </ul>
+      <!-- 搜索 -->
       <dl v-show="reMen">
+        <!-- 历史搜索 -->
         <dt v-show="souSuo">
           <h4>历史搜索</h4>
           <img @click="shanChu" src="@/assets/images/laJi.png" alt>
         </dt>
         <dd class="d1" v-for="(item, i) of liShi" :key="i" v-show="yingC">{{ liShi.join("") }}</dd>
+        <!-- -- -- -- -->
+        <!-- 热门搜索 -->
         <dt>
           <h4>热门搜索</h4>
         </dt>
         <dd>
-          <router-link to v-for="(item, i) of list" :key="i">
+          <!-- `/listDetails/${item.id}` -->
+          <router-link :to="{name:'listDetails',params:{lid:item.lid,lname:item.s}}" v-for="(item, i) of list" :key="i">
             <span @click="chengShi(item)" class="list">{{ item.s }}</span>
           </router-link>
         </dd>
+        <!-- -- -- -- -->
       </dl>
     </form>
   </div>
@@ -63,19 +66,18 @@ export default {
       liShi: [],
       value: "",
       list: [
-        { s: "新西兰" },
-        { s: "加拿大" },
-        { s: "欧洲" },
-        { s: "海南" },
-        { s: "长白山" },
-        { s: "北京" },
-        { s: "乌鲁木齐" },
-        { s: "南京" },
-        { s: "温泉" },
-        { s: "宁波" },
-        { s: "东钱湖" },
-        { s: "黄山" },
-        { s: "扬州" }
+        { lid:1,s: "上海" },
+        { lid:2,s: "安徽" },
+        { lid:3,s: "山东" },
+        { lid:4,s: "江苏" },
+        { lid:5,s: "北京" },
+        { lid:6,s: "湖南" },
+        { lid:7,s: "河北" },
+        { lid:8,s: "重庆" },
+        { lid:9,s: "浙江" },
+        { lid:10,s: "广东" },
+        { lid:11,s: "吉林" },
+        { lid:12,s: "辽宁" }
       ],
       lists: []
     };
@@ -148,7 +150,7 @@ export default {
       var tableC = e.target.dataset.tablec;
       console.log(id, type, tableC);
       console.log(e.target.dataset);
-      this.$router.push("/travelDetails");
+      this.$router.push("/zhenxuan1/"+id);
 
       // +++++++++++++++++++++++++++++++++++++++++
       // 请求details下的路由 传递id type tableC数据查找对应的数据,并显示到新的页面!

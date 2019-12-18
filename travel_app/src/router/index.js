@@ -91,10 +91,11 @@ export default new Router({
       component: ()=> import(/*webpackChunkName: "HelloWorld"*/'../components/HelloWorld')
     },
     {
-      path: "/listDetails",
+      path: "/listDetails/:lid",
       name: "listDetails",
       // component: listDetails
-      component: ()=> import(/*webpackChunkName: "listDetails"*/'../components/listDetails')
+      component: ()=> import(/*webpackChunkName: "listDetails"*/'../components/listDetails'),
+      props:true
     },
     {
       path: "/travelDetails",
