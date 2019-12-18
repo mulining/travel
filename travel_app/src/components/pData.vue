@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="isRouterAlive">
      <div class="title">
        <router-link to="/my">
           <van-icon name="arrow-left" color="#000" size="17px" />
@@ -19,14 +19,17 @@
           </ol>
      </div>
      <div class="tabout">昵 称
-          <ol class="sign"><input class="signtext" v-model="nick" type="text" placeholder="请设置"></ol>
+          <ol class="sign"><input class="signtext" v-model="nick" type="text" placeholder="请设置昵称"></ol>
      </div>
      <div class="tabout">姓 名
-        <ol class="sign"><input class="signtext" v-model="uname" type="text" placeholder="请设置"></ol>
+        <ol class="sign"><input class="signtext" v-model="uname" type="text" placeholder="请设置真实姓名"></ol>
      </div>
      <van-cell is-link @click="showPopup">性   别
          <ol style="float:right;color:#555;" >{{value}}</ol>
      </van-cell>
+     <div class="tabout">手机号
+        <ol class="sign"><input class="signtext" v-model="phone" type="text" placeholder="请输入您的手机号"></ol>
+     </div>
      <van-popup position="bottom" style="height:170px" v-model="show1">
         <div  class="sex-box" style="font-size:16px;padding-left:10px">
           <p>性 别</p> 
@@ -54,14 +57,14 @@
 
 <script>
 import areaList from "../assets/js/area.js";
-import { Toast } from "vant";
+import { Toast,Dialog } from "vant";
 import qs from "qs"
 export default {
     name: "Address",
   data() {
     return {
-        cty_value:"",//所在地区
-        areaList,
+      cty_value:"",//所在地区
+      areaList,
       searchResult: [],
       uid:"",
       pic:"",
@@ -70,8 +73,8 @@ export default {
       p:"",
       u_n:"",
       g:"",
-    //   a:"",
       s:"",//个性签名
+      phone:"",//手机号
       files: {
         name: "",
         type: ""
@@ -84,21 +87,42 @@ export default {
       value:"",//性别
       show2: false,
       list:["请选择","男","女","保密"],
+      // 上传的图片
+      Imagefiles:[],
+      isRouterAlive:true //页面刷新控制器
     };
   },
-  
+  created:function(){
+    // 请求个人数据
+    this.pleaseData()
+  },
   methods: {
+    pleaseData(){
+      console.log(JSON.parse(sessionStorage.store))
+    },
     onRead(file) {
-		       console.log(file);
-		       //将原图片显示为选择的图片
-		       this.$refs.goodsImg.src = file.content;
-		   },
+        console.log(file);
+        //将原图片显示为选择的图片
+        this.$refs.goodsImg.src = file.content;
+        this.Imagefiles = file;
+    },
+    // 截取blob字符串的兼容性问题方法
+    sliceBlob(blob, start, end, type) {
+      type = type || blob.type;
+      if (blob.mozSlice) {
+          return blob.mozSlice(start, end, type);
+      } else if (blob.webkitSlice) {
+          return blob.webkitSlice(start, end ,type);
+      } else {
+          throw new Error("This doesn't work!");
+      }
+    },
       // 个人信息:获取详细地址方法
-      myresult(e){
-        this.cty_value = e[0].name+"-"+e[1].name+"-"+e[2].name
-          console.log(this.cty_value) ;
-          return{}
-      },
+    myresult(e){
+      this.cty_value = e[0].name+"-"+e[1].name+"-"+e[2].name
+        console.log(this.cty_value);
+        return{}
+    },
     showPopup() {
       this.show1 = true;
     },
@@ -115,8 +139,8 @@ export default {
       this.show1=false;
     },
     sexvalue(){
-          this.value = this.list[1],
-        this.chacha() 
+      this.value = this.list[1],
+      this.chacha() 
     },
      sexvalue1(){
       this.value = this.list[2]
@@ -126,33 +150,46 @@ export default {
       this.value = this.list[3]
       this.chacha()
     },
+    // 这里需要在
     // 个人信息保存到数据库
     save_info(){
+        // 1.上传头像
+        var imgContent = this.Imagefiles.content;
         var url = "user/personal";
-        console.log(this);  
         this.axios
         .post(
             url,
             qs.stringify({
-                // uid:this.uid,
-                // pic:this.pic,
-                // un: this.un,
-                // p:this.p,
-                // u_n:this.u_n,
-                // g:this.g,
-                // // a:this.a,
-                // s:this.s,
-                nick:encodeURIComponent(this.nick),
-                user_name:encodeURIComponent(this.uname),
-                gender:this.value,
-                cty_value:encodeURIComponent(this.cty_value),
-                sign:encodeURIComponent(this.s)
+                pic : imgContent,
+                nick : encodeURIComponent(this.nick),
+                user_name : encodeURIComponent(this.uname),
+                gender : this.value,
+                cty_value : encodeURIComponent(this.cty_value),
+                sign : encodeURIComponent(this.s),
+                phone : this.phone
             })
         )
-
-        .then(res=>{console.log(res)})
+        .then(res=>{
+          Toast("上传成功!");
+          // 更新vuex中的数据
+          var obj = {
+            pic : imgContent,
+            nick : this.nick,
+            sign : this.s
+          }
+          this.$store.commit("fixUserInfo",obj)
+        })
+        .catch(err=>{
+          Toast("上传失败，请重新上传!");
+        })
     },
-    
+    // 刷新
+    reload() {
+      this.isRouterAlive = false;
+      this.$nextTick(function() {
+        this.isRouterAlive = true;
+      });
+    }
     
   }
 };

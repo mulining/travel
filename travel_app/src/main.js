@@ -47,6 +47,8 @@ import { Grid, GridItem } from "vant";
 Vue.use(Grid).use(GridItem);
 import { Lazyload } from "vant";
 Vue.use(Lazyload);
+import { Dialog } from 'vant';
+Vue.use(Dialog);
 
 Vue.use(Vant);
 
@@ -71,13 +73,14 @@ var store = new Vuex.Store({
     isLogin: false,
     pic: require("@/assets/images/piKaQiu.jpg"), //共享初始化用户头像数据
     nick: "游客",
-    value: ""
+    value: "",
+    sign:""
   },
 
   // 修改共享数据
   mutations: {
-    userLogin(state) {
-      state.isLogin = true;
+    userLogin(state,isLogin) {
+      state.isLogin = isLogin;
     },
     nickName(state, nick) {
       state.nick = nick;
@@ -86,9 +89,18 @@ var store = new Vuex.Store({
       state.pic = true;
     },
     fixUserInfo(state,obj){
-      state.uid = obj.uid;
-      state.pic = obj.pic;
-      state.nick = obj.nick;
+      console.log(201)
+      console.log(obj);
+      if(obj.id){
+        state.uid = obj.id;
+        localStorage.setItem("uid",obj.id);
+      }
+      state.pic = obj.pic || require("@/assets/images/piKaQiu.jpg");
+      state.nick = obj.nick || "新用户001";
+      state.sign = obj.sign || " 即使没有风，我也可以飞舞。即使逆着别人的方向，我也可以前进。"
+      localStorage.setItem("uid"+obj.id+"pic",state.pic);
+      localStorage.setItem("uid"+obj.id+"nick",state.nick);
+      localStorage.setItem("uid"+obj.id+"sign",state.sign);
     }
   },
 
@@ -105,6 +117,9 @@ var store = new Vuex.Store({
     },
     uname(state) {
       return state.nick;
+    },
+    getsign(state){
+      return state.sign;
     },
     inputValue(state) {
       return state.value;

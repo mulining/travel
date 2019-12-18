@@ -21,17 +21,6 @@
           v-model="upwd"
         />
         <button @click="login">立即登录</button>
-        <div class="yueDu">
-          <input
-            type="checkbox"
-            v-model="yueDu"
-            name="btn"
-            id="btn1"
-          />阅读并同意
-          <a>《用户使用协议》</a>
-          及
-          <a>《隐私保护政策》</a>
-        </div>
       </div>
     </div>
   </div>
@@ -46,7 +35,6 @@ export default {
     return {
       uname: "",
       upwd: "",
-      yueDu: false
     };
   },
   methods: {
@@ -65,10 +53,6 @@ export default {
       }
       if (!preg.test(p)) {
         Toast("密码格式为字母开头，5-17位");
-        return;
-      }
-      if (this.yueDu == false) {
-        Toast("请阅读并同意用户协议及隐私保护");
         return;
       }
       //发送ajax请求
@@ -90,9 +74,9 @@ export default {
               // 将用户信息，保存到vuex
               console.log(res);
               // <<<<<<<<<<<<<<<<<<<<<< 未完待续!!!!!
-              // this.$store.fixUserInfo(res.data);
+              this.$store.commit("fixUserInfo",res.data.data);
               this.$router.push("/my");
-              this.$store.commit("userLogin");
+              this.$store.commit("userLogin",true);
               // >>>>>>>>>>>>>>>>>>>>>>>
             });
           } else {
@@ -123,25 +107,6 @@ export default {
 .ipt > input {
   font-size: 0.9rem;
   color: #fff;
-}
-.yueDu > a {
-  color: #00dbc1;
-}
-.yueDu > div > div > input {
-  margin-right: 4px;
-  color: #00dbc1;
-  border: none;
-}
-.yueDu {
-  position: absolute;
-  top: 400px;
-  left: 50px;
-  color: #fff;
-  display: flex;
-  justify-items: center;
-  line-height: 10px;
-  width: 100%;
-  text-align: center;
 }
 .ctn > div > button {
   position: absolute;

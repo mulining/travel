@@ -2,6 +2,8 @@
 const express = require("express");
 const router = express.Router();
 const pool = require("../pool.js");
+const searchType = require("../js/search")
+// import { searchType } from "../js/self" //报错！无法这样引入
 
 // 臻选营地详情页
 //请求方法get  接口:details/camp/id - id是对应的哪个数据的详细信息
@@ -112,6 +114,64 @@ router.get("/camp/:id", (req, res) => {
   //   console.log(res);
   // }
 
+});
+
+
+// 使用关键词搜索
+router.get("/search/:keyword", (req, res) => {
+  var keyword = req.params.keyword;
+  if(!keyword.trim()){
+    res.send({code:-2,msg:"缺少关键词"});
+  }
+  var k = "%" + keyword + "%"; //获取到用户输入的查询关键词
+  var msg = []; //存储所有查询到的数据,并返回
+  if (k.trim()) {
+    var sql1 ="SELECT id,pic,title,label1,label2,address,type FROM travel_camp WHERE title LIKE ? ";
+    pool.query(sql1, [k], (err, result) => {
+      if (err) throw err;
+      if (result.length > 0) {
+        let Typearr = [];
+        for(let i = 0; i < result.length; i++){
+          result[i].tableC = 0;//0 代表travel_campbiao  
+          msg.push(result[i])
+          //调用类型查找函数--注意这里是异步的！
+          Typearr.push(
+            new Promise((resolve,reject)=>{
+              searchType(result[i].type,(type)=>{
+                msg[i].type = type.type_name;
+                resolve()
+              })
+            })
+          ) //要求返回类型
+        }
+        Promise.all(Typearr)
+        .then(typename=>{
+          if (msg.length > 0) {
+            res.send({ code: 1, msg: "数据列表", data: msg });
+          } else {
+            res.send({ code: -1, msg: "暂无数据!" });
+          }
+        })
+        .catch(err=>console.log(err));
+      }
+      // var sql2 = "SELECT id,title,type FROM travel_shared WHERE title LIKE ?";
+      // pool.query(sql2, [k], (err, result) => {
+      //   if (err) throw err;
+      //   if (result.length > 0) {
+      //     for(var i = 0; i < result.length; i++){
+      //       result[i].tableC = 1;//1 代表travel_shared
+      //       msg.push(result[i])
+      //     }
+      //   }
+      //   if (msg.length > 0) {
+      //     res.send({ code: 1, msg: "数据列表", data: msg });
+      //   } else {
+      //     res.send({ code: -1, msg: "暂无数据!" });
+      //   }
+      // });
+    });
+  }
+  
 });
 
 // 用户搜索的查询结果
