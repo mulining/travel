@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 2019-11-30 07:45:23
+-- Generation Time: 2019-12-14 11:52:12
 -- 服务器版本： 10.1.28-MariaDB
 -- PHP Version: 5.6.32
 
@@ -260,7 +260,7 @@ INSERT INTO `travel_scroll` (`id`, `cid`, `img1`, `img2`, `img3`) VALUES
 (15, 15, './static/scroll/2656628652.jpg', './static/scroll/2670491509.jpg', './static/scroll/2742292546.jpg'),
 (16, 16, './static/scroll/2793569902.jpg', './static/scroll/2807680893.jpg', './static/scroll/2852770417.jpg'),
 (17, 17, './static/scroll/2920485246.jpg', './static/scroll/2921914130.jpg', './static/scroll/2996898994.jpg'),
-(18, 18, './static/scroll/3008060681.jpg', './static/scroll/.1673351825jpg', './static/scroll/3211466005.jpg'),
+(18, 18, './static/scroll/3008060681.jpg', './static/scroll/1673351825.jpg', './static/scroll/3211466005.jpg'),
 (19, 19, './static/scroll/3237167858.jpg', './static/scroll/3306361875.jpg', './static/scroll/3328010001.jpg'),
 (20, 20, './static/scroll/3401777427.jpg', './static/scroll/3615919511.jpg', './static/scroll/3695221626.jpg');
 
@@ -361,7 +361,7 @@ INSERT INTO `travel_shared` (`id`, `uid`, `pic`, `title`, `subtitle`, `type`, `l
 --
 -- 表的结构 `travel_user`
 --
--- 创建时间： 2019-11-27 08:24:16
+-- 创建时间： 2019-12-14 10:50:20
 --
 
 DROP TABLE IF EXISTS `travel_user`;
@@ -375,6 +375,7 @@ CREATE TABLE IF NOT EXISTS `travel_user` (
   `gender` int(11) DEFAULT NULL,
   `sign` varchar(128) DEFAULT NULL,
   `pic` varchar(255) DEFAULT NULL,
+  `userfolder` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
@@ -388,8 +389,8 @@ CREATE TABLE IF NOT EXISTS `travel_user` (
 -- 转存表中的数据 `travel_user`
 --
 
-INSERT INTO `travel_user` (`id`, `uname`, `upwd`, `user_name`, `nick`, `phone`, `gender`, `sign`, `pic`) VALUES
-(1, '2', '4ead6d8a7004fc8500f2e5df29e19c88', 'hh', '', 'hh', 2, 'hhh', 'undefined');
+INSERT INTO `travel_user` (`id`, `uname`, `upwd`, `user_name`, `nick`, `phone`, `gender`, `sign`, `pic`, `userfolder`) VALUES
+(1, '2', '4ead6d8a7004fc8500f2e5df29e19c88', 'hh', '', 'hh', 2, 'hhh', 'undefined', '');
 
 --
 -- 限制导出的表

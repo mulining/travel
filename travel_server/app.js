@@ -45,9 +45,11 @@ app.use(bodyParser.json()); //还不懂有什么作用
 app.use(
   bodyParser.urlencoded({
     //为post请求做处理!
-    extended: false
+    extended: false,
+    limit:"50mb" //限制大小50mb
   })
 );
+app.use(bodyParser.json({limit:'50mb'}));//限制json大小50mb
 app.use(express.static("static"));
 // 挂载路由器
 app.use("/user", userRouter);

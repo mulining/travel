@@ -69,7 +69,7 @@ export default
     this.axios
     .get(url)
     .then(res=>{
-      var obj=res.data.data[0];
+      var obj=res.data.result[0];
       console.log(obj);
       this.center=[obj.longitude,obj.latitude];
       this.title=obj.title;

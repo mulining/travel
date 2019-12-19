@@ -3,15 +3,18 @@
     <div class="title" v-if="$store.getters.login">
       <div class="yiDengLu">
         <router-link to="/pData" tag="div">
-          <img :src="$store.getters.userpic" alt="" />
+          <img :src="$store.getters.userpic"/>
         </router-link>
-        <div>
+        <div style="padding-right:1rem">
           <h6>欢迎您</h6>
-          <h5>{{ $store.getters.uname }}</h5>
+          <h5>
+            {{ $store.getters.uname }}
+            <router-link to="/pData" tag="p">
+              <img src="@/assets/images/xiuGai.png" alt="" />
+            </router-link>
+          </h5>
+          <p><router-link to="/pData" tag="p">{{$store.getters.getsign}}</router-link></p>
         </div>
-        <router-link to="/pData" tag="p">
-          <img src="@/assets/images/xiuGai.png" alt="" />
-        </router-link>
       </div>
     </div>
     <div class="title" v-else>
@@ -52,20 +55,61 @@
       </van-cell>
     </div>
     <div class="tuijian">
-      <van-cell title="推荐给好友" icon="share">
+      <!-- <van-cell is-link @click="showPopup">展示弹出层</van-cell> -->
+      <van-cell title="推荐给好友" icon="share" is-link @click="showPopup">
         <van-icon
           slot="right-icon"
           name="arrow"
           style="line-height: inherit;"
         />
       </van-cell>
-      <van-cell title="设置" icon="setting">
-        <van-icon
-          slot="right-icon"
-          name="arrow"
-          style="line-height: inherit;"
-        />
-      </van-cell>
+      <van-popup 
+        v-model="show"
+        position="bottom"
+        :style="{ height: '20%' }">
+          <!-- 这里是分享到哪里 -->
+          <div class="shareItem">
+            <van-image
+              class="shareimg"
+              width="100"
+              height="100"
+              lazy-load
+              :src='require("../assets/imgs/weixin.png")'
+              @click="share"
+              data-name="weixin"
+            >
+            <!-- 加载中提示 -->
+              <template v-slot:loading>
+                <van-loading type="spinner" size="20" />
+              </template>
+              <template v-slot:error>加载失败</template>
+            </van-image>
+            <van-image
+            class="shareimg"
+              width="100"
+              height="100"
+              lazy-load
+              :src='require("../assets/imgs/QQ.png")'
+              @click="share"
+              data-name="qq"
+              >
+            <!-- 加载中提示 -->
+              <template v-slot:loading>
+                <van-loading type="spinner" size="20" />
+              </template>
+              <template v-slot:error>加载失败</template>
+            </van-image>
+          </div>
+        </van-popup>
+      <router-link to="/setup">
+          <van-cell title="设置" icon="setting">
+            <van-icon
+              slot="right-icon"
+              name="arrow"
+              style="line-height: inherit;"
+            />
+          </van-cell>
+      </router-link>
     </div>
     <tab-bar></tab-bar>
   </div>
@@ -73,16 +117,38 @@
 
 <script>
 import tabBar from "@/components/tabBar";
+import { Dialog,Image,Toast } from 'vant';
 export default {
   components: {
     tabBar
   },
   data() {
-    return {};
+    return {
+      show: false
+    };
   },
   methods: {
+    // 判断是否登录，并导航到指定位置的方法
+    isLogin(backfun){
+      if(this.$store.getters.login){
+        backfun()
+      }else{
+        Dialog({ message: '您还没有登录，请先登录！' });
+        this.$router.push("/login");
+      }
+    },
     Collecting() {
-      this.$router.push("/Collecting")
+      this.isLogin(()=>{
+        this.$router.push("/Collecting")
+      })
+    },
+     showPopup() {
+      this.isLogin(()=>{
+        this.show = true;
+      })
+    },
+    share(e){
+      Toast("已分享")
     }
   }
 };
@@ -90,8 +156,16 @@ export default {
 
 <style scoped>
 .title > div > div > h5 {
-  text-align: center;
+  font-size: 1rem;
   margin-top: 0.4rem;
+  margin-bottom: 0.4rem;
+  display: flex;
+  justify-content: start;
+}
+.title > div > div > h5>p{
+  display: flex;
+  align-items: center;
+  margin-left: 1rem;
 }
 .title > div > p > img:last-child {
   width: 1rem;
@@ -101,6 +175,7 @@ export default {
 }
 .title > .yiDengLu {
   display: flex;
+  align-items: center;
   padding-top: 2rem;
   padding-left: 1.5rem;
 }
@@ -228,4 +303,18 @@ export default {
   z-index: 0;
   margin-top: 10px;
 }
+.shareItem{
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.shareItem>.van-image{
+  box-sizing: border-box;
+  padding: 1rem;
+  border: 1px solid rgb(231, 231, 231);
+  border-radius: 4px;
+  box-shadow: 2px 2px 7px -3px #ccc;
+}
+
 </style>

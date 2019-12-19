@@ -11,6 +11,7 @@ import "vant/lib/index.css";
 import qs from "qs";
 import Vuex from "vuex";
 
+
 Vue.use(Vuex);
 
 import AMap from "vue-amap";
@@ -46,6 +47,8 @@ import { Grid, GridItem } from "vant";
 Vue.use(Grid).use(GridItem);
 import { Lazyload } from "vant";
 Vue.use(Lazyload);
+import { Dialog } from 'vant';
+Vue.use(Dialog);
 
 Vue.use(Vant);
 
@@ -57,7 +60,7 @@ Vue.use(MintUI);
 axios.defaults.baseURL = "http://127.0.0.1:5050";
 axios.defaults.withCredentials = true;
 
-// axios.defaults.baseURL = "http://tmaxtravel.applinzi.com:5050";
+// axios.defaults.baseURL = "http://webtravelapp.applinzi.com";
 //axios 注册Vue
 Vue.prototype.axios = axios;
 //配置访问服务器的基础路径
@@ -66,27 +69,46 @@ Vue.prototype.axios = axios;
 var store = new Vuex.Store({
   // 共享的数据
   state: {
+    uid:"",
     isLogin: false,
     pic: require("@/assets/images/piKaQiu.jpg"), //共享初始化用户头像数据
-    nick: "",
-    value: ""
+    nick: "游客",
+    value: "",
+    sign:""
   },
 
   // 修改共享数据
   mutations: {
-    userLogin(state) {
-      state.isLogin = true;
+    userLogin(state,isLogin) {
+      state.isLogin = isLogin;
     },
     nickName(state, nick) {
       state.nick = nick;
     },
     upic(state, url) {
       state.pic = true;
+    },
+    fixUserInfo(state,obj){
+      console.log(201)
+      console.log(obj);
+      if(obj.id){
+        state.uid = obj.id;
+        localStorage.setItem("uid",obj.id);
+      }
+      state.pic = obj.pic || require("@/assets/images/piKaQiu.jpg");
+      state.nick = obj.nick || "新用户001";
+      state.sign = obj.sign || " 即使没有风，我也可以飞舞。即使逆着别人的方向，我也可以前进。"
+      localStorage.setItem("uid"+obj.id+"pic",state.pic);
+      localStorage.setItem("uid"+obj.id+"nick",state.nick);
+      localStorage.setItem("uid"+obj.id+"sign",state.sign);
     }
   },
 
   // 获取共享数据(如果获取vuex共享只能用定义函数)
   getters: {
+    getUid(state){
+      return state.uid;
+    },
     login(state) {
       return state.isLogin;
     },
@@ -96,8 +118,14 @@ var store = new Vuex.Store({
     uname(state) {
       return state.nick;
     },
+    getsign(state){
+      return state.sign;
+    },
     inputValue(state) {
       return state.value;
+    },
+    getUserInfo(state){
+      return state;
     }
   }
 });

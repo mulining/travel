@@ -30,15 +30,40 @@ router.get("/index_slide", (req, res) => {
 
 router.get("/camp", (req, res) => {
   var sql = "SELECT id,pic,title,subtitle,type FROM travel_camp LIMIT 4"; //限制显示前四个数据
-  pool.query(sql, (err, result) => {
-    if (err) throw err;
-    if (result.length) {
-      res.send({ code: 1, msg: "首页臻选营地查询成功!", data: result });
-    } else {
+  new Promise((resolve,reject)=>{
+    pool.query(sql, (err, result) => {
+      var data;
+      if (err) throw err;
+      if (result.length) {
+        data = result;
+      }
+      resolve(data);
+    });
+  }).then(firstdata=>{
+    if(!firstdata){
       res.send({ code: -1, msg: "首页臻选营地查询失败!" });
     }
-  });
-});
+    // console.log(result);//result数组
+    var camps = [];//用于存放最终的结果
+    for(let i = 0; i < firstdata.length; i++){
+      camps.push(new Promise((resolve,reject)=>{
+        let type = firstdata[i].type;//类型，根据类型编号查询类型
+        let sql = `SELECT type_name FROM travel_class WHERE id=${type}`;
+        pool.query(sql,(err,seconddata)=>{
+          if(err)throw err;
+          // 将这个数据组和起来
+          firstdata[i].type = seconddata[0].type_name;
+          // console.log(firstdata);
+          resolve(firstdata);
+        });
+      }));
+    }
+    // 使用promise.all处理所有promise
+    Promise.all(camps).then(result=>{
+      res.send({ code: 1, msg: "首页臻选营地查询成功!", data: result[0] });
+    });
+  });//.then结尾
+});//该路由结尾
 
 // 正选营地更多分页查询！！！
 // 接口地址：http://127.0.0.1:5050/pro/campmore?start=0&count=20
@@ -47,15 +72,71 @@ router.get("/camp", (req, res) => {
 router.get("/campmore", (req, res) => {
   var s = Number(req.query.start) || 0;
   var c = Number(req.query.count) || 10;
-  var sql = `SELECT id,pic,label1,label2,title,subtitle,type FROM travel_camp LIMIT ?,?`; //限制显示前四个数据
-  pool.query(sql,[s,c], (err, result) => {
-    if (err) throw err;
-    if (result.length) {
-      res.send({ code: 1, msg: "首页臻选营地查询成功!", data: result });
-    } else {
-      res.send({ code: -1, msg: "首页臻选营地查询失败!" });
+  var data,data1=[],data2=[],data3 = [] ;//存放最终结果;
+  var sql1 = `SELECT id,pic,title,subtitle,type,label1,label2 FROM travel_camp LIMIT ?,?`; 
+  var sql2 = "SELECT img1,img2,img3 FROM travel_scroll WHERE cid=?"; 
+  var sql3 = "SELECT type_name FROM travel_class WHERE id=?";  
+  data = new Promise((resolve,reject)=>{
+    pool.query(sql1, [s,c], (err, result) => {
+      if (err) throw err;
+      if(result.length >0){
+        // 对象解构 -- 为了重组数据结构
+        let datas = []
+        for(var i = 0;i < result.length; i++){
+          ({id,pic,title,subtitle,type,label1,label2} = result[i]);
+          let data = {};
+          data.id = id;
+          data.pic = [pic];
+          data.title = title;
+          data.subtitle = subtitle;
+          data.type = type;
+          data.label1 = label1;
+          data.label2 = label2;
+          datas.push(data);
+        }
+        resolve(datas);//将第一次拿到的未处理的数据，抛给.then进行加工处理
+      }
+    }); // pool.query结尾  //data1结尾
+  }).then(mydata=>{ //这里接到的是数组 - 未处理的4条数据
+    // 这里读取type值，查询type类型的内容
+    // 方法二： 使用promise和promise.all相结合。promise.all是让一步程序同步进行的
+    for(let i = 0; i < mydata.length; i++){ //这里循环遍历数组中每一项，对每一项的内容进行加工（异步）
+      data2.push(new Promise((resolve,reject)=>{ //将
+        let type = mydata[i].type;
+        let type_name;
+        pool.query(sql3,[type],(err,result)=>{
+          if(err)throw err;
+          if(result.length > 0){
+            type_name = result[0].type_name;
+            mydata[i].type = type_name;
+          }
+          //console.log(mydata[i]);
+          resolve(mydata[i]);
+        });
+      }));
     }
-  });
+    Promise.all(data2).then(mydata=>{
+      mydata.forEach((ele)=>{
+        data3.push(new Promise( (resolve,reject)=>{
+          pool.query(sql2,[ele.id],(err,result)=>{
+            if(err)throw err;
+            if(result.length > 0){
+              ({img1,img2,img3} = result);
+              var obj = result[0];
+              for(var item in obj){
+                ele.pic.push(obj[item]);
+              } //图片查到
+            }
+            resolve(ele);
+          });
+        } ));
+      });
+      Promise.all(data3).then(mydata=>{
+        console.log(mydata);
+        res.send({code:1,msg:"臻选数据查询成功！",result:mydata});
+      });
+    });//内层第二个promise结束
+  });//外层new promise.then结束
 });
 
 //分享
@@ -74,7 +155,7 @@ router.get("/share", (req, res) => {
   });
 });
 
-// 查询 ---- 未完待续!!!....
+// 查询
 // 查询一:当用户输入时,弹出下拉数据
 // 接口地址 : http://127.0.0.1:5050/pro/msglist/上海
 // 返回值: tabletype 是标识表标识 --> 0标识臻选表 1标识分享表

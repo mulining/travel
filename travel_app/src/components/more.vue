@@ -28,6 +28,7 @@
       </van-dropdown-menu>
     </div>
     <div class="main" v-for="(item, i) of list" :key="i">
+      <a href="javascript:;" @click="xiangQing(item.id)">
       <van-swipe
         :class="lb[i]"
         class="lunBo"
@@ -35,8 +36,8 @@
         :loop="false"
         :height="200"
       >
-        <van-swipe-item v-for="(item, i) of list" :key="i">
-          <img style="width:100%" :src="item.pic" alt />
+        <van-swipe-item v-for="(pic,i) of item.pic" :key="i">
+          <img style="width:100%" :src="pic" alt />
         </van-swipe-item>
       </van-swipe>
       <p>臻选</p>
@@ -46,14 +47,17 @@
           <h6 v-text="item.label2"></h6>
         </dt>
         <dd>
-          <h5 v-text="item.title"></h5>
+          <h5 style="color:#333" v-text="item.title"></h5>
           <h6>
             {{ item.type }}|
             <span v-text="item.subtitle"></span>
           </h6>
         </dd>
       </dl>
+      </a>
     </div>
+    <van-button v-if="this.list.length<19" size="large" @click="loadMore">加载更多</van-button>
+    <van-button v-if="this.list.length==19" disabled size="large">暂时没有更多数据了...</van-button>
   </div>
 </template>
 
@@ -70,12 +74,9 @@ export default {
       switch4: false,
       switch5: false,
       switch6: false,
+      start:1,
+      count:4,
       list: [],
-      lunBo: [
-        {
-          pic: ""
-        }
-      ],
       hide: true,
       value3: 1,
       value3: 0,
@@ -92,36 +93,32 @@ export default {
     },
     onConfirm() {
       this.$refs.item.toggle();
-    }
-  },
-  created() {
-    // funs.getMore(res => {
-    //   console.log(res.data);
-    //   this.list[0].s = res.data.data[0].subtitle;
-    //   this.list[1].s = res.data.data[1].subtitle;
-    //   this.list[2].s = res.data.data[2].subtitle;
-    //   this.list[3].s = res.data.data[3].subtitle;
-    //   this.list[0].h4 = res.data.data[0].title;
-    //   this.list[1].h4 = res.data.data[1].title;
-    //   this.list[2].h4 = res.data.data[2].title;
-    //   this.list[3].h4 = res.data.data[3].title;
-    //   this.lunBo[0].pic = res.data.data[0].pic;
-
-      // this.lunBo[1].pic = res.data.data[1].pic;
-      // this.lunBo[2].pic = res.data.data[2].pic;
-      // this.lunBo[3].pic = res.data.data[3].pic;
-      var url="pro/campmore?start=4&count=4";//接口地址
+    },
+    xiangQing(id) {
+      this.$router.push("/zhenxuan1/" + id);
+      window.scrollTo(0, 0);
+    },
+    //加载更多
+    loadMore(){
+      var url="pro/campmore?start="+this.start+"&count="+this.count;//接口地址
+      console.log(this.start,this.count)
+      this.start+=4;
       this.axios.get(url)
       .then(res=>{
-        console.log(res);
-        var obj=res.data.data;
-        console.log(obj);
-        this.list=obj;
+        // console.log(res);
+        var list=res.data.result;
+        console.log(list);
+        this.list=this.list.concat(list);
+        console.log(this.list);
+        
       })
       .catch(err=>{
         console.log(err);
       })
-    // });
+    }
+  },
+  created() {
+    this.loadMore();
   }
 };
 </script>

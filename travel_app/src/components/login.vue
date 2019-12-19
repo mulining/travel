@@ -21,17 +21,6 @@
           v-model="upwd"
         />
         <button @click="login">立即登录</button>
-        <div class="yueDu">
-          <input
-            type="checkbox"
-            v-model="yueDu"
-            name="btn"
-            id="btn1"
-          />阅读并同意
-          <a>《用户使用协议》</a>
-          及
-          <a>《隐私保护政策》</a>
-        </div>
       </div>
     </div>
   </div>
@@ -46,7 +35,6 @@ export default {
     return {
       uname: "",
       upwd: "",
-      yueDu: false
     };
   },
   methods: {
@@ -58,9 +46,7 @@ export default {
       var ureg = new RegExp(/^[a-z][a-zA-Z0-9_]{4,15}$/);
       var preg = new RegExp(/^[a-zA-Z]\w{5,17}$/);
       var u = this.uname;
-      console.log(u);
       var p = this.upwd;
-      console.log(p);
       if (!ureg.test(u)) {
         Toast("用户名格式为开头小写字母，4-15位");
         return;
@@ -80,17 +66,20 @@ export default {
           })
         )
         .then(res => {
-          console.log(res);
+          // console.log(res);//res.data.uid-->用户id
           if (res.data.code == 1) {
-            if (this.yueDu == false) {
-              Toast("请阅读并同意用户协议及隐私保护");
-            } else {
-              Toast.success("登陆成功");
+            Toast.success("登陆成功");
+            // 根据用户id查询用户信息
+            this.axios.get("user/personal").then(res=>{
+              // 将用户信息，保存到vuex
+              this.$store.commit("fixUserInfo",res.data.data);
               this.$router.push("/my");
-              this.$store.commit("userLogin");
-            }
+              this.$store.commit("userLogin",true);
+            });
           } else {
             Toast("用户名不存在");
+            this.uname="";
+            this.upwd="";
           }
         })
         .catch(err => {
@@ -102,10 +91,28 @@ export default {
 </script>
 
 <style scoped>
+.beiJing > .bJMask {
+  width: 100%;
+  height: 100%;
+  background: rgba(21, 21, 21, 0.4);
+}
+.beiJing {
+  width: 100%;
+  position: relative;
+  height: 667px;
+  background: url("../assets/images/d6cf8fbfc53d4dbf93dee23a227c530c.jpg")
+    no-repeat;
+  background-size: 100% 100%;
+}
+.ctn > img {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+}
 .ctn > p {
   position: absolute;
   top: 15px;
-  right: -20px;
+  right: 15px;
   color: #fff;
 }
 .ipt {
@@ -127,18 +134,15 @@ export default {
 .yueDu {
   position: absolute;
   top: 400px;
-  left: 50px;
   color: #fff;
   display: flex;
   justify-items: center;
   line-height: 10px;
-  width: 100%;
   text-align: center;
 }
 .ctn > div > button {
   position: absolute;
   top: 340px;
-  left: 51px;
   width: 75%;
   padding: 8px;
   border-radius: 20px;
@@ -146,7 +150,7 @@ export default {
   background-image: linear-gradient(90deg, #63e6dc, #00dbc1);
   border: none;
 }
-.ctn > h2 {
+.ctn h2 {
   font-weight: 600;
   font-size: 1.5rem;
   color: #fff;
@@ -166,7 +170,6 @@ textarea::-webkit-input-placeholder {
   top: 225px;
   border-bottom: 1px solid #fff;
   padding: 10px;
-  left: 50px;
 }
 .miMa {
   position: absolute;
@@ -175,30 +178,5 @@ textarea::-webkit-input-placeholder {
   background: transparent;
   padding: 10px;
   top: 270px;
-  left: 50px;
-}
-.ctn > img {
-  position: absolute;
-  left: 10px;
-  top: 10px;
-}
-.beiJing > .bJMask {
-  width: 100%;
-  height: 100%;
-  background: rgba(21, 21, 21, 0.4);
-}
-.beiJing {
-  width: 100%;
-  position: relative;
-  height: 667px;
-  background: url("../assets/images/d6cf8fbfc53d4dbf93dee23a227c530c.jpg")
-    no-repeat;
-  background-size: 100% 100%;
-}
-.ctn {
-  width: 86%;
-  position: absolute;
-  left: 0;
-  top: 0;
 }
 </style>

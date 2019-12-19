@@ -15,5 +15,5 @@ export default {
     axios
       .get(url)
       .then(callback);
-  }
+  },
 };

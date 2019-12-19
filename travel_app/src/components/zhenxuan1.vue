@@ -5,7 +5,7 @@
       z-index="10"
       @click-left="fanHui"
       fixed="true"
-      title="苏州太湖一号房车营地"
+      :title="this.lists.title"
       left-arrow
     >
       <!-- <van-icon name="search" slot="right" /> -->
@@ -14,14 +14,14 @@
     <div class="head">
       <img @click="fanHui" src="@/assets/images/fanHui.png" alt />
       <div>
-        <img @click="Collecting" src="@/assets/images/shouCang.png" alt />
-        <img src="@/assets/images/zhuanFa.png" alt />
+        <img @click="Collecting" src="@/assets/images/save.png" alt :class="backColor"/>
+        <img src="@/assets/images/share.png" alt />
       </div>
     </div>
     <div>
       <van-swipe :autoplay="3000" indicator-color="white">
-        <van-swipe-item v-for="(item, i) of list" :key="i">
-          <img class="lunbo" :src="item.pic" alt />
+        <van-swipe-item v-for="(item, i) of imgs" :key="i">
+          <img class="lunbo" :src="item" alt />
         </van-swipe-item>
       </van-swipe>
     </div>
@@ -70,7 +70,9 @@
     <div class="jieShao">
       <h3>营地介绍</h3>
       <p>{{ lists.intro }}</p>
-      <button @click="gengDuo" class="btn">查看更多</button>
+      <div class="btnMore">
+        <button @click="gengDuo" class="btn">查看更多</button>
+      </div>
       <div v-show="show" class="gengDuo">
         <h2>营地介绍</h2>
         <h3>营地描述</h3>
@@ -115,19 +117,11 @@ export default {
     return {
       show: false,
       hide: false,
-      list: [
-        {
-          pic: require("@/assets/images/0d4fd1721b5f450d90171c24a465ee55.jpeg")
-        },
-        {
-          pic: require("@/assets/images/f37297b8e0b343fc94138737b94464fc.png")
-        },
-        {
-          pic: require("@/assets/images/291b76bb97ee4c62839077a5e49c85ff.jpg")
-        }
-      ],
-      imgs: [],
-      lists: []
+      imgs:[],
+      lists:[],
+      backColor:{
+        select:false,
+      }
     };
   },
   mounted() {
@@ -143,7 +137,17 @@ export default {
   },
   methods: {
     Collecting() {
-      Toast("已加入收藏");
+      if(!this.backColor.select){
+        this.backColor.select=true;
+        Toast("已加入收藏");
+        console.log(this.backColor.select)
+        return; 
+      }else{
+        this.backColor.select=false;
+        Toast("已取消收藏");
+        console.log(this.backColor.select)
+        return;
+      }
     },
     gengDuo() {
       this.show = true;
@@ -152,7 +156,8 @@ export default {
       this.show = false;
     },
     fanHui() {
-      this.$router.push("/home");
+      this.$router.push("/more");
+      // this.$router.go(-1);
     }
   },
   created() {
@@ -166,11 +171,12 @@ export default {
     .get(url)
     .then(res=>{
       console.log(res);
-      var obj=res.data.data[0];
+      var obj=res.data.result[0];
       console.log(obj);
-      // this.imgs=obj.imgs; 暂无
+      this.imgs=obj.pic;
       this.lists=obj;
       // wwwwwwwo(╥﹏╥)o
+      console.log(obj.pic)
     })
     .catch(err=>{
       console.log(err);
@@ -180,33 +186,37 @@ export default {
 </script>
 
 <style scoped>
-.head > div > img:last-child {
-  position: absolute;
-  left: 350px;
-  top: 7px;
+.head div > img:last-child {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
 }
-.head > div > img:first-child {
-  position: absolute;
-  top: 7px;
-  left: 315px;
+.head div > img:first-child {
+  width: 20px;
+  height: 20px;
+  margin-right: 2px;
 }
-.head > div > img {
-  background: rgba(0, 0, 0, 0.5);
+.head div > img {
+  background: rgba(255, 255, 255, 0.5);
   padding: 3px;
   border-radius: 50%;
 }
+/*左侧返回图标*/ 
 .head > img {
-  position: absolute;
-  left: 10px;
-  top: 7px;
+  padding: 0px 10px;
+  margin-top: -10px;
 }
 .head {
+  width: 100%;
   display: flex;
   align-items: center;
   z-index: 1;
   position: absolute;
-  align-items: center;
-  /* justify-content: space-between; */
+  justify-content: space-between;
+  top: 10px;
+}
+.head .select{
+  background: yellow;
 }
 .title .label{
   /* height: 18px; */
@@ -253,14 +263,18 @@ dl {
 dl > dt > h3 {
   font-size: 1rem;
 }
-.jieShao > .btn {
+.jieShao .btnMore > .btn {
   background: none;
   border: 1px solid #1ee1e5;
   color: #1ee1e5;
   border-radius: 50px;
   padding: 4px 15px;
-  margin-left: 75%;
   margin-top: 15px;
+}
+.jieShao .btnMore{
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
 }
 .jieShao > p {
   display: -webkit-box;

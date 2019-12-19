@@ -19,12 +19,17 @@
         v-model="upwd"
       />
       <button @click="reg">注册</button>
-      <!-- <div class="yueDu">
-        <input type=" checkbox" name="btn" id="btn1" />阅读并同意
-        <a>《用户使用协议》</a>
-        及
-        <a>《隐私保护政策》</a>
-      </div> -->
+      <div class="yueDu">
+          <input
+            type="checkbox"
+            v-model="yueDu"
+            name="btn"
+            id="btn1"
+          />阅读并同意
+          <a>《用户使用协议》</a>
+          及
+          <a>《隐私保护政策》</a>
+        </div>
     </div>
   </div>
 </template>
@@ -36,7 +41,8 @@ export default {
   data() {
     return {
       uname: "",
-      upwd: ""
+      upwd: "",
+      yueDu: false
     };
   },
   methods: {
@@ -47,15 +53,17 @@ export default {
       var ureg = new RegExp(/^[a-z][a-zA-Z0-9_]{4,15}$/);
       var preg = new RegExp(/^[a-zA-Z]\w{5,17}$/);
       var u = this.uname;
-      console.log(u);
       var p = this.upwd;
-      console.log(p);
       if (!ureg.test(u)) {
         Toast.fail("用户名格式不正确");
         return;
       }
       if (!preg.test(p)) {
         Toast.fail("密码格式不正确");
+        return;
+      }
+      if (this.yueDu == false) {
+        Toast("请阅读并同意用户协议及隐私保护");
         return;
       }
       //发送ajax请求
@@ -69,7 +77,6 @@ export default {
           })
         )
         .then(res => {
-          console.log(res);
           Toast.success("注册成功");
           this.$router.push("/login");
           return
@@ -87,7 +94,7 @@ export default {
   font-size: 0.9rem;
   color: #fff;
 }
-.ctn > .yueDu > a {
+/* .ctn > .yueDu > a {
   color: #00dbc1;
 }
 .ctn > .yueDu > input {
@@ -105,6 +112,25 @@ export default {
   justify-items: center;
   height: 10px;
   line-height: 10px;
+} */
+.yueDu > a {
+  color: #00dbc1;
+}
+.yueDu > div > div > input {
+  margin-right: 4px;
+  color: #00dbc1;
+  border: none;
+}
+.yueDu {
+  position: absolute;
+  top: 400px;
+  left: 50px;
+  color: #fff;
+  display: flex;
+  justify-items: center;
+  line-height: 10px;
+  width: 100%;
+  text-align: center;
 }
 .ctn > button {
   position: absolute;

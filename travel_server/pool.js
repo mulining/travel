@@ -1,11 +1,11 @@
 var mysql = require("mysql");
-// var pool = mysql.createPool({
-//   host:"w.rdc.sae.sina.com.cn",
-//   user:"4z135x2jk5",
-//   password:"4l1j0k400x23xj253hy5h2h1x3klhm24w2ix011z",
-//   database:"app_tmaxtravel",
-//   port:3306,123
-//   connectionLimit:20
+//var pool = mysql.createPool({
+//	host     : process.env.MYSQL_HOST,
+//    port     : process.env.MYSQL_PORT,
+//    user     : process.env.ACCESSKEY,
+//    password : process.env.SECRETKEY,
+//    database : 'app_' + process.env.APPNAME
+//	connectionLimit:20
 // })
 
 var pool = mysql.createPool({
