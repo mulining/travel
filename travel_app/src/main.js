@@ -60,7 +60,7 @@ Vue.use(MintUI);
 axios.defaults.baseURL = "http://127.0.0.1:5050";
 axios.defaults.withCredentials = true;
 
-// axios.defaults.baseURL = "http://tmaxtravel.applinzi.com:5050";
+// axios.defaults.baseURL = "http://webtravelapp.applinzi.com";
 //axios 注册Vue
 Vue.prototype.axios = axios;
 //配置访问服务器的基础路径

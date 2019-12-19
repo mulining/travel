@@ -230,8 +230,8 @@ router.get("/personal", (req, res) => {
     if (result.length > 0) {
       imagename = result[0].userfloder; //获取文件名称
       let datapath = `./userData/${imagename}/images/pic.txt`//用户路径
+      console.log(datapath);
       readData(datapath,(picdata)=>{//这里是接收到的数据
-        console.log(picdata)
         if(!picdata){ //如果用户图片数据不存在，则使用默认的头像数据
           readData(user_compic,(defa)=>{
             // 将默认的数据信息赋值
@@ -242,6 +242,7 @@ router.get("/personal", (req, res) => {
             result[0].pic = defa;
           })
         }
+        console.log(picdata)
         result[0].pic = picdata; //将图片数据保存到结果集中
         res.send({
           code: 1,
@@ -265,7 +266,7 @@ router.get("/personal", (req, res) => {
 function readData(path,callback){
   fs.readFile(path,"utf-8",(err,data)=>{//这里接收到的数据是buffer数据，需要转换一下
     if(err) throw err;
-    console.log(data)
+    // console.log(data)
     callback(data);
   })
 }

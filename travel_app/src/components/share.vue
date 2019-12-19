@@ -22,8 +22,7 @@
             </van-cell-group>
             <van-cell is-link @click="showPopup">
                 <div style="font-size:16px">
-                    <span style="margin-right:25px;">标</span>
-                    <span>签</span>
+                    标签
                 </div>
                 <div class="show_value">
                     <p class="showzhi" v-for="(item,i) of value" :key="i" >{{item}}</p>
@@ -72,7 +71,16 @@ export default {
             if(!this.value.some((elem)=>{
                 return elem == e.target.innerText;
             })){
-                this.value.push(e.target.innerText);
+                // 再次判断点击全部时，
+                if(e.target.innerText != "全部"){
+                    this.value.push(e.target.innerText);
+                }else{
+                    let all = ["娱乐","休闲","探险"]
+                    this.value = all;
+                    // 同时关闭弹框
+                    this.show=false
+                }
+                
             }
         },
         chacha(){ //关闭页面
@@ -90,9 +98,17 @@ export default {
             console.log(this.message);
             console.log(this.fileList);//参数：content:""  file:{name:"",size:"",type:""}
             console.log(this.value);
-            // 获取用户uid
             // 收集用户数据
+            let discuss = this.message;//评论
+            let pic = this.fileList.content;//图片base64位
+            let label = this.value; //标签
+            // let  // 经度
+            // let    // 纬度
             // 将数据添加到用户数据表中
+            let url = "";
+            // this.axios.post(url,qs.stringify({
+
+            // }))
             // 更新列表，将最新数据显示在前面
         }
     }
